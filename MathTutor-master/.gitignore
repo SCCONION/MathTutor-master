@@ -1,0 +1,69 @@
+# ── Virtual Environment ───────────────────────────────────────────────────────
+/myenv
+/venv
+/.venv
+/env
+
+src/logs
+
+
+# ── Secrets & Credentials ─────────────────────────────────────────────────────
+/secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+
+# ── Logs ──────────────────────────────────────────────────────────────────────
+/logs
+*.log
+*.log.*
+
+# ── diagram Render Output ───────────────────────────────────────────────────────
+/diagram_outputs
+
+# ── Python Cache ──────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# ── Build / Distribution ──────────────────────────────────────────────────────
+dist/
+build/
+*.egg-info/
+*.egg
+.eggs/
+
+# ── OS Files ──────────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ── IDE / Editor ──────────────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ── Uploads & Temp Files ──────────────────────────────────────────────────────
+/uploads
+/tmp
+*.tmp
+*.temp
+
+# ── Coverage / Testing ────────────────────────────────────────────────────────
+.coverage
+htmlcov/
+coverage.xml
+*.cover
+
+# ── Streamlit ─────────────────────────────────────────────────────────────────
+.streamlit/secrets.toml

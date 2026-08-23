@@ -1,0 +1,148 @@
+from backend.agents import *
+from backend.agents.nodes import *
+from backend.agents.nodes.memory.memory_manager import format_ltm_for_explainer
+
+
+class ExplainerAgent(BaseAgent):
+
+    def _build_explanation_prompt(
+        self,
+        problem_text:     str,
+        solution_text:    str,
+        verifier_verdict: str,
+        topic:            str,
+        difficulty:       str,
+        ltm_hint:         str,
+    ) -> str:
+        base = f"""You are an expert mathematics teacher producing a model answer explanation.
+
+        A student submitted this problem and the solver produced a verified correct solution.
+        Your job is to structure the solution into a clear, rigorous explanation that a student
+        who got this wrong can study to understand both the answer and the method.
+
+        MATHEMATICAL NOTATION RULES (follow these exactly):
+        - Use the EXACT variable names from the problem — never rename them.
+        - Integrals   : write ∫ f(x) dx — always include the differential.
+        - Fractions   : (numerator)/(denominator) — fully bracketed.
+        - Powers      : use the form from the problem (x^2 or x²) consistently.
+        - Roots       : √(expr) throughout — never mix with sqrt().
+        - Exact form  : give answers as fractions/surds/π/e/ln, not decimals.
+        - Limits      : lim_{{x → a}} with arrow.
+        - Summations  : Σ_{{k=1}}^{{n}} with explicit bounds.
+        - Vectors     : →a for vector, |→a| for magnitude.
+        - final_answer: ALWAYS a non-empty string — write "0" not 0, never boolean.
+          If the answer is zero write "0", if no such points exist write "0 points".
+
+        STEP STRUCTURE:
+        - Each step must show the complete algebraic working line-by-line.
+        - Every manipulation on its own line ending in = the new expression.
+        - step.result is the expression that step circles/underlines — math only.
+        - step.why is ONLY for non-obvious moves (e.g. an unexpected substitution choice).
+        - step.inline_diagram: include a small ASCII/Unicode diagram ONLY when it
+          genuinely clarifies that specific step (number line, triangle, Venn diagram).
+          Leave None for algebraic steps.
+
+        Problem (topic: {topic} | difficulty: {difficulty}):
+        {problem_text}
+
+        Verified correct solution (use this as your source of truth — do not recompute):
+        {solution_text}
+
+        Verifier notes:
+        {verifier_verdict}"""
+
+        if ltm_hint:
+            base += f"""
+
+        STUDENT PERSONALISATION (use this to tailor your explanation):
+        {ltm_hint}
+
+        Based on the above, ensure common_mistakes directly addresses the student's known
+        error patterns, and key_concepts front-loads the concepts they historically struggle with."""
+
+        return base
+
+    def explainer_agent(self, state: AgentState) -> dict:
+        try:
+            parsed        = state.get("parsed_data") or {}
+            problem_text  = parsed.get("problem_text") or ""
+            topic         = parsed.get("topic") or "mathematics"
+
+            plan          = state.get("solution_plan") or {}
+            difficulty    = plan.get("difficulty") or "medium"
+            intent_type   = plan.get("intent_type", "solve")
+
+            solver_out    = state.get("solver_output") or {}
+            solution_text = solver_out.get("solution", "")
+            rag_used      = solver_out.get("rag_context_used", False)
+            calc_used     = solver_out.get("calculator_used", False)
+            web_used      = solver_out.get("web_search_used", False)
+
+            verifier_out  = state.get("verifier_output") or {}
+            verdict       = verifier_out.get("verdict", "")
+            verifier_conf = verifier_out.get("confidence", 0.0)
+
+            ltm_context = state.get("ltm_context") or {}
+            ltm_hint    = format_ltm_for_explainer(ltm_context, topic)
+
+            prompt = self._build_explanation_prompt(
+                problem_text     = problem_text,
+                solution_text    = solution_text,
+                verifier_verdict = verdict,
+                topic            = topic,
+                difficulty       = difficulty,
+                ltm_hint         = ltm_hint,
+            )
+
+            result: ExplainerOutput = self.llm.with_structured_output(ExplainerOutput).invoke(
+                [HumanMessage(content=prompt)]
+            )
+
+            final_md      = render_md(result, problem_text)
+            explainer_dict = result.model_dump()
+
+            payload(
+                state, "explainer_agent",
+                summary=(
+                    f"{len(result.steps)} steps | "
+                    f"difficulty={result.difficulty_rating} | "
+                    f"intent={intent_type} | "
+                    f"personalised={'yes' if ltm_hint else 'no'}"
+                ),
+                fields={
+                    "Topic":           topic,
+                    "Intent":          intent_type,
+                    "Steps":           str(len(result.steps)),
+                    "Key formulae":    str(len(result.key_formulae)),
+                    "Key concepts":    str(len(result.key_concepts)),
+                    "Common mistakes": str(len(result.common_mistakes)),
+                    "Difficulty":      result.difficulty_rating,
+                    "Verifier conf":   f"{verifier_conf:.0%}",
+                    "RAG used":        str(rag_used),
+                    "Calc used":       str(calc_used),
+                    "Web used":        str(web_used),
+                    "LTM hint":        ltm_hint[:80] if ltm_hint else "none",
+                    "Preview":         final_md[:120],
+                },
+            )
+            logger.info(
+                f"[Explainer] done | steps={len(result.steps)} "
+                f"difficulty={result.difficulty_rating} "
+                f"ltm_personalised={bool(ltm_hint)}"
+            )
+
+            return {
+                "explainer_output":  explainer_dict,
+                "final_response":    final_md,
+                "conversation_log":  [final_md],
+                "hitl_required":     True,
+                "hitl_type":         "satisfaction",
+                "hitl_reason":       "Explanation delivered — awaiting student feedback.",
+                "follow_up_question": None,
+                "student_satisfied":  None,
+                "agent_payload_log": state.get("agent_payload_log") or [],
+            }
+
+        except Exception as e:
+            logger.error(f"[Explainer] failed: {e}")
+            raise Agent_Exception(e, sys)
