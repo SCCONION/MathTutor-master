@@ -4,11 +4,10 @@ import os
 import re 
 import sys
 from typing import Optional, Tuple
-
+from langchain_openai import ChatOpenAI
 from dotenv import load_dotenv
-from groq import Groq
-from google.cloud import vision
-from google.oauth2 import service_account
+from groq import Groq#语音识别
+
 from backend.exceptions import Agent_Exception
 from backend.logger import get_logger
 
@@ -202,17 +201,38 @@ def _get_secret(key: str, default: str = "") -> str:
 class MediaProcessor:
 
     def __init__(self):
-        self.vision_client: Optional[vision.ImageAnnotatorClient] = None
+        self.vision_llm: Optional[ChatOpenAI] = None
         self.groq_client: Optional[Groq] = None
         self._initialize_clients()
 
 
     def _initialize_clients(self) -> None:
-        # ── Google Vision (OCR) ───────────────────────────────────────────────
+        # DeepSeek Vision───────────────────────────────────────────────
+       
         try:
-            self.vision_client = self._build_vision_client()
+            api_key = _get_secret("DEEPSEEK_API_KEY")
+
+            if not api_key:
+                raise ValueError(
+                    "DEEPSEEK_API_KEY not set"
+                )
+
+            self.vision_llm = ChatOpenAI(
+                api_key=api_key,
+                base_url="https://api.deepseek.com",
+                model="DeepSeek-V4-Flash-Vision-Exp",
+                temperature=0.1,
+            )
+
+            logger.info(
+                "[MediaProcessor] DeepSeek Vision initialized"
+            )
+
         except Exception as exc:
-            logger.error(f"[MediaProcessor] Google Vision init failed: {exc}")
+            logger.error(
+                f"[MediaProcessor] DeepSeek Vision init failed: {exc}"
+            )
+
 
         # ── Groq Whisper (ASR) ────────────────────────────────────────────────
         try:
@@ -225,80 +245,93 @@ class MediaProcessor:
             logger.error(f"[MediaProcessor] Groq Whisper init failed: {exc}")
 
 
-    def _build_vision_client(self) -> Optional[vision.ImageAnnotatorClient]:
-        
-        creds_json_str = _get_secret("GOOGLE_CREDENTIALS_JSON")
-        if creds_json_str:
-            try:
-                creds_info  = json.loads(creds_json_str)
-                credentials = service_account.Credentials.from_service_account_info(
-                    creds_info,
-                    scopes=["https://www.googleapis.com/auth/cloud-platform"],
-                )
-                client = vision.ImageAnnotatorClient(credentials=credentials)
-                logger.info("[MediaProcessor] Google Vision initialised from credentials JSON secret")
-                return client
-            except Exception as exc:
-                logger.error(f"[MediaProcessor] Failed to init Vision from JSON secret: {exc}")
-
-        # ── Source 2: Path to a local service-account JSON file ──────────────────
-        creds_path = _get_secret("GOOGLE_APPLICATION_CREDENTIALS")
-        if creds_path and os.path.exists(creds_path):
-            try:
-                os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = creds_path
-                client = vision.ImageAnnotatorClient()
-                logger.info(f"[MediaProcessor] Google Vision initialised from file: {creds_path}")
-                return client
-            except Exception as exc:
-                logger.error(f"[MediaProcessor] Failed to init Vision from file path: {exc}")
-
-        logger.warning(
-            "[MediaProcessor] Google Vision not initialised — "
-            "set GOOGLE_CREDENTIALS_JSON (JSON string) or "
-            "GOOGLE_APPLICATION_CREDENTIALS (file path) in secrets / .env"
-        )
-        return None
-    
 
     def process_image(self, image_input) -> Tuple[str, float]:
 
-        if not self.vision_client:
+        if not self.vision_llm:
             raise RuntimeError(
-                "Google Vision client not initialised. "
-                "Set GOOGLE_CREDENTIALS_JSON (JSON string) in Streamlit secrets, "
-                "or GOOGLE_APPLICATION_CREDENTIALS (file path) in .env for local dev."
+                "DeepSeek Vision client not initialized. "
+                "Set DEEPSEEK_API_KEY."
             )
 
         try:
-            # Normalise to bytes
+
+            # 读取图片
             if isinstance(image_input, (str, os.PathLike)):
+
                 with open(image_input, "rb") as fh:
                     image_bytes = fh.read()
+
             else:
                 image_bytes = bytes(image_input)
 
-            vision_image = vision.Image(content=image_bytes)
-            response = self.vision_client.text_detection(image=vision_image)
 
-            if response.error.message:
-                raise RuntimeError(f"Vision API error: {response.error.message}")
+            import base64
 
-            annotations = response.text_annotations
-            if not annotations:
-                logger.warning("[OCR] No text detected in image")
-                return "", 0.0
+            image_base64 = base64.b64encode(
+                image_bytes
+            ).decode("utf-8")
 
-            raw_text   = annotations[0].description          # full concatenated text
-            confidence = self._estimate_vision_confidence(response)
 
-            cleaned = self.clean_extracted_text(raw_text)
-            logger.info(f"[OCR] {len(cleaned)} chars | conf={confidence:.2f}")
+            response = self.vision_llm.invoke(
+                [
+                    {
+                        "role": "system",
+                        "content":
+                        """
+                        You are a mathematical OCR assistant.
+                        Extract all text, formulas and symbols
+                        from the image.
+                        Return only the recognized problem text.
+                        """
+                    },
+                    {
+                        "role": "user",
+                        "content":[
+                            {
+                                "type":"text",
+                                "text":
+                                "Read this math problem image."
+                            },
+                            {
+                                "type":"image_url",
+                                "image_url":{
+                                    "url":
+                                    f"data:image/png;base64,{image_base64}"
+                                }
+                            }
+                        ]
+                    }
+                ]
+            )
+
+
+            raw_text = response.content
+
+
+            cleaned = self.clean_extracted_text(
+                raw_text
+            )
+
+
+            confidence = 0.9
+
+
+            logger.info(
+                f"[DeepSeek Vision OCR] "
+                f"{len(cleaned)} chars"
+            )
+
+
             return cleaned, confidence
 
-        except Agent_Exception:
-            raise
+
         except Exception as exc:
-            logger.error(f"[OCR] Error: {exc}")
+
+            logger.error(
+                f"[Vision OCR] Error: {exc}"
+            )
+
             raise Agent_Exception(exc, sys)
 
 
@@ -346,22 +379,8 @@ class MediaProcessor:
                 except OSError:
                     pass
 
-
-    def _estimate_vision_confidence(self, response) -> float:
-        """Derive a confidence score from Vision API block confidences."""
-        try:
-            blocks = [
-                block
-                for page in response.full_text_annotation.pages
-                for block in page.blocks
-            ]
-            if not blocks:
-                return 0.7
-            confidences = [b.confidence for b in blocks if b.confidence > 0]
-            return round(sum(confidences) / len(confidences), 3) if confidences else 0.7
-        except Exception:
-            return 0.7
-
+                
+    confidence = 0.9
 
     def _estimate_transcription_confidence(self, transcript: str) -> float:
         """Heuristic confidence for Whisper (no per-word probs in Groq API)."""

@@ -3,8 +3,8 @@ from __future__ import annotations
 import re
 import tempfile
 from backend.agents import Any, Dict, List, Optional, os
+from langchain_community.embeddings import HuggingFaceBgeEmbeddings
 
-import cohere
 import faiss
 import numpy as np
 import sympy as sp
@@ -16,7 +16,6 @@ from rank_bm25 import BM25Okapi
 from backend.agents import logger
 from backend.agents.nodes.tools import (
     _get_secret,
-    COHERE_EMBED_MODEL,
     EMBED_INPUT_TYPE_DOC,
     EMBED_INPUT_TYPE_QUERY,
     EMBED_DIM,
@@ -25,6 +24,9 @@ from backend.agents.nodes.tools import (
 )
 from backend.agents.nodes.tools.mcp.tavily_mcp_client import tavily_mcp_search
 
+embedding_model = HuggingFaceBgeEmbeddings(
+    model_name="BAAI/bge-large-zh-v1.5"
+)
 
 # ══════════════════════════════════════════════════════════════════════════════
 #  IN-MEMORY VECTOR STORE  (one index per thread_id)
@@ -32,40 +34,65 @@ from backend.agents.nodes.tools.mcp.tavily_mcp_client import tavily_mcp_search
 
 _STORES: Dict[str, Dict[str, Any]] = {}
 
+# ── BGE Chinese Embedding ─────────────────────────────
 
-# ── Cohere client ─────────────────────────────────────────────────────────────
-
-def _cohere_client() -> cohere.Client:
-    api_key = _get_secret("COHERE_API_KEY")
-    if not api_key:
-        raise ValueError(
-            "COHERE_API_KEY is not set — add it to .env or Streamlit secrets."
-        )
-    return cohere.Client(api_key)
+_embedding_model = HuggingFaceBgeEmbeddings(
+    model_name="BAAI/bge-large-zh-v1.5",
+    model_kwargs={
+        "device": "cuda"
+    },
+    encode_kwargs={
+        "normalize_embeddings": True,
+        "batch_size": 24
+    }
+)
 
 
 # ── Embedding helper ──────────────────────────────────────────────────────────
 
-def _embed_texts(texts: List[str], input_type: str) -> np.ndarray:
-    """Embed texts via Cohere, return L2-normalised float32 vectors."""
-    client   = _cohere_client()
-    BATCH    = 96
-    all_vecs: List[List[float]] = []
+def _embed_texts(
+    texts: List[str],
+    input_type: str
+) -> np.ndarray:
+    """
+    Embed texts using BGE-large-zh-v1.5.
 
-    for i in range(0, len(texts), BATCH):
-        batch    = texts[i : i + BATCH]
-        response = client.embed(
-            texts=batch,
-            model=COHERE_EMBED_MODEL,
-            input_type=input_type,
+    Returns:
+        L2-normalized float32 vectors
+    """
+
+    if not texts:
+        return np.empty(
+            (0, EMBED_DIM),
+            dtype=np.float32
         )
-        all_vecs.extend(response.embeddings)
 
-    vecs  = np.array(all_vecs, dtype=np.float32)
-    norms = np.linalg.norm(vecs, axis=1, keepdims=True)
-    norms = np.where(norms == 0, 1.0, norms)
+
+    vecs = _embedding_model.embed_documents(
+        texts
+    )
+
+
+    vecs = np.array(
+        vecs,
+        dtype=np.float32
+    )
+
+
+    norms = np.linalg.norm(
+        vecs,
+        axis=1,
+        keepdims=True
+    )
+
+    norms = np.where(
+        norms == 0,
+        1.0,
+        norms
+    )
+
+
     return vecs / norms
-
 
 def _tokenize(text: str) -> List[str]:
     return re.findall(r"(?u)\b\w+\b", text.lower())
@@ -197,7 +224,7 @@ def rag_tool(query: str, thread_id: str) -> str:
     """
     Hybrid CRAG (Corrective Retrieval-Augmented Generation).
 
-    Pipeline: BM25 sparse + Cohere dense → Reciprocal Rank Fusion
+    Pipeline: BM25 sparse + BGE dense → Reciprocal Rank Fusion
               → Corrective relevance filter (cosine ≥ 0.30)
 
     ── CALLING RULES ────────────────────────────────────────────────────────
@@ -237,7 +264,7 @@ def rag_tool(query: str, thread_id: str) -> str:
         f"index_size={store['index'].ntotal}"
     )
 
-    # ── Dense retrieval (Cohere) ──────────────────────────────────────────────
+    # ── Dense retrieval (BGE) ──────────────────────────────────────────────
     q_vec = _embed_texts([query], EMBED_INPUT_TYPE_QUERY)
     _, indices = store["index"].search(q_vec, 10)
     dense_idx  = indices[0]
