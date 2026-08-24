@@ -6,7 +6,7 @@ import sys
 from typing import Optional, Tuple
 from langchain_openai import ChatOpenAI
 from dotenv import load_dotenv
-from groq import Groq#语音识别
+#from groq import Groq#语音识别
 
 from backend.exceptions import Agent_Exception
 from backend.logger import get_logger
@@ -220,7 +220,7 @@ class MediaProcessor:
             self.vision_llm = ChatOpenAI(
                 api_key=api_key,
                 base_url="https://api.deepseek.com",
-                model="DeepSeek-V4-Flash-Vision-Exp",
+                model="deepseek-v4-flash-vision-exp",
                 temperature=0.1,
             )
 
@@ -379,7 +379,7 @@ class MediaProcessor:
                 except OSError:
                     pass
 
-                
+
     confidence = 0.9
 
     def _estimate_transcription_confidence(self, transcript: str) -> float:
