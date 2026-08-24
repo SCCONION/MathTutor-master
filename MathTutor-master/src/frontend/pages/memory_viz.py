@@ -30,7 +30,7 @@ st.markdown("""
 <style>
 section.main > div { padding-top: 0.5rem !important; }
 [data-testid="stSidebar"] { background: #0c1020 !important; }
-[data-testid="stSidebar"] * { font-family: 'JetBrains Mono', monospace; }
+[data-testid="stSidebar"] * { font-family: "Microsoft YaHei", "PingFang SC", "Noto Sans SC", "JetBrains Mono", monospace; }
 </style>
 """, unsafe_allow_html=True)
 
@@ -179,7 +179,7 @@ def _filter_graph(
 nav_left, nav_right = st.columns([8, 2], vertical_alignment="center")
 with nav_left:
     st.markdown(
-        "<h2 style='margin:0;color:#c8d8f0;font-family:JetBrains Mono,monospace;"
+        "<h2 style='margin:0;color:#c8d8f0;font-family:\"Microsoft YaHei\",\"PingFang SC\",\"Noto Sans SC\",monospace;"
         "font-size:1.3rem;letter-spacing:0.04em;'>🧠 Memory Graph</h2>",
         unsafe_allow_html=True,
     )
@@ -196,7 +196,7 @@ st.divider()
 
 with st.sidebar:
     st.markdown(
-        "<div style='font-family:JetBrains Mono,monospace;font-size:0.78rem;"
+        "<div style='font-family:\"Microsoft YaHei\",\"PingFang SC\",\"Noto Sans SC\",monospace;font-size:0.78rem;"
         "color:#3b82f6;letter-spacing:0.1em;text-transform:uppercase;"
         "padding-bottom:6px;border-bottom:1px solid #1e2d45;margin-bottom:14px'>"
         "⬡ Graph Controls</div>",
@@ -306,7 +306,7 @@ n_edges = len(graph_data["edges"])
 with stats_ph:
     st.markdown(
         f"<div style='background:#0d1424;border:1px solid #1e2d45;border-radius:8px;"
-        f"padding:10px 12px;font-family:JetBrains Mono,monospace;font-size:0.72rem;"
+        f"padding:10px 12px;font-family:\"Microsoft YaHei\",\"PingFang SC\",\"Noto Sans SC\",monospace;font-size:0.72rem;"
         f"color:#4a6080;margin-top:4px'>"
         f"<div style='color:#3b82f6;margin-bottom:5px;font-size:0.65rem;"
         f"text-transform:uppercase;letter-spacing:0.1em'>Graph Stats</div>"
@@ -329,7 +329,7 @@ if n_nodes == 0:
         "<div style='display:flex;align-items:center;justify-content:center;"
         "height:400px;flex-direction:column;gap:12px;color:#2d4060'>"
         "<div style='font-size:3rem'>🧠</div>"
-        "<div style='font-family:JetBrains Mono,monospace;font-size:0.85rem'>"
+        "<div style='font-family:\"Microsoft YaHei\",\"PingFang SC\",\"Noto Sans SC\",monospace;font-size:0.85rem'>"
         "No memory data found. Solve some problems first!</div>"
         "</div>",
         unsafe_allow_html=True,
@@ -350,7 +350,7 @@ components.html(graph_html, height=720, scrolling=False)
 
 # ── Keyboard shortcut hint ────────────────────────────────────────────────────
 st.markdown(
-    "<div style='font-family:JetBrains Mono,monospace;font-size:0.68rem;"
+    "<div style='font-family:\"Microsoft YaHei\",\"PingFang SC\",\"Noto Sans SC\",monospace;font-size:0.68rem;"
     "color:#1e3a5a;text-align:center;margin-top:4px'>"
     "⌨ &nbsp;F = fit &nbsp;· &nbsp;L = toggle labels &nbsp;· &nbsp;"
     "Esc = close panel &nbsp;· &nbsp;Double-click = expand neighbours"

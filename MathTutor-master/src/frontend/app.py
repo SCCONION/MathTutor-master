@@ -1,5 +1,14 @@
 from __future__ import annotations
+
 import os
+import sys
+from pathlib import Path
+
+# 将 src/ 加入模块搜索路径（基于脚本位置，与当前工作目录无关）
+SRC_ROOT = Path(__file__).resolve().parents[1]
+if str(SRC_ROOT) not in sys.path:
+    sys.path.insert(0, str(SRC_ROOT))
+
 import hashlib
 from langchain_core.messages import AIMessage, HumanMessage
 from langgraph.types import Command

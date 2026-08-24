@@ -1,4 +1,27 @@
 /* ══════════════════════════════════════════════════════
+   GLOBAL FONT — Chinese-friendly font stack
+   JetBrains Mono kept for code/numeric, CJK fonts for Chinese
+   ══════════════════════════════════════════════════════ */
+:root {
+    --font-cjk: "Microsoft YaHei", "微软雅黑", "PingFang SC",
+                "Hiragino Sans GB", "Noto Sans SC", "Source Han Sans SC",
+                "WenQuanYi Micro Hei", sans-serif;
+}
+
+html, body, [class*="css"], [data-testid="stAppViewContainer"],
+[data-testid="stHeader"], [data-testid="stSidebar"],
+.step-card, .hitl-banner, .profile-card, .thread-card,
+.step-payload, .payload-table {
+    font-family: var(--font-cjk);
+}
+
+/* 代码/算式仍用等宽字体，但加入 CJK 回退，避免中文变方块 */
+code, pre, .stCodeBlock, .katex, .math {
+    font-family: "JetBrains Mono", "Cascadia Code", Consolas,
+                 "Microsoft YaHei", monospace;
+}
+
+/* ══════════════════════════════════════════════════════
    HIDE AUTO-GENERATED SIDEBAR PAGE NAVIGATION
    Streamlit adds a nav list for every file in pages/.
    We use st.switch_page buttons instead.

@@ -8,7 +8,9 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+  font-family: "Microsoft YaHei", "微软雅黑", "PingFang SC",
+               "Hiragino Sans GB", "Noto Sans SC", "Source Han Sans SC",
+               "JetBrains Mono", "Fira Code", "Cascadia Code", monospace;
 }
 
 body {

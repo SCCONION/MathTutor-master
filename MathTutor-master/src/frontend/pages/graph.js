@@ -44,7 +44,7 @@ function buildVisNode(n) {
     font:   {
       color: showLabels ? "#c8d8f0" : "transparent",
       size:  fs,
-      face:  "JetBrains Mono, Fira Code, monospace",
+      face:  "Microsoft YaHei, PingFang SC, Noto Sans SC, JetBrains Mono, Fira Code, monospace",
       strokeWidth: showLabels ? 2 : 0,
       strokeColor: "#0a0d14",
     },

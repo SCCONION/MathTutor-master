@@ -1,6 +1,14 @@
 /* Hide the default Streamlit header and footer on login page */
 #MainMenu, footer, header { visibility: hidden; }
 
+/* Chinese-friendly font stack */
+.stApp, .block-container, .login-card, .login-title,
+.login-subtitle, .feature-pill, .trust-item, .stButton button {
+    font-family: "Microsoft YaHei", "微软雅黑", "PingFang SC",
+                 "Hiragino Sans GB", "Noto Sans SC", "Source Han Sans SC",
+                 "WenQuanYi Micro Hei", sans-serif;
+}
+
 /* Full-screen dark gradient background */
 .stApp {
     background: linear-gradient(135deg, #0a0f1e 0%, #0d1b3e 50%, #0a0f1e 100%);

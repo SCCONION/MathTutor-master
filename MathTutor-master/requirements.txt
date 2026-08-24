@@ -51,6 +51,7 @@ grpcio-status==1.78.0               # gRPC status codes
 
 # ── Frontend ───────────────────────────────────────────────────────────────────
 streamlit==1.55.0                   # Streamlit web UI
+authlib>=1.3.2                      # Required for st.login() native auth (OIDC/OAuth)
 
 # ── Pydantic & Validation ──────────────────────────────────────────────────────
 pydantic==2.12.5                    # Structured output schemas
