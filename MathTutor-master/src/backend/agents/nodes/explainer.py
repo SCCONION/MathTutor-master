@@ -14,51 +14,55 @@ class ExplainerAgent(BaseAgent):
         difficulty:       str,
         ltm_hint:         str,
     ) -> str:
-        base = f"""You are an expert mathematics teacher producing a model answer explanation.
+        base = f"""你是一位资深的中学数学老师，正在撰写一份标准答案式讲解。
 
-        A student submitted this problem and the solver produced a verified correct solution.
-        Your job is to structure the solution into a clear, rigorous explanation that a student
-        who got this wrong can study to understand both the answer and the method.
+        学生提交了这道题目，解题代理已经给出了经过校验的正确解答。
+        你的任务是将解答组织成清晰、严谨的讲解，让做错这道题的学生
+        能够理解答案，更能掌握方法。
 
-        MATHEMATICAL NOTATION RULES (follow these exactly):
-        - Use the EXACT variable names from the problem — never rename them.
-        - Integrals   : write ∫ f(x) dx — always include the differential.
-        - Fractions   : (numerator)/(denominator) — fully bracketed.
-        - Powers      : use the form from the problem (x^2 or x²) consistently.
-        - Roots       : √(expr) throughout — never mix with sqrt().
-        - Exact form  : give answers as fractions/surds/π/e/ln, not decimals.
-        - Limits      : lim_{{x → a}} with arrow.
-        - Summations  : Σ_{{k=1}}^{{n}} with explicit bounds.
-        - Vectors     : →a for vector, |→a| for magnitude.
-        - final_answer: ALWAYS a non-empty string — write "0" not 0, never boolean.
-          If the answer is zero write "0", if no such points exist write "0 points".
+        数学符号规则（严格遵守）：
+        - 使用题目中的原始变量名，绝不改名。
+        - 积分：写 ∫ f(x) dx — 始终包含微分符号。
+        - 分数：(分子)/(分母) — 全部加括号。
+        - 幂次：与题目保持一致（x^2 或 x²）。
+        - 根式：统一使用 √(表达式)，不要混用 sqrt()。
+        - 精确形式：答案用分数/根式/π/e/ln，不用小数。
+        - 极限：lim_{{x → a}} 带箭头。
+        - 求和：Σ_{{k=1}}^{{n}} 带明确上下界。
+        - 向量：→a 表示向量，|→a| 表示模长。
+        - final_answer：始终是非空字符串 — 写 "0" 而不是 0，不要用布尔值。
+          如果答案是零写 "0"，如果不存在这样的点写 "0个点"。
 
-        STEP STRUCTURE:
-        - Each step must show the complete algebraic working line-by-line.
-        - Every manipulation on its own line ending in = the new expression.
-        - step.result is the expression that step circles/underlines — math only.
-        - step.why is ONLY for non-obvious moves (e.g. an unexpected substitution choice).
-        - step.inline_diagram: include a small ASCII/Unicode diagram ONLY when it
-          genuinely clarifies that specific step (number line, triangle, Venn diagram).
-          Leave None for algebraic steps.
+        步骤结构：
+        - 每一步都要逐步展示完整的代数推导。
+        - 每次变形单独一行，以 = 新表达式 结尾。
+        - step.result 是该步骤圈出的结果表达式 — 只含数学内容。
+        - step.why 只用于解释非显而易见的操作（例如意外的换元选择）。
+        - step.inline_diagram：仅当该步骤确实需要图示时才加入
+          简单的 ASCII/Unicode 示意图（数轴、三角形、文氏图）。
+          代数步骤留空。
 
-        Problem (topic: {topic} | difficulty: {difficulty}):
+        题目（主题：{topic} | 难度：{difficulty}）：
         {problem_text}
 
-        Verified correct solution (use this as your source of truth — do not recompute):
+        已校验的正确解答（以此为准，不要重新计算）：
         {solution_text}
 
-        Verifier notes:
-        {verifier_verdict}"""
+        校验备注：
+        {verifier_verdict}
+
+        始终使用中文讲解。"""
 
         if ltm_hint:
             base += f"""
 
-        STUDENT PERSONALISATION (use this to tailor your explanation):
+        学生个性化信息（据此调整讲解方式）：
         {ltm_hint}
 
-        Based on the above, ensure common_mistakes directly addresses the student's known
-        error patterns, and key_concepts front-loads the concepts they historically struggle with."""
+        根据以上信息，请让 common_mistakes 直接针对该学生已知的错误模式，
+        并在 key_concepts 中优先讲解学生历史上掌握薄弱的重点概念。
+
+        始终使用中文讲解。"""
 
         return base
 
@@ -94,9 +98,9 @@ class ExplainerAgent(BaseAgent):
                 ltm_hint         = ltm_hint,
             )
 
-            result: ExplainerOutput = self.llm.with_structured_output(ExplainerOutput).invoke(
-                [HumanMessage(content=prompt)]
-            )
+            result: ExplainerOutput = self.llm.with_structured_output(
+                ExplainerOutput, method="function_calling"
+            ).invoke([HumanMessage(content=prompt)])
 
             final_md      = render_md(result, problem_text)
             explainer_dict = result.model_dump()

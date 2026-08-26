@@ -146,10 +146,10 @@ def render_activity_panel(placeholder) -> None:
     log: list[dict] = st.session_state.get("activity_log", [])
 
     with placeholder.container():
-        st.markdown("### 🤖 Agent Activity")
+        st.markdown("### 🤖 代理活动")
 
         if not log:
-            st.caption("Activity will appear here once you send a message.")
+            st.caption("发送消息后，这里会显示每个代理节点的处理过程。")
             return
 
         cards_html = "\n".join(build_step_card(step) for step in log)
@@ -167,13 +167,13 @@ def build_history_hitl_banner(hitl_type: str, text: str) -> str:
     if hitl_type == "satisfaction":
         return (
             f'<div class="hitl-banner satisfaction">'
-            f'  <div class="hitl-title">✅ Solution Complete</div>'
+            f'  <div class="hitl-title">✅ 讲解已完成</div>'
             f'  <div class="hitl-body">{t}</div>'
             f'</div>'
         )
     return (
         f'<div class="hitl-banner">'
-        f'  <div class="hitl-title">🙋 Clarification Was Needed</div>'
+        f'  <div class="hitl-title">🙋 需要补充信息</div>'
         f'  <div class="hitl-body">{t}</div>'
         f'</div>'
     )

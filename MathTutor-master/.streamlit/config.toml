@@ -1,6 +1,9 @@
 # .streamlit/config.toml
 # Streamlit server + theme configuration.
 
+# 显式指定 secrets 文件位置，避免因启动目录不同而找不到 .streamlit/secrets.toml
+[secrets]
+files = [".streamlit/secrets.toml"]
 
 [server]
 port                = 8501

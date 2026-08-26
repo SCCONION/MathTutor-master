@@ -250,8 +250,8 @@ def _extract_hitl_from_snap(snap) -> tuple[bool, Optional[dict]]:
     hitl_reason = vals.get("hitl_reason") or ""
     return True, {
         "hitl_type": hitl_type,
-        "prompt":    hitl_reason or "Please provide the required input.",
-        "message":   hitl_reason or "Please provide the required input.",
+        "prompt":    hitl_reason or "请提供所需信息。",
+        "message":   hitl_reason or "请提供所需信息。",
     }
 
 
@@ -301,20 +301,20 @@ def _process_node_update(node_name: str, patch: dict, badge_ph) -> Optional[str]
     if patch.get("ltm_stored"):
         for s in reversed(log):
             if s["node"] == "store_ltm":
-                s["detail"] = "Memory saved ✓"
+                s["detail"] = "记忆已保存 ✓"
                 break
 
     # ── DirectResponse tool signals (web search bypasses ToolNode) ──────────
     for tc in patch.get("direct_response_tool_calls") or []:   ## just a hack to show our direct response tool node in the ui 
         n     = tc.get("name", "web_search_tool")
-        m     = TOOL_META.get(n, {"icon": "🌐", "label": "Web Search"})
+        m     = TOOL_META.get(n, {"icon": "🌐", "label": "联网搜索"})
         query = (tc.get("args") or {}).get("query", "")
         add_step(  
             n, status="tool",
             detail  = query[:80] or m["label"],
             payload = {
                 "summary": f'{m["icon"]} {m["label"]}',
-                "fields":  {"Query": query[:120] or "—", "Tool": n},
+                "fields":  {"搜索词": query[:120] or "—", "工具": n},
             },
         )
         badge_ph.caption(f'🔧 {m["label"]}…')
@@ -349,8 +349,8 @@ def _process_node_update(node_name: str, patch: dict, badge_ph) -> Optional[str]
                     payload = {
                         "summary": f'{m["icon"]} {m["label"]}',
                         "fields":  {
-                            "Query": query[:120] if query else "—",
-                            "Tool":  n,
+                            "搜索词": query[:120] if query else "—",
+                            "工具":  n,
                         },
                     },
                 )
@@ -386,9 +386,9 @@ def _render_question_banner(placeholder) -> None:
         return
 
     if mode == "image":
-        icon, display_text = "📸", "Image uploaded"
+        icon, display_text = "📸", "已上传图片"
     elif mode == "audio":
-        icon, display_text = "🎤", "Audio uploaded"
+        icon, display_text = "🎤", "已上传音频"
     else:
         icon         = "❓"
         display_text = str(q)
@@ -414,7 +414,7 @@ def _render_question_banner(placeholder) -> None:
                 <span style="font-size:1.1rem;flex-shrink:0">{icon}</span>
                 <div>
                     <div style="font-size:0.70rem;color:#4a6080;text-transform:uppercase;
-                                letter-spacing:0.08em;margin-bottom:3px">Current Question</div>
+                                letter-spacing:0.08em;margin-bottom:3px">当前题目</div>
                     <div style="line-height:1.5">{_html.escape(display_text)}</div>
                 </div>
             </div>""",
@@ -431,12 +431,12 @@ _init_session()
 #  SIDEBAR
 # ══════════════════════════════════════════════════════════════════════════════
 with st.sidebar:
-    st.title("🧮 Math Tutor")
+    st.title("🧮 数学辅导助手")
 
     gu = st.session_state.get("google_user") or {}
     up = st.session_state.get("user_profile") or {}
     if gu:
-        with st.expander("👤 " + gu.get("name", "Profile"), expanded=False):
+        with st.expander("👤 " + gu.get("name", "个人资料"), expanded=False):
             st.markdown(build_profile_card(
                 name            = gu.get("name", ""),
                 email           = gu.get("email", ""),
@@ -444,41 +444,41 @@ with st.sidebar:
                 last_login      = float(up.get("last_login", 0)) or None,
                 member_since    = float(up.get("created_at", 0)) or None,
             ), unsafe_allow_html=True)
-            if st.button("🚪 Logout", use_container_width=True):
+            if st.button("🚪 退出登录", use_container_width=True):
                 _logout()
 
-    if st.button("➕ New Chat", use_container_width=True):
+    if st.button("➕ 新会话", use_container_width=True):
         _reset_chat()
         st.rerun()
 
     # ── PDF ───────────────────────────────────────────────────────────────────
     st.divider()
-    st.subheader("📄 Study Material")
-    st.caption("Upload a PDF — solver calls `rag_tool` automatically.")
-    pdf = st.file_uploader("Upload PDF", type=["pdf"],
+    st.subheader("📄 学习资料")
+    st.caption("上传 PDF — 解题时会自动调用 `rag_tool` 检索相关内容。")
+    pdf = st.file_uploader("上传 PDF", type=["pdf"],
                            key="pdf_uploader", label_visibility="collapsed")
     if pdf:
         tid  = st.session_state["thread_id"]
         info = get_store_info(tid)
         if info and pdf.name in info.get("filenames", []):
-            st.info(f"📚 Already indexed: **{pdf.name}** ({info['chunks']} chunks)")
+            st.info(f"📚 已索引: **{pdf.name}**（{info['chunks']} 个分块）")
         else:
-            with st.spinner(f"Embedding **{pdf.name}**…"):
+            with st.spinner(f"正在嵌入 **{pdf.name}**…"):
                 try:
                     s = ingest_pdf(file_bytes=pdf.read(), thread_id=tid, filename=pdf.name)
                     st.session_state["pdf_ingested"] = True
-                    st.success(f"✅ **{s['filename']}** — {s['pages']} pages · {s['chunks']} chunks")
+                    st.success(f"✅ **{s['filename']}** — {s['pages']} 页 · {s['chunks']} 个分块")
                 except Exception as e:
                     st.error(f"❌ {e}")
     st.session_state.setdefault("pdf_ingested", False)
     if st.session_state["pdf_ingested"]:
         info = get_store_info(st.session_state["thread_id"])
         if info:
-            st.info(f"📚 **{info['filename']}** — {info['chunks']} chunks")
+            st.info(f"📚 **{info['filename']}** — {info['chunks']} 个分块")
 
     # ── Thread history ────────────────────────────────────────────────────────
     st.divider()
-    st.subheader("💬 Conversations")
+    st.subheader("💬 历史会话")
     metas = st.session_state.get("threads_meta") or []
     if not metas:
         metas = [
@@ -489,7 +489,7 @@ with st.sidebar:
     scroll_container = st.container(height=420, border=True)
     with scroll_container:
         if not metas:
-            st.info("No conversations yet. Start solving problems!")
+            st.info("暂无历史会话，开始解题吧！")
         else:
             for meta in metas:
                 tid = meta.get("thread_id", "")
@@ -539,12 +539,12 @@ with st.sidebar:
 
     # ── Admin ─────────────────────────────────────────────────────────────────
     st.divider()
-    with st.expander("⚙️ Admin", expanded=False):
-        st.caption("Delete episodic memories with decay_score < 0.05 and age > 30 days.")
-        if st.button("🗑️ Prune Stale Memories", use_container_width=True):
+    with st.expander("⚙️ 管理", expanded=False):
+        st.caption("删除 decay_score < 0.05 且超过 30 天的旧情景记忆。")
+        if st.button("🗑️ 清理过期记忆", use_container_width=True):
             sid    = st.session_state.get("student_id")
             pruned = prune_stale_episodic(student_id=sid)
-            st.success(f"Pruned {pruned} stale episodic record(s).")
+            st.success(f"已清理 {pruned} 条过期情景记忆。")
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -559,9 +559,9 @@ with col_activity:
 with col_chat:
     h1, h2 = st.columns([7, 3], vertical_alignment="center")
     with h1:
-        st.title("🧮 Math Tutor Agent")
+        st.title("🧮 数学辅导助手")
     with h2:
-        if st.button("🧠 Memory", use_container_width=True, help="View your memory graph"):
+        if st.button("🧠 记忆图谱", use_container_width=True, help="查看你的记忆图谱"):
             st.switch_page("pages/memory_viz.py")
 
     # ── Message history replay ────────────────────────────────────────────────
@@ -588,7 +588,7 @@ with col_chat:
         payload   = st.session_state.get("hitl_payload") or {}
         question  = (st.session_state.get("hitl_question")
                      or payload.get("prompt") or payload.get("message")
-                     or "Please provide input.")
+                     or "请提供输入。")
         hitl_type = st.session_state.get("hitl_type") or payload.get("hitl_type", "clarification")
         tid       = st.session_state["thread_id"]
 
@@ -605,40 +605,40 @@ with col_chat:
             question_banner_ph.empty()
 
         expander_title = {
-            "verification":  "📋 Verifier Notes",
-            "clarification": "📝 Clarify the Problem",
-            "bad_input":     "📤 Please Provide Better Input",
-            "satisfaction":  "✅ Feedback",
-        }.get(hitl_type, "📋 Details")
+            "verification":  "📋 校验说明",
+            "clarification": "📝 请补充题目信息",
+            "bad_input":     "📤 请提供更清晰的输入",
+            "satisfaction":  "✅ 反馈",
+        }.get(hitl_type, "📋 详情")
 
         with st.expander(expander_title, expanded=True):
-            st.markdown(question if question else "No additional details.")
+            st.markdown(question if question else "暂无更多说明。")
 
         human_answer: Optional[dict] = None
 
         if is_sat:
             c1, c2 = st.columns(2)
             with c1:
-                if st.button("✅ Yes, next question", use_container_width=True, type="primary"):
+                if st.button("✅ 已明白，继续下一题", use_container_width=True, type="primary"):
                     human_answer = {"satisfied": True, "follow_up": ""}
                     st.session_state["_show_reexplain_form"] = False
             with c2:
-                if st.button("🔄 No, re-explain", use_container_width=True):
+                if st.button("🔄 没懂，重新讲解", use_container_width=True):
                     st.session_state["_show_reexplain_form"] = True
 
             if st.session_state.get("_show_reexplain_form"):
                 with st.form("reexplain", clear_on_submit=True):
-                    txt = st.text_area("What was unclear?", height=80)
-                    if st.form_submit_button("Submit 🔄", use_container_width=True):
+                    txt = st.text_area("哪里没听懂？", height=80)
+                    if st.form_submit_button("提交 🔄", use_container_width=True):
                         human_answer = {"satisfied": False, "follow_up": txt or ""}
                         st.session_state["_show_reexplain_form"] = False
 
         elif is_bad:
             with st.form("bad_input", clear_on_submit=True):
-                nt = st.text_area("Type the problem", height=90)
-                ni = st.file_uploader("Re-upload image", type=["png", "jpg", "jpeg"])
-                na = st.file_uploader("Re-upload audio", type=["wav", "mp3", "m4a"])
-                if st.form_submit_button("Submit ✅", use_container_width=True):
+                nt = st.text_area("输入题目文字", height=90)
+                ni = st.file_uploader("重新上传图片", type=["png", "jpg", "jpeg"])
+                na = st.file_uploader("重新上传音频", type=["wav", "mp3", "m4a"])
+                if st.form_submit_button("提交 ✅", use_container_width=True):
                     u: dict = {}
                     if ni:
                         fp = f"uploads/{ni.name}"
@@ -658,11 +658,11 @@ with col_chat:
             with st.form("verification", clear_on_submit=True):
                 c1, c2 = st.columns(2)
                 with c1:
-                    ok = st.checkbox("Mark as correct", value=False)
+                    ok = st.checkbox("标记为正确", value=False)
                 with c2:
-                    st.caption("Add hint if incorrect.")
-                hint = st.text_area("Hint (optional)", height=80)
-                if st.form_submit_button("Submit ✅", use_container_width=True):
+                    st.caption("若不正确可添加提示。")
+                hint = st.text_area("提示（可选）", height=80)
+                if st.form_submit_button("提交 ✅", use_container_width=True):
                     human_answer = {"is_correct": bool(ok), "fix_hint": hint.strip()}
 
         else:  # clarification
@@ -671,12 +671,12 @@ with col_chat:
                 st.session_state["clarification_prefill"] = prefill
             with st.form("hitl_clarify", clear_on_submit=True):
                 cl = st.text_area(
-                    "Clarification",
+                    "澄清",
                     value=st.session_state.get("clarification_prefill", ""),
                     height=100,
                     label_visibility="collapsed"
                 )
-                if st.form_submit_button("Submit ✅", use_container_width=True):
+                if st.form_submit_button("提交 ✅", use_container_width=True):
                     human_answer = {"corrected_text": cl.strip()}
                     st.session_state.pop("clarification_prefill", None)
 
@@ -687,8 +687,8 @@ with col_chat:
 
             st.session_state["hitl_resuming"] = True
 
-            lbl = ("✅ Satisfied" if is_sat else "🖼️ Input" if is_bad
-                   else "🧾 Verification" if is_ver else "💬 Clarification")
+            lbl = ("✅ 已满意" if is_sat else "🖼️ 输入" if is_bad
+                   else "🧾 校验" if is_ver else "💬 澄清")
             st.session_state["message_history"].append(
                 {"role": "user", "content": f"**{lbl}:** {str(human_answer)[:300]}"}
             )
@@ -700,7 +700,7 @@ with col_chat:
             for s in reversed(st.session_state["activity_log"]):
                 if s["node"] == "hitl_node":
                     s["status"] = "done"
-                    s["detail"] = f"Answered: {str(human_answer)[:60]}"
+                    s["detail"] = f"已回复: {str(human_answer)[:60]}"
                     break
             render_activity_panel(activity_ph)
 
@@ -730,7 +730,7 @@ with col_chat:
                 except GraphInterrupt:
                     pass
                 except Exception as e:
-                    error_msg = f"⚠️ Something went wrong: {str(e)[:200]}"
+                    error_msg = f"⚠️ 出错了: {str(e)[:200]}"
                     parts.append(error_msg)
                     yield error_msg
 
@@ -789,22 +789,22 @@ with col_chat:
     #  NORMAL INPUT BLOCK
     # ══════════════════════════════════════════════════════════════════════════
     else:
-        mode = st.radio("Input", ["Text", "Image", "Audio"],
+        mode = st.radio("输入方式", ["文本", "图片", "语音"],
                         horizontal=True, label_visibility="collapsed")
         text_input = image_file = audio_file = None
-        if mode == "Text":
-            text_input = st.chat_input("Enter your math problem…")
-        elif mode == "Image":
-            image_file = st.file_uploader("Image", type=["png", "jpg", "jpeg"], key="img_up")
-        elif mode == "Audio":
-            audio_file = st.file_uploader("Audio", type=["wav", "mp3", "m4a"], key="aud_up")
+        if mode == "文本":
+            text_input = st.chat_input("请输入你的数学问题")
+        elif mode == "图片":
+            image_file = st.file_uploader("图片", type=["png", "jpg", "jpeg"], key="img_up")
+        elif mode == "语音":
+            audio_file = st.file_uploader("音频", type=["wav", "mp3", "m4a"], key="aud_up")
 
         if text_input or image_file or audio_file:
             tid = st.session_state["thread_id"]
             sid = st.session_state["student_id"]
 
             if not sid or sid == "anonymous":
-                st.error("Please log in before solving problems.")
+                st.error("请先登录后再解题。")
                 st.stop()
 
             st.session_state["activity_log"] = []
@@ -842,9 +842,9 @@ with col_chat:
                     f.write(image_file.getbuffer())
                 sp["image_path"] = fp
                 st.session_state["message_history"].append(
-                    {"role": "user", "content": "[Image uploaded]"})
+                    {"role": "user", "content": "[已上传图片]"})
                 with st.chat_message("user"):
-                    st.image(image_file, caption="Uploaded question")
+                    st.image(image_file, caption="上传的题目图片")
 
             if audio_file:
                 fp = f"uploads/{audio_file.name}"
@@ -852,7 +852,7 @@ with col_chat:
                     f.write(audio_file.getbuffer())
                 sp["audio_path"] = fp
                 st.session_state["message_history"].append(
-                    {"role": "user", "content": "[Audio uploaded]"})
+                    {"role": "user", "content": "[已上传音频]"})
                 with st.chat_message("user"):
                     st.audio(audio_file)
 

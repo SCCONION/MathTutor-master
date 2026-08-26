@@ -29,7 +29,7 @@ class HITLAgent(BaseAgent):
 
     def hitl_node(self, state: AgentState) -> dict:
         try:
-            reason    = state.get("hitl_reason") or "Human review required."
+            reason    = state.get("hitl_reason") or "需要人工确认。"
             hitl_type = state.get("hitl_type")
 
             # ── Auto-detect type if not explicitly set by triggering node ─────
@@ -62,7 +62,7 @@ class HITLAgent(BaseAgent):
                 interrupt_payload = {
                     "hitl_type": hitl_type,
                     "message":   reason,
-                    "prompt":    "Please provide the required input.",
+                    "prompt":    "请提供所需信息。",
                 }
 
             rich_prompt = interrupt_payload.get("prompt") or reason
@@ -70,10 +70,10 @@ class HITLAgent(BaseAgent):
 
             payload(
                 state, "hitl_node",
-                summary = f"INTERRUPT [{hitl_type.upper()}] — waiting for human",
+                summary = f"暂停 [{hitl_type.upper()}] — 等待人工输入",
                 fields = {
-                    "Type":   hitl_type,
-                    "Reason": (rich_prompt or "")[:280],
+                    "类型":   hitl_type,
+                    "原因": (rich_prompt or "")[:280],
                 },
             )
             logger.info(
@@ -131,12 +131,12 @@ def _build_bad_input_interrupt(state: AgentState, reason: str) -> dict:
         "input_mode": input_mode,
         "confidence": round(conf, 2) if conf is not None else None,
         "prompt": (
-            "We couldn't read your image clearly. "
-            "Please upload a sharper photo, or type the problem directly."
+            "我们无法清晰识别你上传的图片。"
+            "请上传更清晰的照片，或直接输入题目文字。"
             if input_mode == "image"
             else
-            "We couldn't transcribe your audio clearly. "
-            "Please re-record in a quieter environment, or type the problem directly."
+            "我们无法清晰识别你的语音。"
+            "请在安静的环境中重新录制，或直接输入题目文字。"
         ),
     }
 
@@ -159,11 +159,11 @@ def _build_clarification_interrupt(state: AgentState, reason: str) -> dict:
     if ocr_text and ocr_text != problem_text:
         llm_reason = (
             f"{reason}\n\n"
-            f"We extracted this from your image:\n\"{ocr_text}\"\n\n"
-            f"Please type the complete problem with all values filled in."
+            f"我们从你的图片中识别到:\n\"{ocr_text}\"\n\n"
+            f"请补充完整的题目文字，并填写所有缺失的数据。"
         )
     else:
-        llm_reason = reason or "This problem seems incomplete or ambiguous."
+        llm_reason = reason or "这道题目似乎不完整或存在歧义。"
 
     return {
         "hitl_type":    "clarification",
@@ -187,7 +187,7 @@ def _build_verification_interrupt(state: AgentState, reason: str) -> dict:
 
     llm_message = verdict or reason
     if fix_hint:
-        llm_message = f"{llm_message}\n\nSuggested issue: {fix_hint}"
+        llm_message = f"{llm_message}\n\n建议修正: {fix_hint}"
 
     return {
         "hitl_type":        "verification",
@@ -208,10 +208,10 @@ def _build_satisfaction_interrupt(state: AgentState) -> dict:
     """
     return {
         "hitl_type": "satisfaction",
-        "message":   "Was this explanation helpful?",
+        "message":   "这次的讲解对你有帮助吗？",
         "prompt": (
-            "Did this explanation make sense? "
-            "If not, tell us what was unclear and we will re-explain it."
+            "这次的讲解你听懂了吗？"
+            "如果没有，请告诉我们哪里不清楚，我们会重新讲解。"
         ),
     }
 

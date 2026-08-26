@@ -377,6 +377,9 @@ def retrieve_ltm(student_id: str, problem_text: str, topic: str) -> dict:
     try:
         query_text = f"{topic} {problem_text[:200]}".strip() if topic else problem_text[:200]
         q_emb = _embed_texts([query_text], EMBED_INPUT_TYPE_QUERY)
+        # 只按 student_id 过滤，不用 @topic 精确匹配 —— topic 标签与向量语义可能
+        # 不一致（例如历史记的是 algebra、新问题是 calculus 但解法相似），
+        # 精确匹配会导致跨主题的相似记忆永远检索不到。向量相似度自会排序。
         query = VectorQuery(
             vector           = q_emb[0].astype(np.float32).tobytes(),
             vector_field_name= "embedding",
@@ -385,17 +388,28 @@ def retrieve_ltm(student_id: str, problem_text: str, topic: str) -> dict:
                 "problem_summary", "final_answer", "outcome", "solve_attempts",
             ],
             num_results      = TOP_K_EPISODES,
-            filter_expression= f"@student_id:{{{student_id}}} @topic:{{{topic}}}",
+            # 多条件 filter 必须用括号包裹，否则 Redis 报 Syntax error（-> 优先级问题）
+            filter_expression= f"(@student_id:{{{student_id}}})",
         )
         index = SearchIndex.from_dict(EPISODIC_INDEX_SCHEMA)
         index.connect(redis_url=REDIS_URL)
         eps = index.query(query)
 
+        # RedisVL 只返回索引中声明的字段；problem_summary/final_answer/solve_attempts
+        # 不在索引 schema 里，需用返回的 id（episodic:<sid>:<eid>）从 JSON 补全。
         for ep in eps:
-            k = episodic_key(student_id, ep.get("episode_id", ""))
+            ep_id = ep.get("episode_id") or str(ep.get("id", "")).rsplit(":", 1)[-1]
+            k = episodic_key(student_id, ep_id)
             if client.exists(k):
                 client.json().numincrby(k, "$.access_count", 1)
                 _refresh_decay_score(client, k)
+                # 补全索引缺失的字段
+                full = client.json().get(k, "$")
+                if full:
+                    d = full[0]
+                    for f in ("problem_summary", "final_answer", "solve_attempts"):
+                        if f not in ep or ep.get(f) is None:
+                            ep[f] = d.get(f)
 
         result["similar_episodes"] = [
             {
@@ -440,6 +454,99 @@ def retrieve_ltm(student_id: str, problem_text: str, topic: str) -> dict:
         logger.warning(f"[LTM] Procedural fetch failed: {e}")
 
     return result
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+#  STUDENT PROFILE (for meta-cognitive queries like "我有哪些知识点不会")
+# ══════════════════════════════════════════════════════════════════════════════
+
+def build_student_profile(student_id: str) -> dict:
+    """
+    Builds the student's complete learning profile straight from Redis.
+
+    Used by direct_response_agent when the student asks meta-cognitive
+    questions such as "我有哪些知识点不会", "我的弱项是什么", "我学得怎么样".
+
+    Unlike retrieve_ltm (which is scoped to the CURRENT problem/topic and only
+    returns top-3 vector-similar episodes), this returns the FULL picture:
+
+        weak_topics        : {topic: fail_count}          (from semantic)
+        strong_topics      : {topic: success_count}       (from semantic)
+        mistake_patterns   : [{pattern, topic, count}]    (from semantic)
+        best_strategy      : topic-agnostic best strategy (from procedural)
+        avg_attempts       : float | None
+        episodic_history   : [{topic, count, outcomes, last_ts}]  (ALL episodes,
+                             aggregated by topic, most frequent first)
+    """
+    client = get_sync_client()
+    profile: dict = {
+        "weak_topics":      {},
+        "strong_topics":    {},
+        "mistake_patterns": [],
+        "best_strategy":    None,
+        "avg_attempts":     None,
+        "episodic_history": [],
+    }
+
+    # ── 1. Semantic (weak/strong topics + mistake patterns) ──────────────────
+    try:
+        sem = client.json().get(semantic_key(student_id), "$")
+        if sem:
+            d = sem[0]
+            profile["weak_topics"]      = d.get("weak_topics", {}) or {}
+            profile["strong_topics"]    = d.get("strong_topics", {}) or {}
+            profile["mistake_patterns"] = d.get("mistake_patterns", []) or []
+    except Exception as e:
+        logger.warning(f"[LTM] Profile semantic fetch failed: {e}")
+
+    # ── 2. Procedural (best overall strategy) ────────────────────────────────
+    try:
+        proc = client.json().get(procedural_key(student_id), "$")
+        if proc:
+            ss = proc[0].get("strategy_success", {}) or {}
+            best_entry = None
+            for t, strategies in ss.items():
+                if not strategies:
+                    continue
+                entry = max(
+                    strategies.items(),
+                    key=lambda kv: (
+                        kv[1].get("success_rate", 0),
+                        -kv[1].get("attempts_avg", 99),
+                    ),
+                )
+                if best_entry is None or entry[1].get("success_rate", 0) > best_entry[1].get("success_rate", 0):
+                    best_entry = entry
+            if best_entry:
+                profile["best_strategy"] = best_entry[0]
+                profile["avg_attempts"]  = best_entry[1].get("attempts_avg")
+    except Exception as e:
+        logger.warning(f"[LTM] Profile procedural fetch failed: {e}")
+
+    # ── 3. ALL episodic history, aggregated by topic ─────────────────────────
+    try:
+        hist: dict[str, dict] = {}
+        for k in client.keys(f"episodic:{student_id}:*"):
+            doc = client.json().get(k, "$")
+            if not doc:
+                continue
+            d       = doc[0]
+            t       = d.get("topic") or "未分类"
+            if t in ("null", "None", "undefined", "general"):
+                t = "未分类"
+            ent     = hist.setdefault(t, {"count": 0, "outcomes": {}, "last_ts": 0})
+            ent["count"] += 1
+            oc      = d.get("outcome") or "completed"
+            ent["outcomes"][oc] = ent["outcomes"].get(oc, 0) + 1
+            ent["last_ts"]      = max(ent["last_ts"], d.get("timestamp", 0) or 0)
+        profile["episodic_history"] = [
+            {"topic": t, **v}
+            for t, v in sorted(hist.items(), key=lambda kv: -kv[1]["count"])
+        ]
+    except Exception as e:
+        logger.warning(f"[LTM] Profile episodic fetch failed: {e}")
+
+    return profile
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -635,6 +742,27 @@ def memory_manager_node(state: dict) -> dict:
                     attempts   = solve_attempts,
                 )
 
+        # ── 弱项信号：非 solver 流程（explain/hint 等）中，用户明确表示
+        #    "不会/不懂/薄弱"时，也要记入 semantic weak_topics ──────────────────
+        #    否则这些"我不会 XX"的信息只留在 episodic 文本里，
+        #    之后问"我有哪些知识点不会"时 weak_topics 永远是空的。
+        if topic and not is_solver_flow and topic not in ("null", "None", "undefined"):
+            _WEAK_SIGNALS = (
+                "不会", "不懂", "不理解", "没掌握", "没学会", "学不会",
+                "薄弱", "总是错", "经常错", "搞不懂", "记不住", "太难",
+            )
+            if any(sig in problem_text for sig in _WEAK_SIGNALS):
+                update_semantic_memory(
+                    student_id      = student_id,
+                    topic           = topic,
+                    outcome         = "incorrect",
+                    mistake_pattern = None,
+                )
+                logger.info(
+                    f"[MemMgr] weak-signal from {intent_type} flow | "
+                    f"topic={topic} | student={student_id}"
+                )
+
         update_thread_meta(
             thread_id       = thread_id,
             problem_summary = problem_text[:120],
@@ -681,15 +809,15 @@ def format_ltm_for_solver(ltm_context: dict, topic: str) -> str:
     if best:
         avg_str = f"{avg:.1f}" if avg is not None else "?"
         lines.append(
-            f"STUDENT HISTORY — for {topic} this student responds best to: "
-            f"{best} (avg {avg_str} attempts)."
+            f"学生学习历史 — 在{topic}上最适合的方法是："
+            f"{best}（平均 {avg_str} 次尝试）。"
         )
 
     weak = ltm_context.get("weak_topics", {})
     if topic in weak and weak[topic] > 1:
         lines.append(
-            f"WEAK AREA — struggled with {topic} {weak[topic]} times. "
-            "Be especially clear on each step."
+            f"薄弱环节 — 该学生在{topic}上已经出错 {weak[topic]} 次。"
+            "每一步都要讲解得特别清楚。"
         )
 
     patterns = [
@@ -698,16 +826,16 @@ def format_ltm_for_solver(ltm_context: dict, topic: str) -> str:
     ]
     if patterns:
         lines.append(
-            f"KNOWN MISTAKES in {topic}: "
-            + "; ".join(p["pattern"] for p in patterns[:2]) + "."
+            f"该学生在{topic}上的已知错误："
+            + "; ".join(p["pattern"] for p in patterns[:2]) + "。"
         )
 
     eps = ltm_context.get("similar_episodes", [])
     if eps:
         ep = eps[0]
         lines.append(
-            f"SIMILAR PAST PROBLEM — {ep['topic']} ({ep['difficulty']}), "
-            f"outcome={ep['outcome']}, answer={ep['final_answer']}."
+            f"相似的过往题目 — {ep['topic']}（{ep['difficulty']}），"
+            f"结果={ep['outcome']}，答案={ep['final_answer']}。"
         )
 
     return "\n".join(lines)
@@ -718,10 +846,10 @@ def format_ltm_for_explainer(ltm_context: dict, topic: str) -> str:
     NOT YET WIRED: defined here for future use in explainer_agent.
 
     Would personalise the explanation based on known weak spots:
-        PERSONALISATION — this student struggles with calculus.
-          Add extra intuition-building.
-        COMMON MISTAKES THIS STUDENT MAKES in calculus:
-          forgot to change limits after substitution; sign errors in integration.
+        个性化信息 — 该学生在微积分方面比较薄弱。
+          需要加强直观理解引导。
+        该学生的常见错误（微积分）：
+          换元后忘记改变积分上下限；积分时符号错误。
     """
     if not ltm_context:
         return ""
@@ -730,8 +858,8 @@ def format_ltm_for_explainer(ltm_context: dict, topic: str) -> str:
     weak = ltm_context.get("weak_topics", {})
     if topic in weak and weak[topic] > 0:
         lines.append(
-            f"PERSONALISATION — this student struggles with {topic}. "
-            "Add extra intuition-building."
+            f"个性化信息 — 该学生在{topic}上比较薄弱。"
+            "需要加强直观理解的引导。"
         )
 
     patterns = [
@@ -740,9 +868,9 @@ def format_ltm_for_explainer(ltm_context: dict, topic: str) -> str:
     ]
     if patterns:
         lines.append(
-            f"COMMON MISTAKES THIS STUDENT MAKES in {topic}: "
-            + "; ".join(p["pattern"] for p in patterns[:3]) + ". "
-            "Address these in common_mistakes field."
+            f"该学生在{topic}上的常见错误："
+            + "; ".join(p["pattern"] for p in patterns[:3]) + "。"
+            "请在 common_mistakes 字段中针对这些错误给出提醒。"
         )
 
     return "\n".join(lines)

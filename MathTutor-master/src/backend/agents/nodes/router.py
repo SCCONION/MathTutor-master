@@ -10,47 +10,47 @@ class IntentRouterAgent(BaseAgent):
             problem_text = parsed.get("problem_text") or ""
 
             _ROUTER_PROMPT = """\
-                You are classifying a JEE-level math student's input to decide how to respond.
+                你在为一名中学数学学生分类输入，以决定如何回应。
 
-                Return FOUR things:
+                返回四项内容：
 
-                1. topic        — single best-fit math domain (algebra | probability | calculus |
-                                  linear_algebra | geometry | trigonometry | statistics | number_theory)
-                2. difficulty   — easy | medium | hard  (JEE standard; use "medium" for non-problem inputs)
-                3. solver_strategy — the most direct solution path in 1-2 sentences.
-                                     For non-solve intents, describe the explanation or generation approach.
-                4. intent_type  — classify the student's intent using EXACTLY one of:
+                1. topic — 最匹配的数学领域（algebra 代数 | probability 概率 | calculus 微积分 |
+                           linear_algebra 线性代数 | geometry 几何 | trigonometry 三角 | statistics 统计 | number_theory 数论）
+                2. difficulty — easy 简单 | medium 中等 | hard 困难（中学标准；非题目类输入用 medium）
+                3. solver_strategy — 最直接的解题路径（1-2 句话）。
+                                     对于非解题类意图，描述讲解或生成的方法。
+                4. intent_type — 用且仅用以下之一对学生意图进行分类：
 
-                    solve          → student wants a full worked solution to a specific numeric/algebraic problem
-                                     DEFAULT — use when unsure and input contains a concrete problem
-                    explain        → student wants a concept, theorem, or method explained
-                                     triggers: "what is", "explain", "why does", "how does", "tell me about",
-                                     "describe", "what are", "what's the difference between"
-                    hint           → student wants a small nudge/clue for a problem they're working on
-                                     triggers: "hint", "clue", "just tell me where to start", "am I on the right track"
-                    formula_lookup → student wants a formula or theorem statement only
-                                     triggers: "formula for", "state the theorem", "what is the formula for"
-                    research       → student wants info about recent developments, history, or general math knowledge
-                                     that is NOT a specific problem to solve and NOT a simple concept explanation
-                                     triggers: "recent", "latest", "discovery", "history of", "who discovered",
-                                     "applications of", "real world use", "tell me something interesting about"
-                    generate       → student wants practice problems, exam questions, or examples created for them
-                                     triggers: "give me", "create", "make", "generate", "some questions",
-                                     "practice problems", "example problems", "test me", "quiz me"
+                    solve 解题        → 学生想要某个具体数值/代数题目的完整解题过程
+                                     默认 — 不确定但输入包含具体题目时使用
+                    explain 讲解      → 学生想要概念、定理或方法的讲解
+                                     触发词："什么是"、"解释"、"为什么"、"怎么理解"、"告诉我关于"、
+                                     "描述"、"有什么区别"
+                    hint 提示        → 学生想要解题的小提示/线索
+                                     触发词："提示"、"线索"、"告诉我从哪里开始"、"我的思路对吗"
+                    formula_lookup 公式查询 → 学生只想要公式或定理表述
+                                     触发词："公式"、"写出定理"、"这个公式是什么"
+                    research 研究    → 学生想了解最新进展、历史或一般数学知识
+                                     不属于具体题目求解，也不属于简单概念讲解
+                                     触发词："最新"、"发现"、"历史"、"谁发现了"、
+                                     "应用"、"现实应用"、"讲点有趣的"
+                    generate 出题    → 学生想要练习题目、考试题或示例
+                                     触发词："给我"、"创建"、"出"、"生成"、"一些题"、
+                                     "练习题"、"例题"、"考考我"、"出几道题"
 
-                CRITICAL RULES:
-                - If input contains a SPECIFIC number, equation, or expression to solve → ALWAYS "solve"
-                - "What is Bayes theorem?" → "explain"  (NOT "solve")
-                - "What is the formula for integration by parts?" → "formula_lookup"
-                - "Give me 5 questions on probability for JEE Mains" → "generate"
-                - "Tell me about recent discoveries in mathematics" → "research"
-                - "Explain the AM-GM inequality and when to use it" → "explain"
-                - When in doubt between explain and solve: if there is no specific numeric problem → "explain"
+                关键规则：
+                - 如果输入包含需要求解的具体数字、方程或表达式 → 一律 "solve"
+                - "什么是贝叶斯定理？" → "explain"（不是 "solve"）
+                - "分部积分公式是什么？" → "formula_lookup"
+                - "给我出5道概率题（高中水平）" → "generate"
+                - "数学界最近有什么新发现？" → "research"
+                - "解释一下 AM-GM 不等式及使用时机" → "explain"
+                - 在 explain 和 solve 之间拿不准时：如果没有具体数值题目 → "explain"
 
-                Student input:
+                学生输入：
                 {problem_text}"""
 
-            structured_llm = self.llm.with_structured_output(IntentRouterOutput)
+            structured_llm = self.llm.with_structured_output(IntentRouterOutput, method="function_calling")
             result: IntentRouterOutput = structured_llm.invoke(
                 [HumanMessage(content=_ROUTER_PROMPT.format(problem_text=problem_text))]
             )

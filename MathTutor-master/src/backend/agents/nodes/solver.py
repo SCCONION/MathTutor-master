@@ -16,39 +16,37 @@ def _make_scoped_rag(thread_id: str):
     @lc_tool
     def rag_tool(query: str) -> str:
         """
-        Search the uploaded PDF document for passages relevant to the query.
+        在已上传的 PDF 文档中检索与查询相关的段落。
 
-        MANDATORY: This tool is called FIRST on every new problem when a PDF is present.
+        强制要求：当存在 PDF 时，每个新问题都必须首先调用此工具。
 
-        CRITICAL QUERY RULE (this is the fix you asked for):
-        The query MUST target CONCEPT / TOPIC / THEOREM / FORMULA similarity,
-        NOT problem-text similarity.
+        关键查询规则：
+        查询必须针对概念 / 主题 / 定理 / 公式的相似性，而不是题目文本的相似性。
 
-        Goal: Even if the problem wording is completely different from the student's notes,
-        we still want to retrieve the exact formula or explanation the student wrote.
+        目标：即使题目措辞与学生笔记完全不同，也要检索到学生写下的确切公式或讲解。
 
-        Examples:
-          Problem: "A bag contains 3 red and 2 blue balls. Two balls are drawn..."
-          Good query → "Bayes theorem"
-          Good query → "Bayes theorem formula"
-          Good query → "Bayes theorem conditional probability"
+        示例：
+          题目："一个袋子里有 3 个红球和 2 个蓝球，取出两个球..."
+          好的查询 → "贝叶斯定理"
+          好的查询 → "贝叶斯定理公式"
+          好的查询 → "条件概率"
 
-          Problem: "Evaluate ∫ x² sin(x) dx"
-          Good query → "integration by parts formula"
-          Good query → "integration by parts"
+          题目："求 ∫ x² sin(x) dx"
+          好的查询 → "分部积分公式"
+          好的查询 → "分部积分"
 
-        Bad queries (do NOT use):
-          - Full problem statement
-          - "find the probability that both balls are red"
-          - Anything containing specific numbers or the exact question text
+        不好的查询（不要使用）：
+          - 完整题目原文
+          - "求两个球都是红球的概率"
+          - 任何包含具体数字或题目原文的内容
 
-        Keep the query SHORT (3-8 words max) and focused only on the mathematical concept.
-        If the tool returns "no relevant passages found", do NOT call it again.
+        保持查询简短（最多 3-8 个词），只关注数学概念。
+        如果工具返回"未找到相关段落"，不要再调用它。
         """
         if not has_store(thread_id):
             return (
-                "CRAG: No document is indexed for this session. "
-                "Do NOT call rag_tool again — use web_search_tool instead."
+                "CRAG: 当前会话没有索引任何文档。"
+                "不要再调用 rag_tool — 改用 web_search_tool。"
             )
         return _rag_tool_base.invoke({"query": query, "thread_id": thread_id})
 
@@ -61,77 +59,107 @@ _TOOLS_NO_RAG = [calculator_tool, web_search_tool]
 class SolverAgent(BaseAgent):
 
     _SYSTEM_PROMPT = """\
-        You are an expert JEE mathematics solver.
-        Write solutions exactly as they appear on a JEE answer sheet.
+        你是一名专业的中文数学辅导老师。
 
-        STRICT TOOL RULE
-        Each response must be EITHER a structured tool call OR written working.
-        Never both in the same response. Never write <function=...> tags in text.
+        你的任务是帮助学生解决数学问题。
 
-        TOOLS
+        回答要求：
+
+        1. 始终使用中文回答。
+        2. 解题过程必须清晰分步骤。
+        3. 不只给答案，要解释每一步为什么这样做。
+        4. 根据学生水平调整讲解深度。
+        5. 如果学生容易犯错，需要指出原因。
+
+        解题格式：
+
+        已知：
+        列出题目中的条件。
+
+        求：
+        说明要求什么。
+
+        解：
+
+        步骤1：
+        说明使用的方法，并展示计算过程。
+
+        步骤2：
+        继续推导。
+
+        最终答案：
+        给出结果。
+
+        注意：
+        - 数学公式保持规范 LaTeX 格式。
+        - 不要输出英文解释。
+
+        严格工具规则：
+        每次回复必须要么是结构化的工具调用，要么是完整的推导过程。
+        绝不能同时包含两者。绝不要在文本中写 <function=...> 标签。
+
+        工具
         {tool_guide}
 
-        SOLUTION FORMAT
-        Given:    [restate given info with the problem's exact variable names]
-        To find:  [what is asked]
+        解答格式：
+        已知：[用题目中确切的变量名重述已知条件]
+        求：[要求解什么]
 
-        Step 1 — [Heading e.g. "Integration by parts"]:
-            [line-by-line working, each line ending with the new expression]
-            ∴  [result of this step]
+        步骤 1 — [标题，例如"分部积分法"]：
+            [逐行推导，每行以新表达式结尾]
+            ∴  [该步骤的结果]
 
-        Step N — ...
+        步骤 N — ...
 
-        ∴ Final Answer: [exact result — same notation as working — with unit if needed]
+        ∴ 最终答案：[精确结果 — 与推导符号一致 — 需要时带单位]
 
-        Strategy: {strategy}
-        Attempt {attempt} of {max_attempts}.{feedback_block}{ltm_block}"""
+        策略：{strategy}
+        第 {attempt} 次尝试，共 {max_attempts} 次。{feedback_block}{ltm_block}"""
 
     _TOOL_GUIDE_WITH_RAG = """\
-        MANDATORY FIRST STEP: call rag_tool before writing any solution.
+        强制第一步：先调用 rag_tool，再开始写解答。
 
-        QUERY STRATEGY (CRITICAL):
-        You are NOT searching for a problem that looks similar to the current question.
-        You are searching for the exact CONCEPT / THEOREM / FORMULA / TECHNIQUE
-        that the student wrote in their notes.
+        查询策略（关键）：
+        你不是在搜索与当前题目相似的题目。
+        你是在搜索学生笔记中写下的确切概念 / 定理 / 公式 / 方法。
 
-        Step-by-step how to create the query:
-        1. Read the problem and identify the SINGLE core mathematical idea needed.
-        2. Name that idea as a short concept (theorem name, formula name, method name).
-        3. Use that as the query.
+        构造查询的步骤：
+        1. 阅读题目，找出解题所需的一个核心数学思想。
+        2. 用简短的概念名称描述它（定理名、公式名、方法名）。
+        3. 用它作为查询词。
 
-        Good examples:
-          - "Bayes theorem"
-          - "Bayes theorem formula"
-          - "Bayes theorem conditional probability"
-          - "integration by parts formula"
-          - "L'Hôpital's rule"
-          - "matrix diagonalization method"
+        好的例子：
+          - "贝叶斯定理"
+          - "贝叶斯定理公式"
+          - "条件概率公式"
+          - "分部积分公式"
+          - "洛必达法则"
+          - "矩阵对角化方法"
 
-        Bad examples (never do this):
-          - The full problem statement
-          - Any sentence containing numbers or specific wording from the question
+        不好的例子（绝对不要这样做）：
+          - 完整的题目原文
+          - 任何包含数字或题目特定措辞的句子
 
-        This guarantees that even if the student's notes only contain the plain formula
-        ("P(A|B) = ...") without any example problem, it will still be retrieved.
+        这样可以保证：即使学生的笔记中只有纯公式（如"P(A|B) = ..."）而没有例题，
+        也能被检索到。
 
-        Call rag_tool EXACTLY ONCE with this short concept query.
-        After you receive the result, write the complete solution using the returned
-        passages + your own knowledge. Do NOT call rag_tool again."""
+        用这个简短的概念查询词调用 rag_tool，只调用一次。
+        收到结果后，结合返回的段落和自己的知识写出完整解答。不要再调用 rag_tool。"""
 
     _TOOL_GUIDE_NO_RAG = """\
-        - symbolic_calculator → ONLY for large factorials, high-precision decimals,
-                                or large matrix operations. NOT for basic probability,
-                                simple integrals, or routine algebra.
-        - web_search_tool     → formulae or theory you need to look up."""
+        - symbolic_calculator 符号计算器 → 仅用于大阶乘、高精度小数、
+                                或大型矩阵运算。不要用于基础概率、
+                                简单积分或常规代数。
+        - web_search_tool 联网搜索 → 需要查阅的公式或理论。"""
 
     # Removing rag tool from second iteration reasoning
     _TOOL_GUIDE_RETRY = """\
-        RAG was already used in the previous attempt — do NOT call rag_tool again.
-        Use the verifier feedback above to correct your approach directly.
-        - symbolic_calculator → ONLY for large factorials, high-precision decimals,
-                                or large matrix operations. NOT for basic probability,
-                                simple integrals, or routine algebra.
-        - web_search_tool     → formulae or theory you need to look up."""
+        RAG 已在上一次尝试中使用过 — 不要再调用 rag_tool。
+        直接根据上面的校验反馈修正你的方法。
+        - symbolic_calculator 符号计算器 → 仅用于大阶乘、高精度小数、
+                                或大型矩阵运算。不要用于基础概率、
+                                简单积分或常规代数。
+        - web_search_tool 联网搜索 → 需要查阅的公式或理论。"""
 
     def _build_system(
         self,
@@ -144,11 +172,11 @@ class SolverAgent(BaseAgent):
         ltm_hint:      str,
     ) -> SystemMessage:
         feedback_block = (
-            f"\n\nPrevious attempt was INCORRECT.\nVerifier feedback: {feedback}"
+            f"\n\n上一次尝试不正确。\n校验反馈：{feedback}"
             if feedback else ""
         )
         ltm_block = (
-            f"\n\nSTUDENT CONTEXT (from past sessions):\n{ltm_hint}"
+            f"\n\n学生背景（来自过往会话）：\n{ltm_hint}"
             if ltm_hint else ""
         )
 

@@ -41,11 +41,29 @@ def get_tokenizer():
     """
     Returns a cached tiktoken encoder for token counting.
     Used by: _count_tokens() in memory_manager.py (STM trimming).
+
+    If tiktoken cannot download its encoding file (e.g. no network access
+    to the OpenAI CDN), falls back to a rough character-based estimator
+    (~4 chars ≈ 1 token) so the app keeps working offline.
     """
     global _tokenizer
     if _tokenizer is None:
-        _tokenizer = tiktoken.encoding_for_model(TIKTOKEN_MODEL)
-        logger.info(f"[DB] tiktoken encoder loaded ({TIKTOKEN_MODEL})")
+        try:
+            _tokenizer = tiktoken.encoding_for_model(TIKTOKEN_MODEL)
+            logger.info(f"[DB] tiktoken encoder loaded ({TIKTOKEN_MODEL})")
+        except Exception as exc:
+            logger.warning(
+                f"[DB] tiktoken unavailable ({exc}) — using char-based fallback"
+            )
+
+            class _CharEstimator:
+                """Minimal stand-in with the same .encode() interface."""
+                @staticmethod
+                def encode(text: str):
+                    # ~4 chars ≈ 1 token — rough heuristic, fine for a soft threshold
+                    return [0] * max(1, len(text) // 4)
+
+            _tokenizer = _CharEstimator()
     return _tokenizer
 
 

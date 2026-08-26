@@ -222,40 +222,39 @@ def clear_store(thread_id: str) -> None:
 @tool
 def rag_tool(query: str, thread_id: str) -> str:
     """
-    Hybrid CRAG (Corrective Retrieval-Augmented Generation).
+    混合式 CRAG（纠错式检索增强生成）。
 
-    Pipeline: BM25 sparse + BGE dense → Reciprocal Rank Fusion
-              → Corrective relevance filter (cosine ≥ 0.30)
+    流程：BM25 稀疏检索 + BGE 稠密检索 → 倒数排名融合（RRF）
+              → 纠错式相关性过滤（余弦相似度 ≥ 0.30）
 
-    ── CALLING RULES ────────────────────────────────────────────────────────
-    • ALWAYS call this first when a document is uploaded for the session —
-      even if you think the problem is straightforward.
-      The student uploaded their notes for a reason.
+    ── 调用规则 ────────────────────────────────────────────────────────────
+    • 当会话上传了文档时，一律先调用此工具 —
+      即使你认为题目很简单也要先调用。
+      学生上传笔记一定有其原因。
 
-    • Use a FOCUSED query, not the full problem text.
-      Good:  "integration by parts formula"
-      Bad:   "find the integral of x²sin(x)dx using any method you know"
+    • 使用聚焦的查询词，不要用完整题目文本。
+      好：  "分部积分公式"
+      差：  "用你会的任何方法求 x²sin(x)dx 的积分"
 
-    • If this returns "no relevant passages found", do NOT retry it.
-      Fall through to web_search_tool or your own knowledge.
+    • 如果返回"未找到相关段落"，不要重试。
+      改用 web_search_tool 或你自己的知识。
 
-    • If no document is indexed, this returns a clear skip message.
-      Do NOT call rag_tool again after that message.
+    • 如果没有索引任何文档，本工具会返回一条明确的跳过消息。
+      收到该消息后不要再调用 rag_tool。
 
-    Args:
-        query     : Focused retrieval query.
-        thread_id : Session thread ID (injected by the graph).
+    参数：
+        query     : 聚焦的检索查询词。
+        thread_id : 会话线程 ID（由图自动注入）。
 
-    Returns:
-        Ranked passages with page numbers and scores, or a clear
-        "no relevant content" message.
+    返回：
+        带页码和分值的排序段落，或明确的"无相关内容"消息。
     """
     # ── Guard: no store ───────────────────────────────────────────────────────
     if not thread_id or not has_store(thread_id):
         logger.info(f"[CRAG] No store for thread={thread_id} — skipping")
         return (
-            "CRAG: No document indexed for this session. "
-            "Do NOT call rag_tool again — use web_search_tool or your own knowledge."
+            "CRAG: 当前会话没有索引任何文档。"
+            "不要再调用 rag_tool — 改用 web_search_tool 或你自己的知识。"
         )
 
     store = _STORES[thread_id]
@@ -304,16 +303,16 @@ def rag_tool(query: str, thread_id: str) -> str:
     # ── No relevant content — graceful skip, NOT an error ─────────────────────
     if not results:
         msg = (
-            f"CRAG: No relevant passages found in '{filenames}' for query '{query}'. "
-            "Document does not appear to cover this topic. "
-            "Proceeding with web_search_tool or own knowledge."
+            f"CRAG: 在 '{filenames}' 中没有找到与查询 '{query}' 相关的段落。"
+            "文档似乎没有涵盖这个主题。"
+            "改用 web_search_tool 或自己的知识继续。"
         )
         logger.info(f"[CRAG] {msg}")
         return msg
 
     logger.info(f"[CRAG] Returning {len(results)} passages from '{filenames}'")
     return (
-        f"Hybrid CRAG — {len(results)} passage(s) from '{filenames}':\n\n"
+        f"混合式 CRAG — 从 '{filenames}' 中找到 {len(results)} 段相关内容：\n\n"
         + "\n\n---\n\n".join(results)
     )
 
@@ -325,39 +324,39 @@ def rag_tool(query: str, thread_id: str) -> str:
 @tool
 def web_search_tool(query: str) -> str:
     """
-    Real-time web search via the Tavily MCP server (remote, no local setup).
+    实时联网搜索（通过 Tavily MCP 服务器，远程服务，无需本地配置）。
 
-    Returns Tavily AI direct answer + top 5 ranked results with snippets.
+    返回 Tavily AI 直接回答 + 前 5 条带摘要的排序结果。
 
-    ── WHEN TO CALL ──────────────────────────────────────────────────────────
-    • Student asks about recent math discoveries or research breakthroughs
-    • Student asks for NEW JEE Mains / Advanced questions on a topic
-    • Student asks for study resources, textbooks, or video explanations
-    • Student asks about Olympiad problems (IMO, Putnam, USAMO, RMO, etc.)
-    • CRAG returned empty or insufficient context
-    • Any factual question requiring current or up-to-date information
+    ── 何时调用 ──────────────────────────────────────────────────────────────
+    • 学生询问数学领域的最新发现或研究突破
+    • 学生要求某个主题的新题目
+    • 学生询问学习资源、教材或视频讲解
+    • 学生询问竞赛题目（IMO、Putnam 等）
+    • CRAG 返回为空或上下文不足
+    • 任何需要当前或最新信息的事实性问题
 
-    ── MULTI-QUERY STRATEGY (call up to 3× in the same turn) ─────────────────
-      Query 1 → core formula / theorem / concept
-      Query 2 → worked example or step-by-step solution
-      Query 3 → edge case, common mistake, or application (if needed)
+    ── 多查询策略（同一轮最多调用 3 次）──────────────────────────────────
+      查询 1 → 核心公式 / 定理 / 概念
+      查询 2 → 例题或分步解答
+      查询 3 → 边界情况、常见错误或应用（如果需要）
 
-    ── DO NOT USE FOR ─────────────────────────────────────────────────────────
-    • Computing math — use your own reasoning or calculator_tool
-    • Topics already covered by the student's uploaded notes — use rag_tool first
+    ── 不要用于 ─────────────────────────────────────────────────────────────
+    • 数学计算 — 使用你自己的推理或 calculator_tool
+    • 学生上传笔记中已覆盖的主题 — 先使用 rag_tool
 
-    Args:
-        query: A focused, specific search query.
-               Examples:
-                 "JEE Mains 2025 coordinate geometry new pattern questions"
-                 "recent breakthroughs Riemann hypothesis 2024 2025"
-                 "integration by parts tricky JEE Advanced worked example"
+    参数：
+        query: 聚焦的、具体的搜索查询。
+               示例：
+                 "2025年高考数学新题型"
+                 "黎曼猜想最新进展 2024 2025"
+                 "分部积分高考压轴题精讲"
 
-    Returns:
-        Tavily AI direct answer + top 5 results (title, URL, snippet).
+    返回：
+        Tavily AI 直接回答 + 前 5 条结果（标题、URL、摘要）。
     """
     if not query.strip():
-        return "No query provided."
+        return "未提供查询词。"
 
     logger.info(f"[TavilyMCP] web_search_tool | query='{query[:80]}'")
 
@@ -379,29 +378,29 @@ def web_search_tool(query: str) -> str:
 @tool
 def calculator_tool(expression: str) -> str:
     """
-    Symbolic mathematics calculator (SymPy backend). Use SPARINGLY.
+    符号数学计算器（SymPy 后端）。请谨慎使用。
 
-    The solver LLM handles ALL routine JEE-level computation itself.
-    Only call this for these three narrow cases:
+    解题模型自己处理所有常规的中学数学计算。
+    仅在以下三种狭窄情况下调用：
 
-      1. Very large factorials / combinatorics  e.g. C(50,25), 100!
-      2. High-precision decimal results the problem explicitly asks for
-      3. Large matrix operations (det, inverse, eigenvalues)
+      1. 非常大的阶乘 / 组合数，如 C(50,25)、100!
+      2. 题目明确要求的高精度小数结果
+      3. 大型矩阵运算（行列式、逆矩阵、特征值）
 
-    DO NOT CALL for: basic arithmetic, trig identities, standard integrals,
-    derivatives, or probability fractions. These add zero value.
+    不要用于：基础运算、三角恒等式、标准积分、导数或概率分数。
+    这些调用没有价值。
 
-    Valid SymPy expression syntax:
+    有效的 SymPy 表达式语法：
       "binomial(50, 25)"
       "factorial(100)"
-      "N(integrate(1/sqrt(1-x**2), x), 50)"    ← 50-digit precision
+      "N(integrate(1/sqrt(1-x**2), x), 50)"    ← 50 位精度
       "Matrix([[1,2,3],[4,5,6],[7,8,9]]).det()"
 
-    Args:
-        expression: A valid SymPy expression string.
+    参数：
+        expression: 一个有效的 SymPy 表达式字符串。
 
-    Returns:
-        Numeric or symbolic result as a string.
+    返回：
+        数值或符号结果（字符串）。
     """
     try:
         expr   = sp.sympify(expression)
@@ -411,7 +410,7 @@ def calculator_tool(expression: str) -> str:
         )
         return str(result)
     except Exception as exc:
-        return f"Calculator error: {exc}. Check SymPy expression syntax."
+        return f"计算器错误：{exc}。请检查 SymPy 表达式语法。"
 
 
 # ══════════════════════════════════════════════════════════════════════════════

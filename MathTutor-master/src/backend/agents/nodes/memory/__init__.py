@@ -5,12 +5,13 @@ REDIS_URL = os.getenv("REDIS_URL", "redis://:jee_secret@localhost:6379")
 EMBED_DIM = 1024
 
 # ── STM trimming thresholds ────────────────────────────────────────────────────
-# Tokens are counted with tiktoken (gpt-4o encoding) as a fast local proxy.
-# LLaMA's tokenizer would differ by ~5-10% — acceptable for a soft threshold.
+# Tokens are counted with tiktoken (cl100k_base encoding) as a fast local proxy.
+# DeepSeek 官方文档推荐 cl100k_base 编码估算 token，与 deepseek-chat 的
+# tokenizer 最接近（差异约 5-10%，对软阈值可接受）。
 TOKEN_LIMIT    = 8_000   # trim when messages exceed this many tokens
 TOKEN_TARGET   = 5_000   # aim for approximately this after trimming
 KEEP_LAST_N    = 6       # always keep last N messages verbatim (never summarised)
-TIKTOKEN_MODEL = "gpt-4o"  # encoding used for counting only — no OpenAI call made
+TIKTOKEN_MODEL = "gpt-4"  # cl100k_base encoding — DeepSeek-compatible token estimate (no OpenAI call made)
 
 # ── Redis TTLs (all in seconds) ────────────────────────────────────────────────
 STM_SUMMARY_TTL = 2  * 60 * 60    # 2 hours  — running message summary per thread

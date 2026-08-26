@@ -97,9 +97,9 @@ const statEdges    = document.getElementById("stat-edges");
 const statSelected = document.getElementById("stat-selected");
 
 function updateStats(selLabel) {
-  statNodes.textContent    = RAW.nodes.length + " nodes";
-  statEdges.textContent    = RAW.edges.length + " edges";
-  statSelected.textContent = selLabel || "Nothing selected";
+  statNodes.textContent    = RAW.nodes.length + " 个节点";
+  statEdges.textContent    = RAW.edges.length + " 条边";
+  statSelected.textContent = selLabel || "未选择任何内容";
 }
 updateStats();
 
@@ -111,7 +111,7 @@ function togglePhysics() {
   network.setOptions({ physics: { enabled: physicsEnabled } });
   const btn = document.getElementById("btn-physics");
   btn.classList.toggle("active", physicsEnabled);
-  btn.textContent = physicsEnabled ? "⚡ Physics" : "❄ Frozen";
+  btn.textContent = physicsEnabled ? "⚡ 物理引擎" : "❄ 已冻结";
 }
 
 // ── Label toggle ──────────────────────────────────────────────────────────────
@@ -196,7 +196,7 @@ function renderNodePanel(nodeId) {
   // Connected nodes
   const connEdges = RAW.edges.filter(e => e.from === nodeId || e.to === nodeId);
   if (connEdges.length) {
-    html += `<div class="conn-section"><div class="conn-label">Connections (${connEdges.length})</div>`;
+    html += `<div class="conn-section"><div class="conn-label">连接 (${connEdges.length})</div>`;
     connEdges.forEach(e => {
       const otherId = e.from === nodeId ? e.to : e.from;
       const other   = RAW.nodes.find(x => x.id === otherId);
@@ -223,17 +223,17 @@ function renderEdgePanel(edgeId) {
   const rawEdge = RAW.edges[idx];
   if (!rawEdge) return;
   openPanel();
-  panelTitle.textContent = rawEdge.label || "Relationship";
+  panelTitle.textContent = rawEdge.label || "关系";
 
   const fromNode = RAW.nodes.find(x => x.id === rawEdge.from);
   const toNode   = RAW.nodes.find(x => x.id === rawEdge.to);
 
-  let html = `<span class="type-badge" style="background:#0d1a30;color:#7eb8f7;border:1px solid #3b82f633;">relationship</span>`;
-  html += `<div class="detail-row"><div class="detail-key">Type</div><div class="detail-val">${rawEdge.label || "—"}</div></div>`;
-  html += `<div class="detail-row"><div class="detail-key">Style</div><div class="detail-val">${rawEdge.dashes ? "dashed — derived link" : "solid — direct link"}</div></div>`;
+  let html = `<span class="type-badge" style="background:#0d1a30;color:#7eb8f7;border:1px solid #3b82f633;">关系</span>`;
+  html += `<div class="detail-row"><div class="detail-key">类型</div><div class="detail-val">${rawEdge.label || "—"}</div></div>`;
+  html += `<div class="detail-row"><div class="detail-key">样式</div><div class="detail-val">${rawEdge.dashes ? "虚线 — 推导关系" : "实线 — 直接关系"}</div></div>`;
 
   if (fromNode && toNode) {
-    html += `<div class="conn-section"><div class="conn-label">Endpoints</div>`;
+    html += `<div class="conn-section"><div class="conn-label">端点</div>`;
     [fromNode, toNode].forEach(node => {
       const c = NODE_COLORS[node.type] || NODE_COLORS["agent"];
       html += `
@@ -247,7 +247,7 @@ function renderEdgePanel(edgeId) {
   }
 
   panelBody.innerHTML = html;
-  updateStats(`Edge: ${rawEdge.label || "rel"}`);
+  updateStats(`边: ${rawEdge.label || "关系"}`);
 }
 
 // ── Focus helper ──────────────────────────────────────────────────────────────

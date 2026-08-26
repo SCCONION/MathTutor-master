@@ -70,20 +70,20 @@ EDGE_CONFIG: dict = {
 }
 
 LEGEND_META: list[tuple[str, str]] = [
-    ("student",    "Student root"),
-    ("session",    "STM Thread"),
-    ("episodic",   "Episodic LTM"),
-    ("semantic",   "Semantic LTM"),
-    ("procedural", "Procedural LTM"),
-    ("agent",      "Agent node"),
-    ("tool",       "Tool call"),
+    ("student",    "学生（根节点）"),
+    ("session",    "短期记忆会话"),
+    ("episodic",   "情景记忆（LTM）"),
+    ("semantic",   "语义记忆（LTM）"),
+    ("procedural", "程序记忆（LTM）"),
+    ("agent",      "代理节点"),
+    ("tool",       "工具调用"),
 ]
 
 VIS_CDN_JS  = "https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.js"
 VIS_CDN_CSS = "https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.css"
 
 PHYSICS_PRESETS: dict[str, dict] = {
-    "Radial (default)": {
+    "径向（默认）": {
         "physics": {
             "enabled": True,
             "solver": "forceAtlas2Based",
@@ -99,7 +99,7 @@ PHYSICS_PRESETS: dict[str, dict] = {
         },
         "layout": {"improvedLayout": True},
     },
-    "Hierarchical": {
+    "层级布局": {
         "physics": {"enabled": False},
         "layout": {
             "hierarchical": {
@@ -111,7 +111,7 @@ PHYSICS_PRESETS: dict[str, dict] = {
             }
         },
     },
-    "Organic spread": {
+    "自然分散": {
         "physics": {
             "enabled": True,
             "solver": "repulsion",
@@ -126,7 +126,7 @@ PHYSICS_PRESETS: dict[str, dict] = {
         },
         "layout": {"improvedLayout": True},
     },
-    "Tight cluster": {
+    "紧凑聚类": {
         "physics": {
             "enabled": True,
             "solver": "barnesHut",

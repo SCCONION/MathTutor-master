@@ -6,7 +6,7 @@ import streamlit as st
 from frontend.pages import *
 
 st.set_page_config(
-    page_title="Memory Visualizer",
+    page_title="记忆图谱",
     page_icon="🧠",
     layout="wide",
     initial_sidebar_state="expanded",
@@ -53,7 +53,7 @@ def _get_redis():
         r.ping()
         return r
     except Exception as e:
-        st.warning(f"Redis connection failed: {e}")
+        st.warning(f"Redis 连接失败: {e}")
         return None
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -92,7 +92,7 @@ def render_graph_html(
     except FileNotFoundError as e:
         return f"<pre style='color:red'>Missing file: {e}</pre>"
 
-    layout_opts = PHYSICS_PRESETS.get(layout_preset, PHYSICS_PRESETS["Radial (default)"])
+    layout_opts = PHYSICS_PRESETS.get(layout_preset, PHYSICS_PRESETS["径向（默认）"])
     physics_on  = layout_opts["physics"].get("enabled", True)
 
     # Filter edge labels if disabled
@@ -119,7 +119,7 @@ def render_graph_html(
         "%%LAYOUT_OPTIONS%%":   json.dumps(layout_opts),
         "%%PHYSICS_ENABLED%%":  str(physics_on).lower(),
         "%%PHYSICS_ACTIVE%%":   "active" if physics_on else "",
-        "%%PHYSICS_LABEL%%":    "⚡ Physics" if physics_on else "❄ Frozen",
+        "%%PHYSICS_LABEL%%":    "⚡ 物理引擎" if physics_on else "❄ 已冻结",
         "%%NODE_COLORS%%":      json.dumps(NODE_COLORS),
         "%%TYPE_BADGE_STYLE%%": json.dumps(TYPE_BADGE_STYLE),
         "%%NODE_SIZES%%":       json.dumps(NODE_SIZES),
@@ -180,11 +180,11 @@ nav_left, nav_right = st.columns([8, 2], vertical_alignment="center")
 with nav_left:
     st.markdown(
         "<h2 style='margin:0;color:#c8d8f0;font-family:\"Microsoft YaHei\",\"PingFang SC\",\"Noto Sans SC\",monospace;"
-        "font-size:1.3rem;letter-spacing:0.04em;'>🧠 Memory Graph</h2>",
+        "font-size:1.3rem;letter-spacing:0.04em;'>🧠 记忆图谱</h2>",
         unsafe_allow_html=True,
     )
 with nav_right:
-    if st.button("🧮 Tutor", use_container_width=True, help="Back to Math Tutor"):
+    if st.button("🧮 数学助手", use_container_width=True, help="返回数学辅导助手"):
         st.switch_page("app.py")   # relative to frontend/
 
 st.divider()
@@ -199,14 +199,14 @@ with st.sidebar:
         "<div style='font-family:\"Microsoft YaHei\",\"PingFang SC\",\"Noto Sans SC\",monospace;font-size:0.78rem;"
         "color:#3b82f6;letter-spacing:0.1em;text-transform:uppercase;"
         "padding-bottom:6px;border-bottom:1px solid #1e2d45;margin-bottom:14px'>"
-        "⬡ Graph Controls</div>",
+        "⬡ 图谱控制</div>",
         unsafe_allow_html=True,
     )
 
     # ── Layout preset ─────────────────────────────────────────────────────────
     st.markdown(
         "<div style='font-size:0.7rem;color:#2d5070;text-transform:uppercase;"
-        "letter-spacing:0.08em;margin-bottom:4px'>Layout</div>",
+        "letter-spacing:0.08em;margin-bottom:4px'>布局方式</div>",
         unsafe_allow_html=True,
     )
     layout_choice = st.radio(
@@ -221,7 +221,7 @@ with st.sidebar:
     # ── Node type visibility ──────────────────────────────────────────────────
     st.markdown(
         "<div style='font-size:0.7rem;color:#2d5070;text-transform:uppercase;"
-        "letter-spacing:0.08em;margin-bottom:6px'>Visible Node Types</div>",
+        "letter-spacing:0.08em;margin-bottom:6px'>可见节点类型</div>",
         unsafe_allow_html=True,
     )
 
@@ -250,19 +250,19 @@ with st.sidebar:
     # ── Display options ───────────────────────────────────────────────────────
     st.markdown(
         "<div style='font-size:0.7rem;color:#2d5070;text-transform:uppercase;"
-        "letter-spacing:0.08em;margin-bottom:6px'>Display</div>",
+        "letter-spacing:0.08em;margin-bottom:6px'>显示选项</div>",
         unsafe_allow_html=True,
     )
-    show_labels      = st.toggle("Node labels",      value=True)
-    show_edge_labels = st.toggle("Edge labels",       value=False)
-    include_agents   = st.toggle("Agent/Tool nodes",  value=True)
+    show_labels      = st.toggle("节点标签",      value=True)
+    show_edge_labels = st.toggle("边标签",       value=False)
+    include_agents   = st.toggle("代理/工具节点",  value=True)
 
     st.markdown("<div style='margin-top:14px'></div>", unsafe_allow_html=True)
 
     # ── Thread depth ──────────────────────────────────────────────────────────
     st.markdown(
         "<div style='font-size:0.7rem;color:#2d5070;text-transform:uppercase;"
-        "letter-spacing:0.08em;margin-bottom:4px'>Max Threads</div>",
+        "letter-spacing:0.08em;margin-bottom:4px'>最大会话数</div>",
         unsafe_allow_html=True,
     )
     max_threads = st.slider("max_threads", 1, 30, 15, label_visibility="collapsed")
@@ -270,7 +270,7 @@ with st.sidebar:
     st.markdown("<div style='margin-top:14px'></div>", unsafe_allow_html=True)
 
     # ── Refresh ───────────────────────────────────────────────────────────────
-    if st.button("🔄 Refresh Graph", use_container_width=True):
+    if st.button("🔄 刷新图谱", use_container_width=True):
         st.cache_data.clear()
         st.rerun()
 
@@ -285,14 +285,14 @@ with st.sidebar:
 student_id = st.session_state.get("student_id")
 
 if not student_id:
-    st.warning("No active session found. Please return to the tutor and log in.")
+    st.warning("未找到有效会话，请返回数学辅导助手并登录。")
     st.stop()
 
 if not _BACKEND_OK:
-    st.error(f"Backend unavailable: {_import_err_msg}")
+    st.error(f"后端不可用: {_import_err_msg}")
     st.stop()
 
-with st.spinner("Loading memory graph…"):
+with st.spinner("正在加载记忆图谱…"):
     raw_graph = _load_graph(student_id, include_agents, max_threads)
 
 # Apply visibility filters
@@ -309,14 +309,13 @@ with stats_ph:
         f"padding:10px 12px;font-family:\"Microsoft YaHei\",\"PingFang SC\",\"Noto Sans SC\",monospace;font-size:0.72rem;"
         f"color:#4a6080;margin-top:4px'>"
         f"<div style='color:#3b82f6;margin-bottom:5px;font-size:0.65rem;"
-        f"text-transform:uppercase;letter-spacing:0.1em'>Graph Stats</div>"
-        f"<div>Nodes &nbsp;<span style='color:#7eb8f7'>{n_nodes}</span></div>"
-        f"<div>Edges &nbsp;<span style='color:#7eb8f7'>{n_edges}</span></div>"
-        f"<div>Threads <span style='color:#7eb8f7'>"
+        f"text-transform:uppercase;letter-spacing:0.1em'>图谱统计</div>"
+        f"<div>节点 &nbsp;<span style='color:#7eb8f7'>{n_nodes}</span></div>"
+        f"<div>边 &nbsp;&nbsp;&nbsp;<span style='color:#7eb8f7'>{n_edges}</span></div>"
+        f"<div>会话 <span style='color:#7eb8f7'>"
         f"{sum(1 for n in graph_data['nodes'] if n.get('type')=='session')}"
         f"</span></div>"
-        f"<div>LTM &nbsp;&nbsp;&nbsp;"
-        f"<span style='color:#7eb8f7'>"
+        f"<div>长期记忆 &nbsp;<span style='color:#7eb8f7'>"
         f"{sum(1 for n in graph_data['nodes'] if n.get('type') in ('episodic','semantic','procedural'))}"
         f"</span></div>"
         f"</div>",
@@ -330,7 +329,7 @@ if n_nodes == 0:
         "height:400px;flex-direction:column;gap:12px;color:#2d4060'>"
         "<div style='font-size:3rem'>🧠</div>"
         "<div style='font-family:\"Microsoft YaHei\",\"PingFang SC\",\"Noto Sans SC\",monospace;font-size:0.85rem'>"
-        "No memory data found. Solve some problems first!</div>"
+        "暂无记忆数据，先解几道题吧！</div>"
         "</div>",
         unsafe_allow_html=True,
     )
@@ -352,8 +351,8 @@ components.html(graph_html, height=720, scrolling=False)
 st.markdown(
     "<div style='font-family:\"Microsoft YaHei\",\"PingFang SC\",\"Noto Sans SC\",monospace;font-size:0.68rem;"
     "color:#1e3a5a;text-align:center;margin-top:4px'>"
-    "⌨ &nbsp;F = fit &nbsp;· &nbsp;L = toggle labels &nbsp;· &nbsp;"
-    "Esc = close panel &nbsp;· &nbsp;Double-click = expand neighbours"
+    "⌨ &nbsp;F = 适应窗口 &nbsp;· &nbsp;L = 显示/隐藏标签 &nbsp;· &nbsp;"
+    "Esc = 关闭面板 &nbsp;· &nbsp;双击 = 展开相邻节点"
     "</div>",
     unsafe_allow_html=True,
 )

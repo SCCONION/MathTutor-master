@@ -1,0 +1,681 @@
+[ 2026-08-25 10:51:32,100 ] faiss.loader - DEBUG - Environment variable FAISS_OPT_LEVEL is not set, so let's pick the instruction set according to the current CPU
+[ 2026-08-25 10:51:32,100 ] faiss.loader - INFO - Loading faiss with AVX2 support.
+[ 2026-08-25 10:51:32,721 ] faiss.loader - INFO - Successfully loaded faiss with AVX2 support.
+[ 2026-08-25 10:51:49,705 ] torio._extension.utils - DEBUG - Loading FFmpeg6
+[ 2026-08-25 10:51:49,740 ] torio._extension.utils - DEBUG - Failed to load FFmpeg6 extension.
+Traceback (most recent call last):
+  File "C:\Users\22094\.conda\envs\agent\Lib\site-packages\torio\_extension\utils.py", line 116, in _find_ffmpeg_extension
+    ext = _find_versionsed_ffmpeg_extension(ffmpeg_ver)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\22094\.conda\envs\agent\Lib\site-packages\torio\_extension\utils.py", line 108, in _find_versionsed_ffmpeg_extension
+    _load_lib(lib)
+  File "C:\Users\22094\.conda\envs\agent\Lib\site-packages\torio\_extension\utils.py", line 94, in _load_lib
+    torch.ops.load_library(path)
+  File "C:\Users\22094\.conda\envs\agent\Lib\site-packages\torch\_ops.py", line 1357, in load_library
+    ctypes.CDLL(path)
+  File "C:\Users\22094\.conda\envs\agent\Lib\ctypes\__init__.py", line 379, in __init__
+    self._handle = _dlopen(self._name, mode)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: Could not find module 'C:\Users\22094\.conda\envs\agent\Lib\site-packages\torio\lib\libtorio_ffmpeg6.pyd' (or one of its dependencies). Try using the full path with constructor syntax.
+[ 2026-08-25 10:51:49,767 ] torio._extension.utils - DEBUG - Loading FFmpeg5
+[ 2026-08-25 10:51:49,792 ] torio._extension.utils - DEBUG - Failed to load FFmpeg5 extension.
+Traceback (most recent call last):
+  File "C:\Users\22094\.conda\envs\agent\Lib\site-packages\torio\_extension\utils.py", line 116, in _find_ffmpeg_extension
+    ext = _find_versionsed_ffmpeg_extension(ffmpeg_ver)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\22094\.conda\envs\agent\Lib\site-packages\torio\_extension\utils.py", line 108, in _find_versionsed_ffmpeg_extension
+    _load_lib(lib)
+  File "C:\Users\22094\.conda\envs\agent\Lib\site-packages\torio\_extension\utils.py", line 94, in _load_lib
+    torch.ops.load_library(path)
+  File "C:\Users\22094\.conda\envs\agent\Lib\site-packages\torch\_ops.py", line 1357, in load_library
+    ctypes.CDLL(path)
+  File "C:\Users\22094\.conda\envs\agent\Lib\ctypes\__init__.py", line 379, in __init__
+    self._handle = _dlopen(self._name, mode)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: Could not find module 'C:\Users\22094\.conda\envs\agent\Lib\site-packages\torio\lib\libtorio_ffmpeg5.pyd' (or one of its dependencies). Try using the full path with constructor syntax.
+[ 2026-08-25 10:51:49,792 ] torio._extension.utils - DEBUG - Loading FFmpeg4
+[ 2026-08-25 10:51:49,834 ] torio._extension.utils - DEBUG - Failed to load FFmpeg4 extension.
+Traceback (most recent call last):
+  File "C:\Users\22094\.conda\envs\agent\Lib\site-packages\torio\_extension\utils.py", line 116, in _find_ffmpeg_extension
+    ext = _find_versionsed_ffmpeg_extension(ffmpeg_ver)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\22094\.conda\envs\agent\Lib\site-packages\torio\_extension\utils.py", line 108, in _find_versionsed_ffmpeg_extension
+    _load_lib(lib)
+  File "C:\Users\22094\.conda\envs\agent\Lib\site-packages\torio\_extension\utils.py", line 94, in _load_lib
+    torch.ops.load_library(path)
+  File "C:\Users\22094\.conda\envs\agent\Lib\site-packages\torch\_ops.py", line 1357, in load_library
+    ctypes.CDLL(path)
+  File "C:\Users\22094\.conda\envs\agent\Lib\ctypes\__init__.py", line 379, in __init__
+    self._handle = _dlopen(self._name, mode)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: Could not find module 'C:\Users\22094\.conda\envs\agent\Lib\site-packages\torio\lib\libtorio_ffmpeg4.pyd' (or one of its dependencies). Try using the full path with constructor syntax.
+[ 2026-08-25 10:51:49,834 ] torio._extension.utils - DEBUG - Loading FFmpeg
+[ 2026-08-25 10:51:49,834 ] torio._extension.utils - DEBUG - Failed to load FFmpeg extension.
+Traceback (most recent call last):
+  File "C:\Users\22094\.conda\envs\agent\Lib\site-packages\torio\_extension\utils.py", line 116, in _find_ffmpeg_extension
+    ext = _find_versionsed_ffmpeg_extension(ffmpeg_ver)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\22094\.conda\envs\agent\Lib\site-packages\torio\_extension\utils.py", line 106, in _find_versionsed_ffmpeg_extension
+    raise RuntimeError(f"FFmpeg{version} extension is not available.")
+RuntimeError: FFmpeg extension is not available.
+[ 2026-08-25 10:51:50,628 ] sentence_transformers.base.model - INFO - No device provided, using cuda:0
+[ 2026-08-25 10:51:50,655 ] httpcore.connection - DEBUG - connect_tcp.started host='127.0.0.1' port=7897 local_address=None timeout=3 socket_options=None
+[ 2026-08-25 10:51:50,668 ] httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000012F973DFBF0>
+[ 2026-08-25 10:51:50,668 ] httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'CONNECT']>
+[ 2026-08-25 10:51:50,668 ] httpcore.http11 - DEBUG - send_request_headers.complete
+[ 2026-08-25 10:51:50,668 ] httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'CONNECT']>
+[ 2026-08-25 10:51:50,669 ] httpcore.http11 - DEBUG - send_request_body.complete
+[ 2026-08-25 10:51:50,669 ] httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'CONNECT']>
+[ 2026-08-25 10:51:50,669 ] httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'Connection established', [])
+[ 2026-08-25 10:51:50,669 ] httpcore.proxy - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x0000012F9853C3D0> server_hostname='huggingface.co' timeout=3
+[ 2026-08-25 10:51:51,154 ] httpcore.proxy - DEBUG - start_tls.failed exception=ConnectError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1010)'))
+[ 2026-08-25 10:51:51,362 ] httpcore.connection - DEBUG - connect_tcp.started host='127.0.0.1' port=7897 local_address=None timeout=10 socket_options=None
+[ 2026-08-25 10:51:51,363 ] httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000012F973962A0>
+[ 2026-08-25 10:51:51,364 ] httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'CONNECT']>
+[ 2026-08-25 10:51:51,364 ] httpcore.http11 - DEBUG - send_request_headers.complete
+[ 2026-08-25 10:51:51,365 ] httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'CONNECT']>
+[ 2026-08-25 10:51:51,365 ] httpcore.http11 - DEBUG - send_request_body.complete
+[ 2026-08-25 10:51:51,365 ] httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'CONNECT']>
+[ 2026-08-25 10:51:51,366 ] httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'Connection established', [])
+[ 2026-08-25 10:51:51,366 ] httpcore.proxy - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x0000012F9853C3D0> server_hostname='huggingface.co' timeout=10
+[ 2026-08-25 10:51:52,244 ] httpcore.proxy - DEBUG - start_tls.failed exception=ConnectError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1010)'))
+[ 2026-08-25 10:51:52,256 ] httpcore.connection - DEBUG - connect_tcp.started host='127.0.0.1' port=7897 local_address=None timeout=10 socket_options=None
+[ 2026-08-25 10:51:52,268 ] httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000012F985450D0>
+[ 2026-08-25 10:51:52,268 ] httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'CONNECT']>
+[ 2026-08-25 10:51:52,268 ] httpcore.http11 - DEBUG - send_request_headers.complete
+[ 2026-08-25 10:51:52,268 ] httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'CONNECT']>
+[ 2026-08-25 10:51:52,268 ] httpcore.http11 - DEBUG - send_request_body.complete
+[ 2026-08-25 10:51:52,268 ] httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'CONNECT']>
+[ 2026-08-25 10:51:52,268 ] httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'Connection established', [])
+[ 2026-08-25 10:51:52,268 ] httpcore.proxy - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x0000012F9853C3D0> server_hostname='huggingface.co' timeout=10
+[ 2026-08-25 10:51:52,641 ] httpcore.proxy - DEBUG - start_tls.failed exception=ConnectError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1010)'))
+[ 2026-08-25 10:51:52,658 ] sentence_transformers.base.model - INFO - Loading SentenceTransformer model from BAAI/bge-large-zh-v1.5.
+[ 2026-08-25 10:51:52,659 ] httpcore.connection - DEBUG - connect_tcp.started host='127.0.0.1' port=7897 local_address=None timeout=10 socket_options=None
+[ 2026-08-25 10:51:52,660 ] httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000012F98545130>
+[ 2026-08-25 10:51:52,660 ] httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'CONNECT']>
+[ 2026-08-25 10:51:52,660 ] httpcore.http11 - DEBUG - send_request_headers.complete
+[ 2026-08-25 10:51:52,660 ] httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'CONNECT']>
+[ 2026-08-25 10:51:52,660 ] httpcore.http11 - DEBUG - send_request_body.complete
+[ 2026-08-25 10:51:52,660 ] httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'CONNECT']>
+[ 2026-08-25 10:51:52,660 ] httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'Connection established', [])
+[ 2026-08-25 10:51:52,660 ] httpcore.proxy - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x0000012F9853C3D0> server_hostname='huggingface.co' timeout=10
+[ 2026-08-25 10:51:53,076 ] httpcore.proxy - DEBUG - start_tls.failed exception=ConnectError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1010)'))
+[ 2026-08-25 10:51:53,083 ] httpcore.connection - DEBUG - connect_tcp.started host='127.0.0.1' port=7897 local_address=None timeout=10 socket_options=None
+[ 2026-08-25 10:51:53,111 ] httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000012F98544B30>
+[ 2026-08-25 10:51:53,111 ] httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'CONNECT']>
+[ 2026-08-25 10:51:53,112 ] httpcore.http11 - DEBUG - send_request_headers.complete
+[ 2026-08-25 10:51:53,112 ] httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'CONNECT']>
+[ 2026-08-25 10:51:53,113 ] httpcore.http11 - DEBUG - send_request_body.complete
+[ 2026-08-25 10:51:53,113 ] httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'CONNECT']>
+[ 2026-08-25 10:51:53,115 ] httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'Connection established', [])
+[ 2026-08-25 10:51:53,115 ] httpcore.proxy - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x0000012F9853C3D0> server_hostname='huggingface.co' timeout=10
+[ 2026-08-25 10:51:53,509 ] httpcore.proxy - DEBUG - start_tls.failed exception=ConnectError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1010)'))
+[ 2026-08-25 10:51:53,533 ] httpcore.connection - DEBUG - connect_tcp.started host='127.0.0.1' port=7897 local_address=None timeout=10 socket_options=None
+[ 2026-08-25 10:51:53,534 ] httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000012F98544BC0>
+[ 2026-08-25 10:51:53,534 ] httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'CONNECT']>
+[ 2026-08-25 10:51:53,534 ] httpcore.http11 - DEBUG - send_request_headers.complete
+[ 2026-08-25 10:51:53,534 ] httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'CONNECT']>
+[ 2026-08-25 10:51:53,534 ] httpcore.http11 - DEBUG - send_request_body.complete
+[ 2026-08-25 10:51:53,534 ] httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'CONNECT']>
+[ 2026-08-25 10:51:53,535 ] httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'Connection established', [])
+[ 2026-08-25 10:51:53,535 ] httpcore.proxy - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x0000012F9853C3D0> server_hostname='huggingface.co' timeout=10
+[ 2026-08-25 10:51:53,911 ] httpcore.proxy - DEBUG - start_tls.failed exception=ConnectError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1010)'))
+[ 2026-08-25 10:51:53,927 ] httpcore.connection - DEBUG - connect_tcp.started host='127.0.0.1' port=7897 local_address=None timeout=10 socket_options=None
+[ 2026-08-25 10:51:53,951 ] httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000012F98545A90>
+[ 2026-08-25 10:51:53,951 ] httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'CONNECT']>
+[ 2026-08-25 10:51:53,951 ] httpcore.http11 - DEBUG - send_request_headers.complete
+[ 2026-08-25 10:51:53,952 ] httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'CONNECT']>
+[ 2026-08-25 10:51:53,952 ] httpcore.http11 - DEBUG - send_request_body.complete
+[ 2026-08-25 10:51:53,952 ] httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'CONNECT']>
+[ 2026-08-25 10:51:53,953 ] httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'Connection established', [])
+[ 2026-08-25 10:51:53,953 ] httpcore.proxy - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x0000012F9853C3D0> server_hostname='huggingface.co' timeout=10
+[ 2026-08-25 10:51:54,336 ] httpcore.proxy - DEBUG - start_tls.failed exception=ConnectError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1010)'))
+[ 2026-08-25 10:51:54,354 ] httpcore.connection - DEBUG - connect_tcp.started host='127.0.0.1' port=7897 local_address=None timeout=10 socket_options=None
+[ 2026-08-25 10:51:54,378 ] httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000012F96E7E540>
+[ 2026-08-25 10:51:54,378 ] httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'CONNECT']>
+[ 2026-08-25 10:51:54,378 ] httpcore.http11 - DEBUG - send_request_headers.complete
+[ 2026-08-25 10:51:54,378 ] httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'CONNECT']>
+[ 2026-08-25 10:51:54,378 ] httpcore.http11 - DEBUG - send_request_body.complete
+[ 2026-08-25 10:51:54,382 ] httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'CONNECT']>
+[ 2026-08-25 10:51:54,382 ] httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'Connection established', [])
+[ 2026-08-25 10:51:54,382 ] httpcore.proxy - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x0000012F9853C3D0> server_hostname='huggingface.co' timeout=10
+[ 2026-08-25 10:51:54,791 ] httpcore.proxy - DEBUG - start_tls.failed exception=ConnectError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1010)'))
+[ 2026-08-25 10:51:54,801 ] httpcore.connection - DEBUG - connect_tcp.started host='127.0.0.1' port=7897 local_address=None timeout=60 socket_options=None
+[ 2026-08-25 10:51:54,822 ] httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000012F98546630>
+[ 2026-08-25 10:51:54,822 ] httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'CONNECT']>
+[ 2026-08-25 10:51:54,823 ] httpcore.http11 - DEBUG - send_request_headers.complete
+[ 2026-08-25 10:51:54,824 ] httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'CONNECT']>
+[ 2026-08-25 10:51:54,824 ] httpcore.http11 - DEBUG - send_request_body.complete
+[ 2026-08-25 10:51:54,824 ] httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'CONNECT']>
+[ 2026-08-25 10:51:54,824 ] httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'Connection established', [])
+[ 2026-08-25 10:51:54,824 ] httpcore.proxy - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x0000012F9853C3D0> server_hostname='huggingface.co' timeout=60
+[ 2026-08-25 10:51:55,228 ] httpcore.proxy - DEBUG - start_tls.failed exception=ConnectError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1010)'))
+[ 2026-08-25 10:51:55,228 ] huggingface_hub.utils._http - WARNING - '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1010)' thrown while requesting HEAD https://huggingface.co/BAAI/bge-large-zh-v1.5/resolve/main/adapter_config.json
+[ 2026-08-25 10:51:55,228 ] httpcore.connection - DEBUG - close.started
+[ 2026-08-25 10:51:55,228 ] httpcore.connection - DEBUG - close.complete
+[ 2026-08-25 10:51:55,228 ] httpcore.connection - DEBUG - close.started
+[ 2026-08-25 10:51:55,228 ] httpcore.connection - DEBUG - close.complete
+[ 2026-08-25 10:51:55,228 ] httpcore.connection - DEBUG - close.started
+[ 2026-08-25 10:51:55,228 ] httpcore.connection - DEBUG - close.complete
+[ 2026-08-25 10:51:55,228 ] httpcore.connection - DEBUG - close.started
+[ 2026-08-25 10:51:55,228 ] httpcore.connection - DEBUG - close.complete
+[ 2026-08-25 10:51:55,228 ] httpcore.connection - DEBUG - close.started
+[ 2026-08-25 10:51:55,228 ] httpcore.connection - DEBUG - close.complete
+[ 2026-08-25 10:51:55,228 ] httpcore.connection - DEBUG - close.started
+[ 2026-08-25 10:51:55,228 ] httpcore.connection - DEBUG - close.complete
+[ 2026-08-25 10:51:55,228 ] httpcore.connection - DEBUG - close.started
+[ 2026-08-25 10:51:55,228 ] httpcore.connection - DEBUG - close.complete
+[ 2026-08-25 10:51:55,228 ] httpcore.connection - DEBUG - close.started
+[ 2026-08-25 10:51:55,228 ] httpcore.connection - DEBUG - close.complete
+[ 2026-08-25 10:51:55,228 ] httpcore.connection - DEBUG - close.started
+[ 2026-08-25 10:51:55,228 ] httpcore.connection - DEBUG - close.complete
+[ 2026-08-25 10:51:55,228 ] huggingface_hub.utils._http - WARNING - Retrying in 1s [Retry 1/5].
+[ 2026-08-25 10:51:56,273 ] httpcore.connection - DEBUG - connect_tcp.started host='127.0.0.1' port=7897 local_address=None timeout=60 socket_options=None
+[ 2026-08-25 10:51:56,298 ] httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000012F985457C0>
+[ 2026-08-25 10:51:56,298 ] httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'CONNECT']>
+[ 2026-08-25 10:51:56,299 ] httpcore.http11 - DEBUG - send_request_headers.complete
+[ 2026-08-25 10:51:56,299 ] httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'CONNECT']>
+[ 2026-08-25 10:51:56,300 ] httpcore.http11 - DEBUG - send_request_body.complete
+[ 2026-08-25 10:51:56,300 ] httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'CONNECT']>
+[ 2026-08-25 10:51:56,300 ] httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'Connection established', [])
+[ 2026-08-25 10:51:56,300 ] httpcore.proxy - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x0000012F98550450> server_hostname='huggingface.co' timeout=60
+[ 2026-08-25 10:51:56,671 ] httpcore.proxy - DEBUG - start_tls.failed exception=ConnectError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1010)'))
+[ 2026-08-25 10:51:56,671 ] huggingface_hub.utils._http - WARNING - '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1010)' thrown while requesting HEAD https://huggingface.co/BAAI/bge-large-zh-v1.5/resolve/main/adapter_config.json
+[ 2026-08-25 10:51:56,672 ] httpcore.connection - DEBUG - close.started
+[ 2026-08-25 10:51:56,672 ] httpcore.connection - DEBUG - close.complete
+[ 2026-08-25 10:51:56,672 ] huggingface_hub.utils._http - WARNING - Retrying in 2s [Retry 2/5].
+[ 2026-08-25 10:51:58,699 ] httpcore.connection - DEBUG - connect_tcp.started host='127.0.0.1' port=7897 local_address=None timeout=60 socket_options=None
+[ 2026-08-25 10:51:58,721 ] httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000012F985475F0>
+[ 2026-08-25 10:51:58,721 ] httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'CONNECT']>
+[ 2026-08-25 10:51:58,721 ] httpcore.http11 - DEBUG - send_request_headers.complete
+[ 2026-08-25 10:51:58,721 ] httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'CONNECT']>
+[ 2026-08-25 10:51:58,722 ] httpcore.http11 - DEBUG - send_request_body.complete
+[ 2026-08-25 10:51:58,722 ] httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'CONNECT']>
+[ 2026-08-25 10:51:58,723 ] httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'Connection established', [])
+[ 2026-08-25 10:51:58,723 ] httpcore.proxy - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x0000012F98551ED0> server_hostname='huggingface.co' timeout=60
+[ 2026-08-25 10:51:59,139 ] httpcore.proxy - DEBUG - start_tls.failed exception=ConnectError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1010)'))
+[ 2026-08-25 10:51:59,139 ] huggingface_hub.utils._http - WARNING - '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1010)' thrown while requesting HEAD https://huggingface.co/BAAI/bge-large-zh-v1.5/resolve/main/adapter_config.json
+[ 2026-08-25 10:51:59,139 ] httpcore.connection - DEBUG - close.started
+[ 2026-08-25 10:51:59,139 ] httpcore.connection - DEBUG - close.complete
+[ 2026-08-25 10:51:59,140 ] huggingface_hub.utils._http - WARNING - Retrying in 4s [Retry 3/5].
+[ 2026-08-25 10:52:03,176 ] httpcore.connection - DEBUG - connect_tcp.started host='127.0.0.1' port=7897 local_address=None timeout=60 socket_options=None
+[ 2026-08-25 10:52:03,178 ] httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000012F985457F0>
+[ 2026-08-25 10:52:03,178 ] httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'CONNECT']>
+[ 2026-08-25 10:52:03,178 ] httpcore.http11 - DEBUG - send_request_headers.complete
+[ 2026-08-25 10:52:03,178 ] httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'CONNECT']>
+[ 2026-08-25 10:52:03,178 ] httpcore.http11 - DEBUG - send_request_body.complete
+[ 2026-08-25 10:52:03,178 ] httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'CONNECT']>
+[ 2026-08-25 10:52:03,180 ] httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'Connection established', [])
+[ 2026-08-25 10:52:03,180 ] httpcore.proxy - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x0000012F9853C3D0> server_hostname='huggingface.co' timeout=60
+[ 2026-08-25 10:52:03,572 ] httpcore.proxy - DEBUG - start_tls.failed exception=ConnectError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1010)'))
+[ 2026-08-25 10:52:03,573 ] huggingface_hub.utils._http - WARNING - '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1010)' thrown while requesting HEAD https://huggingface.co/BAAI/bge-large-zh-v1.5/resolve/main/adapter_config.json
+[ 2026-08-25 10:52:03,573 ] httpcore.connection - DEBUG - close.started
+[ 2026-08-25 10:52:03,573 ] httpcore.connection - DEBUG - close.complete
+[ 2026-08-25 10:52:03,573 ] huggingface_hub.utils._http - WARNING - Retrying in 8s [Retry 4/5].
+[ 2026-08-25 10:52:11,665 ] httpcore.connection - DEBUG - connect_tcp.started host='127.0.0.1' port=7897 local_address=None timeout=60 socket_options=None
+[ 2026-08-25 10:52:11,682 ] httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000012F96E7E540>
+[ 2026-08-25 10:52:11,682 ] httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'CONNECT']>
+[ 2026-08-25 10:52:11,682 ] httpcore.http11 - DEBUG - send_request_headers.complete
+[ 2026-08-25 10:52:11,684 ] httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'CONNECT']>
+[ 2026-08-25 10:52:11,684 ] httpcore.http11 - DEBUG - send_request_body.complete
+[ 2026-08-25 10:52:11,684 ] httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'CONNECT']>
+[ 2026-08-25 10:52:11,684 ] httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'Connection established', [])
+[ 2026-08-25 10:52:11,685 ] httpcore.proxy - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x0000012F98551BD0> server_hostname='huggingface.co' timeout=60
+[ 2026-08-25 10:52:12,095 ] httpcore.proxy - DEBUG - start_tls.failed exception=ConnectError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1010)'))
+[ 2026-08-25 10:52:12,095 ] huggingface_hub.utils._http - WARNING - '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1010)' thrown while requesting HEAD https://huggingface.co/BAAI/bge-large-zh-v1.5/resolve/main/adapter_config.json
+[ 2026-08-25 10:52:12,096 ] httpcore.connection - DEBUG - close.started
+[ 2026-08-25 10:52:12,096 ] httpcore.connection - DEBUG - close.complete
+[ 2026-08-25 10:52:12,097 ] huggingface_hub.utils._http - WARNING - Retrying in 8s [Retry 5/5].
+[ 2026-08-25 10:52:20,116 ] httpcore.connection - DEBUG - connect_tcp.started host='127.0.0.1' port=7897 local_address=None timeout=60 socket_options=None
+[ 2026-08-25 10:52:20,131 ] httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000012F98547E30>
+[ 2026-08-25 10:52:20,131 ] httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'CONNECT']>
+[ 2026-08-25 10:52:20,131 ] httpcore.http11 - DEBUG - send_request_headers.complete
+[ 2026-08-25 10:52:20,132 ] httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'CONNECT']>
+[ 2026-08-25 10:52:20,132 ] httpcore.http11 - DEBUG - send_request_body.complete
+[ 2026-08-25 10:52:20,132 ] httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'CONNECT']>
+[ 2026-08-25 10:52:20,133 ] httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'Connection established', [])
+[ 2026-08-25 10:52:20,133 ] httpcore.proxy - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x0000012F98551A50> server_hostname='huggingface.co' timeout=60
+[ 2026-08-25 10:52:20,502 ] httpcore.proxy - DEBUG - start_tls.failed exception=ConnectError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1010)'))
+[ 2026-08-25 10:52:20,502 ] huggingface_hub.utils._http - WARNING - '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1010)' thrown while requesting HEAD https://huggingface.co/BAAI/bge-large-zh-v1.5/resolve/main/adapter_config.json
+[ 2026-08-25 10:52:20,503 ] httpcore.connection - DEBUG - close.started
+[ 2026-08-25 10:52:20,503 ] httpcore.connection - DEBUG - close.complete
+[ 2026-08-25 10:52:20,537 ] httpcore.connection - DEBUG - connect_tcp.started host='127.0.0.1' port=7897 local_address=None timeout=10 socket_options=None
+[ 2026-08-25 10:52:20,557 ] httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000012F98554890>
+[ 2026-08-25 10:52:20,557 ] httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'CONNECT']>
+[ 2026-08-25 10:52:20,557 ] httpcore.http11 - DEBUG - send_request_headers.complete
+[ 2026-08-25 10:52:20,557 ] httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'CONNECT']>
+[ 2026-08-25 10:52:20,558 ] httpcore.http11 - DEBUG - send_request_body.complete
+[ 2026-08-25 10:52:20,558 ] httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'CONNECT']>
+[ 2026-08-25 10:52:20,558 ] httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'Connection established', [])
+[ 2026-08-25 10:52:20,558 ] httpcore.proxy - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x0000012F98551450> server_hostname='huggingface.co' timeout=10
+[ 2026-08-25 10:52:20,981 ] httpcore.proxy - DEBUG - start_tls.failed exception=ConnectError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1010)'))
+[ 2026-08-25 10:52:21,079 ] httpcore.connection - DEBUG - connect_tcp.started host='127.0.0.1' port=7897 local_address=None timeout=10 socket_options=None
+[ 2026-08-25 10:52:21,097 ] httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000012F985F3EF0>
+[ 2026-08-25 10:52:21,097 ] httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'CONNECT']>
+[ 2026-08-25 10:52:21,097 ] httpcore.http11 - DEBUG - send_request_headers.complete
+[ 2026-08-25 10:52:21,097 ] httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'CONNECT']>
+[ 2026-08-25 10:52:21,097 ] httpcore.http11 - DEBUG - send_request_body.complete
+[ 2026-08-25 10:52:21,098 ] httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'CONNECT']>
+[ 2026-08-25 10:52:21,098 ] httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'Connection established', [])
+[ 2026-08-25 10:52:21,098 ] httpcore.proxy - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x0000012F98551450> server_hostname='huggingface.co' timeout=10
+[ 2026-08-25 10:52:21,547 ] httpcore.proxy - DEBUG - start_tls.failed exception=ConnectError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1010)'))
+[ 2026-08-25 10:52:21,553 ] httpcore.connection - DEBUG - connect_tcp.started host='127.0.0.1' port=7897 local_address=None timeout=None socket_options=None
+[ 2026-08-25 10:52:21,554 ] httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000012F98600CB0>
+[ 2026-08-25 10:52:21,554 ] httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'CONNECT']>
+[ 2026-08-25 10:52:21,557 ] httpcore.http11 - DEBUG - send_request_headers.complete
+[ 2026-08-25 10:52:21,557 ] httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'CONNECT']>
+[ 2026-08-25 10:52:21,558 ] httpcore.http11 - DEBUG - send_request_body.complete
+[ 2026-08-25 10:52:21,558 ] httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'CONNECT']>
+[ 2026-08-25 10:52:21,561 ] httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'Connection established', [])
+[ 2026-08-25 10:52:21,561 ] httpcore.proxy - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x0000012F98551450> server_hostname='huggingface.co' timeout=None
+[ 2026-08-25 10:52:21,869 ] httpcore.connection - DEBUG - connect_tcp.started host='127.0.0.1' port=7897 local_address=None timeout=10 socket_options=None
+[ 2026-08-25 10:52:21,869 ] httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000012F9F398950>
+[ 2026-08-25 10:52:21,870 ] httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'CONNECT']>
+[ 2026-08-25 10:52:21,870 ] httpcore.http11 - DEBUG - send_request_headers.complete
+[ 2026-08-25 10:52:21,870 ] httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'CONNECT']>
+[ 2026-08-25 10:52:21,870 ] httpcore.http11 - DEBUG - send_request_body.complete
+[ 2026-08-25 10:52:21,870 ] httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'CONNECT']>
+[ 2026-08-25 10:52:21,870 ] httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'Connection established', [])
+[ 2026-08-25 10:52:21,870 ] httpcore.proxy - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x0000012F98551450> server_hostname='huggingface.co' timeout=10
+[ 2026-08-25 10:52:22,300 ] httpcore.proxy - DEBUG - start_tls.failed exception=ConnectError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1010)'))
+[ 2026-08-25 10:52:22,300 ] httpcore.proxy - DEBUG - start_tls.failed exception=ConnectError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1010)'))
+[ 2026-08-25 10:52:22,302 ] httpcore.connection - DEBUG - connect_tcp.started host='127.0.0.1' port=7897 local_address=None timeout=60 socket_options=None
+[ 2026-08-25 10:52:22,303 ] httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000012F9F3D9670>
+[ 2026-08-25 10:52:22,303 ] httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'CONNECT']>
+[ 2026-08-25 10:52:22,303 ] httpcore.http11 - DEBUG - send_request_headers.complete
+[ 2026-08-25 10:52:22,303 ] httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'CONNECT']>
+[ 2026-08-25 10:52:22,303 ] httpcore.http11 - DEBUG - send_request_body.complete
+[ 2026-08-25 10:52:22,303 ] httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'CONNECT']>
+[ 2026-08-25 10:52:22,303 ] httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'Connection established', [])
+[ 2026-08-25 10:52:22,303 ] httpcore.proxy - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x0000012F98551450> server_hostname='huggingface.co' timeout=60
+[ 2026-08-25 10:52:22,693 ] httpcore.proxy - DEBUG - start_tls.failed exception=ConnectError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1010)'))
+[ 2026-08-25 10:52:22,694 ] huggingface_hub.utils._http - WARNING - '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1010)' thrown while requesting HEAD https://huggingface.co/BAAI/bge-large-zh-v1.5/resolve/main/processor_config.json
+[ 2026-08-25 10:52:22,694 ] httpcore.connection - DEBUG - close.started
+[ 2026-08-25 10:52:22,694 ] httpcore.connection - DEBUG - close.complete
+[ 2026-08-25 10:52:22,694 ] httpcore.connection - DEBUG - close.started
+[ 2026-08-25 10:52:22,694 ] httpcore.connection - DEBUG - close.complete
+[ 2026-08-25 10:52:22,694 ] httpcore.connection - DEBUG - close.started
+[ 2026-08-25 10:52:22,694 ] httpcore.connection - DEBUG - close.complete
+[ 2026-08-25 10:52:22,695 ] httpcore.connection - DEBUG - close.started
+[ 2026-08-25 10:52:22,695 ] httpcore.connection - DEBUG - close.complete
+[ 2026-08-25 10:52:22,695 ] httpcore.connection - DEBUG - close.started
+[ 2026-08-25 10:52:22,695 ] httpcore.connection - DEBUG - close.complete
+[ 2026-08-25 10:52:22,695 ] huggingface_hub.utils._http - WARNING - Retrying in 1s [Retry 1/5].
+[ 2026-08-25 10:52:23,724 ] httpcore.connection - DEBUG - connect_tcp.started host='127.0.0.1' port=7897 local_address=None timeout=60 socket_options=None
+[ 2026-08-25 10:52:23,736 ] httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000012F9F3C3680>
+[ 2026-08-25 10:52:23,736 ] httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'CONNECT']>
+[ 2026-08-25 10:52:23,736 ] httpcore.http11 - DEBUG - send_request_headers.complete
+[ 2026-08-25 10:52:23,736 ] httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'CONNECT']>
+[ 2026-08-25 10:52:23,737 ] httpcore.http11 - DEBUG - send_request_body.complete
+[ 2026-08-25 10:52:23,737 ] httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'CONNECT']>
+[ 2026-08-25 10:52:23,747 ] httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'Connection established', [])
+[ 2026-08-25 10:52:23,748 ] httpcore.proxy - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x0000012F985F58D0> server_hostname='huggingface.co' timeout=60
+[ 2026-08-25 10:52:24,182 ] httpcore.proxy - DEBUG - start_tls.failed exception=ConnectError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1010)'))
+[ 2026-08-25 10:52:24,182 ] huggingface_hub.utils._http - WARNING - '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1010)' thrown while requesting HEAD https://huggingface.co/BAAI/bge-large-zh-v1.5/resolve/main/processor_config.json
+[ 2026-08-25 10:52:24,182 ] httpcore.connection - DEBUG - close.started
+[ 2026-08-25 10:52:24,182 ] httpcore.connection - DEBUG - close.complete
+[ 2026-08-25 10:52:24,182 ] huggingface_hub.utils._http - WARNING - Retrying in 2s [Retry 2/5].
+[ 2026-08-25 10:52:26,204 ] httpcore.connection - DEBUG - connect_tcp.started host='127.0.0.1' port=7897 local_address=None timeout=60 socket_options=None
+[ 2026-08-25 10:52:26,204 ] httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000012F9F3F6B70>
+[ 2026-08-25 10:52:26,204 ] httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'CONNECT']>
+[ 2026-08-25 10:52:26,204 ] httpcore.http11 - DEBUG - send_request_headers.complete
+[ 2026-08-25 10:52:26,204 ] httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'CONNECT']>
+[ 2026-08-25 10:52:26,204 ] httpcore.http11 - DEBUG - send_request_body.complete
+[ 2026-08-25 10:52:26,204 ] httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'CONNECT']>
+[ 2026-08-25 10:52:26,205 ] httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'Connection established', [])
+[ 2026-08-25 10:52:26,205 ] httpcore.proxy - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x0000012F9F3FE550> server_hostname='huggingface.co' timeout=60
+[ 2026-08-25 10:52:26,624 ] httpcore.proxy - DEBUG - start_tls.failed exception=ConnectError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1010)'))
+[ 2026-08-25 10:52:26,624 ] huggingface_hub.utils._http - WARNING - '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1010)' thrown while requesting HEAD https://huggingface.co/BAAI/bge-large-zh-v1.5/resolve/main/processor_config.json
+[ 2026-08-25 10:52:26,624 ] httpcore.connection - DEBUG - close.started
+[ 2026-08-25 10:52:26,624 ] httpcore.connection - DEBUG - close.complete
+[ 2026-08-25 10:52:26,624 ] huggingface_hub.utils._http - WARNING - Retrying in 4s [Retry 3/5].
+[ 2026-08-25 10:52:30,653 ] httpcore.connection - DEBUG - connect_tcp.started host='127.0.0.1' port=7897 local_address=None timeout=60 socket_options=None
+[ 2026-08-25 10:52:30,668 ] httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000012F9F38B710>
+[ 2026-08-25 10:52:30,668 ] httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'CONNECT']>
+[ 2026-08-25 10:52:30,668 ] httpcore.http11 - DEBUG - send_request_headers.complete
+[ 2026-08-25 10:52:30,668 ] httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'CONNECT']>
+[ 2026-08-25 10:52:30,668 ] httpcore.http11 - DEBUG - send_request_body.complete
+[ 2026-08-25 10:52:30,668 ] httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'CONNECT']>
+[ 2026-08-25 10:52:30,669 ] httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'Connection established', [])
+[ 2026-08-25 10:52:30,669 ] httpcore.proxy - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x0000012F9F3FDED0> server_hostname='huggingface.co' timeout=60
+[ 2026-08-25 10:52:31,068 ] httpcore.proxy - DEBUG - start_tls.failed exception=ConnectError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1010)'))
+[ 2026-08-25 10:52:31,068 ] huggingface_hub.utils._http - WARNING - '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1010)' thrown while requesting HEAD https://huggingface.co/BAAI/bge-large-zh-v1.5/resolve/main/processor_config.json
+[ 2026-08-25 10:52:31,068 ] httpcore.connection - DEBUG - close.started
+[ 2026-08-25 10:52:31,068 ] httpcore.connection - DEBUG - close.complete
+[ 2026-08-25 10:52:31,068 ] huggingface_hub.utils._http - WARNING - Retrying in 8s [Retry 4/5].
+[ 2026-08-25 10:52:39,101 ] httpcore.connection - DEBUG - connect_tcp.started host='127.0.0.1' port=7897 local_address=None timeout=60 socket_options=None
+[ 2026-08-25 10:52:39,122 ] httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000012F9F3F4440>
+[ 2026-08-25 10:52:39,122 ] httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'CONNECT']>
+[ 2026-08-25 10:52:39,122 ] httpcore.http11 - DEBUG - send_request_headers.complete
+[ 2026-08-25 10:52:39,122 ] httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'CONNECT']>
+[ 2026-08-25 10:52:39,122 ] httpcore.http11 - DEBUG - send_request_body.complete
+[ 2026-08-25 10:52:39,122 ] httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'CONNECT']>
+[ 2026-08-25 10:52:39,122 ] httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'Connection established', [])
+[ 2026-08-25 10:52:39,123 ] httpcore.proxy - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x0000012F9F3FD6D0> server_hostname='huggingface.co' timeout=60
+[ 2026-08-25 10:52:39,484 ] httpcore.proxy - DEBUG - start_tls.failed exception=ConnectError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1010)'))
+[ 2026-08-25 10:52:39,484 ] huggingface_hub.utils._http - WARNING - '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1010)' thrown while requesting HEAD https://huggingface.co/BAAI/bge-large-zh-v1.5/resolve/main/processor_config.json
+[ 2026-08-25 10:52:39,486 ] httpcore.connection - DEBUG - close.started
+[ 2026-08-25 10:52:39,486 ] httpcore.connection - DEBUG - close.complete
+[ 2026-08-25 10:52:39,486 ] huggingface_hub.utils._http - WARNING - Retrying in 8s [Retry 5/5].
+[ 2026-08-25 10:52:47,521 ] httpcore.connection - DEBUG - connect_tcp.started host='127.0.0.1' port=7897 local_address=None timeout=60 socket_options=None
+[ 2026-08-25 10:52:47,521 ] httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000012F9F3C06E0>
+[ 2026-08-25 10:52:47,521 ] httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'CONNECT']>
+[ 2026-08-25 10:52:47,522 ] httpcore.http11 - DEBUG - send_request_headers.complete
+[ 2026-08-25 10:52:47,522 ] httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'CONNECT']>
+[ 2026-08-25 10:52:47,522 ] httpcore.http11 - DEBUG - send_request_body.complete
+[ 2026-08-25 10:52:47,522 ] httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'CONNECT']>
+[ 2026-08-25 10:52:47,522 ] httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'Connection established', [])
+[ 2026-08-25 10:52:47,522 ] httpcore.proxy - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x0000012F986153D0> server_hostname='huggingface.co' timeout=60
+[ 2026-08-25 10:52:47,922 ] httpcore.proxy - DEBUG - start_tls.failed exception=ConnectError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1010)'))
+[ 2026-08-25 10:52:47,922 ] huggingface_hub.utils._http - WARNING - '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1010)' thrown while requesting HEAD https://huggingface.co/BAAI/bge-large-zh-v1.5/resolve/main/processor_config.json
+[ 2026-08-25 10:52:47,922 ] httpcore.connection - DEBUG - close.started
+[ 2026-08-25 10:52:47,922 ] httpcore.connection - DEBUG - close.complete
+[ 2026-08-25 10:52:47,941 ] httpcore.connection - DEBUG - connect_tcp.started host='127.0.0.1' port=7897 local_address=None timeout=10 socket_options=None
+[ 2026-08-25 10:52:47,963 ] httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000012F9F3D9670>
+[ 2026-08-25 10:52:47,963 ] httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'CONNECT']>
+[ 2026-08-25 10:52:47,963 ] httpcore.http11 - DEBUG - send_request_headers.complete
+[ 2026-08-25 10:52:47,963 ] httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'CONNECT']>
+[ 2026-08-25 10:52:47,964 ] httpcore.http11 - DEBUG - send_request_body.complete
+[ 2026-08-25 10:52:47,964 ] httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'CONNECT']>
+[ 2026-08-25 10:52:47,964 ] httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'Connection established', [])
+[ 2026-08-25 10:52:47,964 ] httpcore.proxy - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x0000012F985F55D0> server_hostname='huggingface.co' timeout=10
+[ 2026-08-25 10:52:48,417 ] httpcore.proxy - DEBUG - start_tls.failed exception=ConnectError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1010)'))
+[ 2026-08-25 10:52:48,420 ] httpcore.connection - DEBUG - connect_tcp.started host='127.0.0.1' port=7897 local_address=None timeout=60 socket_options=None
+[ 2026-08-25 10:52:48,431 ] httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000012F9F39B680>
+[ 2026-08-25 10:52:48,431 ] httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'CONNECT']>
+[ 2026-08-25 10:52:48,431 ] httpcore.http11 - DEBUG - send_request_headers.complete
+[ 2026-08-25 10:52:48,431 ] httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'CONNECT']>
+[ 2026-08-25 10:52:48,431 ] httpcore.http11 - DEBUG - send_request_body.complete
+[ 2026-08-25 10:52:48,431 ] httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'CONNECT']>
+[ 2026-08-25 10:52:48,432 ] httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'Connection established', [])
+[ 2026-08-25 10:52:48,432 ] httpcore.proxy - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x0000012F985F55D0> server_hostname='huggingface.co' timeout=60
+[ 2026-08-25 10:52:48,834 ] httpcore.proxy - DEBUG - start_tls.failed exception=ConnectError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1010)'))
+[ 2026-08-25 10:52:48,834 ] huggingface_hub.utils._http - WARNING - '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1010)' thrown while requesting HEAD https://huggingface.co/BAAI/bge-large-zh-v1.5/resolve/main/preprocessor_config.json
+[ 2026-08-25 10:52:48,834 ] httpcore.connection - DEBUG - close.started
+[ 2026-08-25 10:52:48,835 ] httpcore.connection - DEBUG - close.complete
+[ 2026-08-25 10:52:48,835 ] httpcore.connection - DEBUG - close.started
+[ 2026-08-25 10:52:48,835 ] httpcore.connection - DEBUG - close.complete
+[ 2026-08-25 10:52:48,835 ] huggingface_hub.utils._http - WARNING - Retrying in 1s [Retry 1/5].
+[ 2026-08-25 10:52:49,857 ] httpcore.connection - DEBUG - connect_tcp.started host='127.0.0.1' port=7897 local_address=None timeout=60 socket_options=None
+[ 2026-08-25 10:52:49,873 ] httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000012F9F388740>
+[ 2026-08-25 10:52:49,873 ] httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'CONNECT']>
+[ 2026-08-25 10:52:49,873 ] httpcore.http11 - DEBUG - send_request_headers.complete
+[ 2026-08-25 10:52:49,873 ] httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'CONNECT']>
+[ 2026-08-25 10:52:49,874 ] httpcore.http11 - DEBUG - send_request_body.complete
+[ 2026-08-25 10:52:49,874 ] httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'CONNECT']>
+[ 2026-08-25 10:52:49,874 ] httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'Connection established', [])
+[ 2026-08-25 10:52:49,874 ] httpcore.proxy - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x0000012F9F3FDAD0> server_hostname='huggingface.co' timeout=60
+[ 2026-08-25 10:52:50,391 ] httpcore.proxy - DEBUG - start_tls.failed exception=ConnectError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1010)'))
+[ 2026-08-25 10:52:50,392 ] huggingface_hub.utils._http - WARNING - '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1010)' thrown while requesting HEAD https://huggingface.co/BAAI/bge-large-zh-v1.5/resolve/main/preprocessor_config.json
+[ 2026-08-25 10:52:50,393 ] httpcore.connection - DEBUG - close.started
+[ 2026-08-25 10:52:50,393 ] httpcore.connection - DEBUG - close.complete
+[ 2026-08-25 10:52:50,393 ] huggingface_hub.utils._http - WARNING - Retrying in 2s [Retry 2/5].
+[ 2026-08-25 10:52:52,430 ] httpcore.connection - DEBUG - connect_tcp.started host='127.0.0.1' port=7897 local_address=None timeout=60 socket_options=None
+[ 2026-08-25 10:52:52,441 ] httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000012F9F389310>
+[ 2026-08-25 10:52:52,441 ] httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'CONNECT']>
+[ 2026-08-25 10:52:52,441 ] httpcore.http11 - DEBUG - send_request_headers.complete
+[ 2026-08-25 10:52:52,441 ] httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'CONNECT']>
+[ 2026-08-25 10:52:52,441 ] httpcore.http11 - DEBUG - send_request_body.complete
+[ 2026-08-25 10:52:52,441 ] httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'CONNECT']>
+[ 2026-08-25 10:52:52,444 ] httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'Connection established', [])
+[ 2026-08-25 10:52:52,444 ] httpcore.proxy - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x0000012F9F3FE0D0> server_hostname='huggingface.co' timeout=60
+[ 2026-08-25 10:52:52,851 ] httpcore.proxy - DEBUG - start_tls.failed exception=ConnectError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1010)'))
+[ 2026-08-25 10:52:52,851 ] huggingface_hub.utils._http - WARNING - '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1010)' thrown while requesting HEAD https://huggingface.co/BAAI/bge-large-zh-v1.5/resolve/main/preprocessor_config.json
+[ 2026-08-25 10:52:52,851 ] httpcore.connection - DEBUG - close.started
+[ 2026-08-25 10:52:52,852 ] httpcore.connection - DEBUG - close.complete
+[ 2026-08-25 10:52:52,852 ] huggingface_hub.utils._http - WARNING - Retrying in 4s [Retry 3/5].
+[ 2026-08-25 10:52:56,871 ] httpcore.connection - DEBUG - connect_tcp.started host='127.0.0.1' port=7897 local_address=None timeout=60 socket_options=None
+[ 2026-08-25 10:52:56,882 ] httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000012F9F369A00>
+[ 2026-08-25 10:52:56,882 ] httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'CONNECT']>
+[ 2026-08-25 10:52:56,882 ] httpcore.http11 - DEBUG - send_request_headers.complete
+[ 2026-08-25 10:52:56,883 ] httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'CONNECT']>
+[ 2026-08-25 10:52:56,884 ] httpcore.http11 - DEBUG - send_request_body.complete
+[ 2026-08-25 10:52:56,884 ] httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'CONNECT']>
+[ 2026-08-25 10:52:56,884 ] httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'Connection established', [])
+[ 2026-08-25 10:52:56,884 ] httpcore.proxy - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x0000012F9F3FEDD0> server_hostname='huggingface.co' timeout=60
+[ 2026-08-25 10:52:57,298 ] httpcore.proxy - DEBUG - start_tls.failed exception=ConnectError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1010)'))
+[ 2026-08-25 10:52:57,298 ] huggingface_hub.utils._http - WARNING - '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1010)' thrown while requesting HEAD https://huggingface.co/BAAI/bge-large-zh-v1.5/resolve/main/preprocessor_config.json
+[ 2026-08-25 10:52:57,300 ] httpcore.connection - DEBUG - close.started
+[ 2026-08-25 10:52:57,301 ] httpcore.connection - DEBUG - close.complete
+[ 2026-08-25 10:52:57,301 ] huggingface_hub.utils._http - WARNING - Retrying in 8s [Retry 4/5].
+[ 2026-08-25 10:53:05,327 ] httpcore.connection - DEBUG - connect_tcp.started host='127.0.0.1' port=7897 local_address=None timeout=60 socket_options=None
+[ 2026-08-25 10:53:05,328 ] httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000012F9F39B050>
+[ 2026-08-25 10:53:05,329 ] httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'CONNECT']>
+[ 2026-08-25 10:53:05,329 ] httpcore.http11 - DEBUG - send_request_headers.complete
+[ 2026-08-25 10:53:05,329 ] httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'CONNECT']>
+[ 2026-08-25 10:53:05,329 ] httpcore.http11 - DEBUG - send_request_body.complete
+[ 2026-08-25 10:53:05,329 ] httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'CONNECT']>
+[ 2026-08-25 10:53:05,329 ] httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'Connection established', [])
+[ 2026-08-25 10:53:05,329 ] httpcore.proxy - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x0000012F985F4750> server_hostname='huggingface.co' timeout=60
+[ 2026-08-25 10:53:06,794 ] httpcore.proxy - DEBUG - start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000012F97537F80>
+[ 2026-08-25 10:53:06,795 ] httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'HEAD']>
+[ 2026-08-25 10:53:06,796 ] httpcore.http11 - DEBUG - send_request_headers.complete
+[ 2026-08-25 10:53:06,796 ] httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'HEAD']>
+[ 2026-08-25 10:53:06,797 ] httpcore.http11 - DEBUG - send_request_body.complete
+[ 2026-08-25 10:53:06,797 ] httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'HEAD']>
+[ 2026-08-25 10:53:07,123 ] httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 404, b'Not Found', [(b'Content-Type', b'text/plain; charset=utf-8'), (b'Content-Length', b'15'), (b'Connection', b'keep-alive'), (b'Date', b'Tue, 25 Aug 2026 02:53:06 GMT'), (b'ETag', b'W/"f-mY2VvLxuxB7KhsoOdQTlMTccuAQ"'), (b'X-Powered-By', b'huggingface-moon'), (b'X-Request-Id', b'Root=1-6a8d0392-344f1ce9142ece376979df69;9ed77889-4a9b-41f9-83b1-ff68d8946763'), (b'RateLimit', b'"resolvers";r=2999;t=170'), (b'RateLimit-Policy', b'"fixed window";"resolvers";q=3000;w=300'), (b'cross-origin-opener-policy', b'same-origin'), (b'Referrer-Policy', b'strict-origin-when-cross-origin'), (b'Access-Control-Max-Age', b'86400'), (b'Access-Control-Allow-Origin', b'https://huggingface.co'), (b'Vary', b'Origin'), (b'Access-Control-Expose-Headers', b'X-Repo-Commit,X-Request-Id,X-Error-Code,X-Error-Message,X-Total-Count,ETag,Link,Accept-Ranges,Content-Range,X-Linked-Size,X-Linked-ETag,X-Xet-Hash'), (b'X-Repo-Commit', b'79e7739b6ab944e86d6171e44d24c997fc1e0116'), (b'Accept-Ranges', b'bytes'), (b'X-HF-Warning', b'unauthenticated; Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.'), (b'X-Hub-Cache', b'MISS'), (b'X-Error-Code', b'EntryNotFound'), (b'X-Error-Message', b'Entry not found'), (b'X-Cache', b'Error from cloudfront'), (b'Via', b'1.1 4ecd66ab879d183a1f99e50b1fafb57c.cloudfront.net (CloudFront)'), (b'X-Amz-Cf-Pop', b'HKG61-P1'), (b'Alt-Svc', b'h3=":443"; ma=86400'), (b'X-Amz-Cf-Id', b'8KTtaQErhBOMX_F7rXxB6X-Hw5hf2p2PXyhXNKWJjAVt04RD7yFJEA=='), (b'Strict-Transport-Security', b'max-age=31536000')])
+[ 2026-08-25 10:53:07,124 ] httpx - INFO - HTTP Request: HEAD https://huggingface.co/BAAI/bge-large-zh-v1.5/resolve/main/preprocessor_config.json "HTTP/1.1 404 Not Found"
+[ 2026-08-25 10:53:07,124 ] httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'HEAD']>
+[ 2026-08-25 10:53:07,124 ] httpcore.http11 - DEBUG - receive_response_body.complete
+[ 2026-08-25 10:53:07,125 ] httpcore.http11 - DEBUG - response_closed.started
+[ 2026-08-25 10:53:07,125 ] httpcore.http11 - DEBUG - response_closed.complete
+[ 2026-08-25 10:53:07,125 ] huggingface_hub.utils._http - WARNING - Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[ 2026-08-25 10:53:07,130 ] httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'HEAD']>
+[ 2026-08-25 10:53:07,131 ] httpcore.http11 - DEBUG - send_request_headers.complete
+[ 2026-08-25 10:53:07,131 ] httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'HEAD']>
+[ 2026-08-25 10:53:07,131 ] httpcore.http11 - DEBUG - send_request_body.complete
+[ 2026-08-25 10:53:07,131 ] httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'HEAD']>
+[ 2026-08-25 10:53:07,528 ] httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 404, b'Not Found', [(b'Content-Type', b'text/plain; charset=utf-8'), (b'Content-Length', b'15'), (b'Connection', b'keep-alive'), (b'Date', b'Tue, 25 Aug 2026 02:53:07 GMT'), (b'ETag', b'W/"f-mY2VvLxuxB7KhsoOdQTlMTccuAQ"'), (b'X-Powered-By', b'huggingface-moon'), (b'X-Request-Id', b'Root=1-6a8d0393-69812c4c46de12514e1fc8c3;21005671-d370-42c0-8078-98ff05aba2a8'), (b'RateLimit', b'"resolvers";r=2998;t=169'), (b'RateLimit-Policy', b'"fixed window";"resolvers";q=3000;w=300'), (b'cross-origin-opener-policy', b'same-origin'), (b'Referrer-Policy', b'strict-origin-when-cross-origin'), (b'Access-Control-Max-Age', b'86400'), (b'Access-Control-Allow-Origin', b'https://huggingface.co'), (b'Vary', b'Origin'), (b'Access-Control-Expose-Headers', b'X-Repo-Commit,X-Request-Id,X-Error-Code,X-Error-Message,X-Total-Count,ETag,Link,Accept-Ranges,Content-Range,X-Linked-Size,X-Linked-ETag,X-Xet-Hash'), (b'X-Repo-Commit', b'79e7739b6ab944e86d6171e44d24c997fc1e0116'), (b'Accept-Ranges', b'bytes'), (b'X-HF-Warning', b'unauthenticated; Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.'), (b'X-Hub-Cache', b'MISS'), (b'X-Error-Code', b'EntryNotFound'), (b'X-Error-Message', b'Entry not found'), (b'X-Cache', b'Error from cloudfront'), (b'Via', b'1.1 4ecd66ab879d183a1f99e50b1fafb57c.cloudfront.net (CloudFront)'), (b'X-Amz-Cf-Pop', b'HKG61-P1'), (b'Alt-Svc', b'h3=":443"; ma=86400'), (b'X-Amz-Cf-Id', b'bgMNCBdj0_EpDU62qsx5JKtVfENr1oHM_4tpMQM9RtyZIpbkFT4org=='), (b'Strict-Transport-Security', b'max-age=31536000')])
+[ 2026-08-25 10:53:07,529 ] httpx - INFO - HTTP Request: HEAD https://huggingface.co/BAAI/bge-large-zh-v1.5/resolve/main/video_preprocessor_config.json "HTTP/1.1 404 Not Found"
+[ 2026-08-25 10:53:07,529 ] httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'HEAD']>
+[ 2026-08-25 10:53:07,529 ] httpcore.http11 - DEBUG - receive_response_body.complete
+[ 2026-08-25 10:53:07,529 ] httpcore.http11 - DEBUG - response_closed.started
+[ 2026-08-25 10:53:07,529 ] httpcore.http11 - DEBUG - response_closed.complete
+[ 2026-08-25 10:53:07,535 ] httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'HEAD']>
+[ 2026-08-25 10:53:07,535 ] httpcore.http11 - DEBUG - send_request_headers.complete
+[ 2026-08-25 10:53:07,535 ] httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'HEAD']>
+[ 2026-08-25 10:53:07,537 ] httpcore.http11 - DEBUG - send_request_body.complete
+[ 2026-08-25 10:53:07,537 ] httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'HEAD']>
+[ 2026-08-25 10:53:07,860 ] httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 404, b'Not Found', [(b'Content-Type', b'text/plain; charset=utf-8'), (b'Content-Length', b'15'), (b'Connection', b'keep-alive'), (b'Date', b'Tue, 25 Aug 2026 02:53:07 GMT'), (b'ETag', b'W/"f-mY2VvLxuxB7KhsoOdQTlMTccuAQ"'), (b'X-Powered-By', b'huggingface-moon'), (b'X-Request-Id', b'Root=1-6a8d0393-11339f2377f0752876eb3acc;7bfabb9c-981a-42fe-b2cc-66b16aa27fcd'), (b'RateLimit', b'"resolvers";r=2997;t=169'), (b'RateLimit-Policy', b'"fixed window";"resolvers";q=3000;w=300'), (b'cross-origin-opener-policy', b'same-origin'), (b'Referrer-Policy', b'strict-origin-when-cross-origin'), (b'Access-Control-Max-Age', b'86400'), (b'Access-Control-Allow-Origin', b'https://huggingface.co'), (b'Vary', b'Origin'), (b'Access-Control-Expose-Headers', b'X-Repo-Commit,X-Request-Id,X-Error-Code,X-Error-Message,X-Total-Count,ETag,Link,Accept-Ranges,Content-Range,X-Linked-Size,X-Linked-ETag,X-Xet-Hash'), (b'X-Repo-Commit', b'79e7739b6ab944e86d6171e44d24c997fc1e0116'), (b'Accept-Ranges', b'bytes'), (b'X-HF-Warning', b'unauthenticated; Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.'), (b'X-Hub-Cache', b'MISS'), (b'X-Error-Code', b'EntryNotFound'), (b'X-Error-Message', b'Entry not found'), (b'X-Cache', b'Error from cloudfront'), (b'Via', b'1.1 4ecd66ab879d183a1f99e50b1fafb57c.cloudfront.net (CloudFront)'), (b'X-Amz-Cf-Pop', b'HKG61-P1'), (b'Alt-Svc', b'h3=":443"; ma=86400'), (b'X-Amz-Cf-Id', b'4j--g6I5nkqsqddiGJxdA_qXxvfTAY1rQROjCy-dlWD6KpOD5TvNyQ=='), (b'Strict-Transport-Security', b'max-age=31536000')])
+[ 2026-08-25 10:53:07,861 ] httpx - INFO - HTTP Request: HEAD https://huggingface.co/BAAI/bge-large-zh-v1.5/resolve/main/preprocessor_config.json "HTTP/1.1 404 Not Found"
+[ 2026-08-25 10:53:07,861 ] httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'HEAD']>
+[ 2026-08-25 10:53:07,861 ] httpcore.http11 - DEBUG - receive_response_body.complete
+[ 2026-08-25 10:53:07,861 ] httpcore.http11 - DEBUG - response_closed.started
+[ 2026-08-25 10:53:07,861 ] httpcore.http11 - DEBUG - response_closed.complete
+[ 2026-08-25 10:53:07,868 ] httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'HEAD']>
+[ 2026-08-25 10:53:07,868 ] httpcore.http11 - DEBUG - send_request_headers.complete
+[ 2026-08-25 10:53:07,868 ] httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'HEAD']>
+[ 2026-08-25 10:53:07,868 ] httpcore.http11 - DEBUG - send_request_body.complete
+[ 2026-08-25 10:53:07,869 ] httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'HEAD']>
+[ 2026-08-25 10:53:08,222 ] httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 307, b'Temporary Redirect', [(b'Content-Type', b'text/plain; charset=utf-8'), (b'Content-Length', b'268'), (b'Connection', b'keep-alive'), (b'Date', b'Tue, 25 Aug 2026 02:53:08 GMT'), (b'Location', b'/api/resolve-cache/models/BAAI/bge-large-zh-v1.5/79e7739b6ab944e86d6171e44d24c997fc1e0116/tokenizer_config.json?%2FBAAI%2Fbge-large-zh-v1.5%2Fresolve%2Fmain%2Ftokenizer_config.json=&etag=%2242046bd361a033a24264dc41de1fe6cafd68072f%22'), (b'X-Powered-By', b'huggingface-moon'), (b'X-Request-Id', b'Root=1-6a8d0394-6ba31fb86dbef64d3193b418;fb0d8122-c865-476e-ae78-42b6c78dd1ac'), (b'RateLimit', b'"resolvers";r=2996;t=168'), (b'RateLimit-Policy', b'"fixed window";"resolvers";q=3000;w=300'), (b'cross-origin-opener-policy', b'same-origin'), (b'Referrer-Policy', b'strict-origin-when-cross-origin'), (b'Access-Control-Max-Age', b'86400'), (b'Access-Control-Allow-Origin', b'https://huggingface.co'), (b'Vary', b'Origin, Accept'), (b'Access-Control-Expose-Headers', b'X-Repo-Commit,X-Request-Id,X-Error-Code,X-Error-Message,X-Total-Count,ETag,Link,Accept-Ranges,Content-Range,X-Linked-Size,X-Linked-ETag,X-Xet-Hash'), (b'X-Repo-Commit', b'79e7739b6ab944e86d6171e44d24c997fc1e0116'), (b'Accept-Ranges', b'bytes'), (b'X-Hub-Cache', b'HIT'), (b'Content-Disposition', b'inline; filename*=UTF-8\'\'tokenizer_config.json; filename="tokenizer_config.json";'), (b'Content-Security-Policy', b"default-src 'none'; sandbox"), (b'X-Linked-ETag', b'"42046bd361a033a24264dc41de1fe6cafd68072f"'), (b'X-Cache', b'Miss from cloudfront'), (b'Via', b'1.1 4ecd66ab879d183a1f99e50b1fafb57c.cloudfront.net (CloudFront)'), (b'X-Amz-Cf-Pop', b'HKG61-P1'), (b'Alt-Svc', b'h3=":443"; ma=86400'), (b'X-Amz-Cf-Id', b'h6MLC1Ds7g_58PXFTRDP682JC014yPbPPxgwoUNYomlRWPY025qhHQ=='), (b'Strict-Transport-Security', b'max-age=31536000')])
+[ 2026-08-25 10:53:08,222 ] httpx - INFO - HTTP Request: HEAD https://huggingface.co/BAAI/bge-large-zh-v1.5/resolve/main/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+[ 2026-08-25 10:53:08,222 ] httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'HEAD']>
+[ 2026-08-25 10:53:08,222 ] httpcore.http11 - DEBUG - receive_response_body.complete
+[ 2026-08-25 10:53:08,222 ] httpcore.http11 - DEBUG - response_closed.started
+[ 2026-08-25 10:53:08,224 ] httpcore.http11 - DEBUG - response_closed.complete
+[ 2026-08-25 10:53:08,224 ] httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'HEAD']>
+[ 2026-08-25 10:53:08,224 ] httpcore.http11 - DEBUG - send_request_headers.complete
+[ 2026-08-25 10:53:08,225 ] httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'HEAD']>
+[ 2026-08-25 10:53:08,225 ] httpcore.http11 - DEBUG - send_request_body.complete
+[ 2026-08-25 10:53:08,225 ] httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'HEAD']>
+[ 2026-08-25 10:53:08,312 ] httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Content-Type', b'text/plain; charset=utf-8'), (b'Content-Length', b'394'), (b'Connection', b'keep-alive'), (b'Date', b'Thu, 28 May 2026 16:52:39 GMT'), (b'ETag', b'"42046bd361a033a24264dc41de1fe6cafd68072f"'), (b'X-Powered-By', b'huggingface-moon'), (b'X-Request-Id', b'Root=1-6a1872d7-0551751431841c2e1189bf82;3274e617-9695-46db-b590-bd6e19f4208a'), (b'RateLimit', b'"resolvers";r=2999;t=281'), (b'RateLimit-Policy', b'"fixed window";"resolvers";q=3000;w=300'), (b'cross-origin-opener-policy', b'same-origin'), (b'Referrer-Policy', b'strict-origin-when-cross-origin'), (b'Access-Control-Max-Age', b'86400'), (b'Access-Control-Allow-Origin', b'https://huggingface.co'), (b'Access-Control-Expose-Headers', b'X-Repo-Commit,X-Request-Id,X-Error-Code,X-Error-Message,X-Total-Count,ETag,Link,Accept-Ranges,Content-Range,X-Linked-Size,X-Linked-ETag,X-Xet-Hash'), (b'X-Repo-Commit', b'79e7739b6ab944e86d6171e44d24c997fc1e0116'), (b'Accept-Ranges', b'bytes'), (b'Content-Disposition', b'inline; filename*=UTF-8\'\'tokenizer_config.json; filename="tokenizer_config.json";'), (b'Content-Security-Policy', b"default-src 'none'; sandbox"), (b'Vary', b'Origin'), (b'X-Cache', b'Hit from cloudfront'), (b'Via', b'1.1 4ecd66ab879d183a1f99e50b1fafb57c.cloudfront.net (CloudFront)'), (b'X-Amz-Cf-Pop', b'HKG61-P1'), (b'Alt-Svc', b'h3=":443"; ma=86400'), (b'X-Amz-Cf-Id', b'SwLO07c6H4DkLL9SU2kRcetKu7x51ussEVy9uD3bnIRsy2Usv4Y4Sg=='), (b'Age', b'7639229'), (b'Strict-Transport-Security', b'max-age=31536000')])
+[ 2026-08-25 10:53:08,312 ] httpx - INFO - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/BAAI/bge-large-zh-v1.5/79e7739b6ab944e86d6171e44d24c997fc1e0116/tokenizer_config.json "HTTP/1.1 200 OK"
+[ 2026-08-25 10:53:08,313 ] httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'HEAD']>
+[ 2026-08-25 10:53:08,313 ] httpcore.http11 - DEBUG - receive_response_body.complete
+[ 2026-08-25 10:53:08,313 ] httpcore.http11 - DEBUG - response_closed.started
+[ 2026-08-25 10:53:08,313 ] httpcore.http11 - DEBUG - response_closed.complete
+[ 2026-08-25 10:53:08,336 ] httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'HEAD']>
+[ 2026-08-25 10:53:08,336 ] httpcore.http11 - DEBUG - send_request_headers.complete
+[ 2026-08-25 10:53:08,337 ] httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'HEAD']>
+[ 2026-08-25 10:53:08,337 ] httpcore.http11 - DEBUG - send_request_body.complete
+[ 2026-08-25 10:53:08,337 ] httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'HEAD']>
+[ 2026-08-25 10:53:08,725 ] httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 307, b'Temporary Redirect', [(b'Content-Type', b'text/plain; charset=utf-8'), (b'Content-Length', b'248'), (b'Connection', b'keep-alive'), (b'Date', b'Tue, 25 Aug 2026 02:53:08 GMT'), (b'Location', b'/api/resolve-cache/models/BAAI/bge-large-zh-v1.5/79e7739b6ab944e86d6171e44d24c997fc1e0116/config.json?%2FBAAI%2Fbge-large-zh-v1.5%2Fresolve%2Fmain%2Fconfig.json=&etag=%2203df12a02c65a8ba9552ed63f6f1518575d1f7ef%22'), (b'X-Powered-By', b'huggingface-moon'), (b'X-Request-Id', b'Root=1-6a8d0394-23ee4ca944ce401a554ad4fd;f85cb29c-4680-4878-a507-5fe479211b6b'), (b'RateLimit', b'"resolvers";r=2995;t=168'), (b'RateLimit-Policy', b'"fixed window";"resolvers";q=3000;w=300'), (b'cross-origin-opener-policy', b'same-origin'), (b'Referrer-Policy', b'strict-origin-when-cross-origin'), (b'Access-Control-Max-Age', b'86400'), (b'Access-Control-Allow-Origin', b'https://huggingface.co'), (b'Vary', b'Origin, Accept'), (b'Access-Control-Expose-Headers', b'X-Repo-Commit,X-Request-Id,X-Error-Code,X-Error-Message,X-Total-Count,ETag,Link,Accept-Ranges,Content-Range,X-Linked-Size,X-Linked-ETag,X-Xet-Hash'), (b'X-Repo-Commit', b'79e7739b6ab944e86d6171e44d24c997fc1e0116'), (b'Accept-Ranges', b'bytes'), (b'X-HF-Warning', b'unauthenticated; Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.'), (b'X-Hub-Cache', b'HIT'), (b'Content-Disposition', b'inline; filename*=UTF-8\'\'config.json; filename="config.json";'), (b'Content-Security-Policy', b"default-src 'none'; sandbox"), (b'X-Linked-ETag', b'"03df12a02c65a8ba9552ed63f6f1518575d1f7ef"'), (b'X-Cache', b'Miss from cloudfront'), (b'Via', b'1.1 4ecd66ab879d183a1f99e50b1fafb57c.cloudfront.net (CloudFront)'), (b'X-Amz-Cf-Pop', b'HKG61-P1'), (b'Alt-Svc', b'h3=":443"; ma=86400'), (b'X-Amz-Cf-Id', b'o-80OmDg36GME_tlblrRqhHe2H9szxYTxPMWAT7ZyWUq27rA8gWoOQ=='), (b'Strict-Transport-Security', b'max-age=31536000')])
+[ 2026-08-25 10:53:08,725 ] httpx - INFO - HTTP Request: HEAD https://huggingface.co/BAAI/bge-large-zh-v1.5/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+[ 2026-08-25 10:53:08,725 ] httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'HEAD']>
+[ 2026-08-25 10:53:08,726 ] httpcore.http11 - DEBUG - receive_response_body.complete
+[ 2026-08-25 10:53:08,726 ] httpcore.http11 - DEBUG - response_closed.started
+[ 2026-08-25 10:53:08,726 ] httpcore.http11 - DEBUG - response_closed.complete
+[ 2026-08-25 10:53:08,727 ] httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'HEAD']>
+[ 2026-08-25 10:53:08,727 ] httpcore.http11 - DEBUG - send_request_headers.complete
+[ 2026-08-25 10:53:08,727 ] httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'HEAD']>
+[ 2026-08-25 10:53:08,727 ] httpcore.http11 - DEBUG - send_request_body.complete
+[ 2026-08-25 10:53:08,727 ] httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'HEAD']>
+[ 2026-08-25 10:53:08,874 ] httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Content-Type', b'text/plain; charset=utf-8'), (b'Content-Length', b'1000'), (b'Connection', b'keep-alive'), (b'Date', b'Fri, 05 Jun 2026 03:15:55 GMT'), (b'ETag', b'"03df12a02c65a8ba9552ed63f6f1518575d1f7ef"'), (b'X-Powered-By', b'huggingface-moon'), (b'X-Request-Id', b'Root=1-6a223f6b-6ca4dd51294cdd957518e41b;8f81ddd1-8351-4ee9-87c7-156d73af87c9'), (b'RateLimit', b'"resolvers";r=2997;t=141'), (b'RateLimit-Policy', b'"fixed window";"resolvers";q=3000;w=300'), (b'cross-origin-opener-policy', b'same-origin'), (b'Referrer-Policy', b'strict-origin-when-cross-origin'), (b'Access-Control-Max-Age', b'86400'), (b'Access-Control-Allow-Origin', b'https://huggingface.co'), (b'Access-Control-Expose-Headers', b'X-Repo-Commit,X-Request-Id,X-Error-Code,X-Error-Message,X-Total-Count,ETag,Link,Accept-Ranges,Content-Range,X-Linked-Size,X-Linked-ETag,X-Xet-Hash'), (b'X-Repo-Commit', b'79e7739b6ab944e86d6171e44d24c997fc1e0116'), (b'Accept-Ranges', b'bytes'), (b'Content-Disposition', b'inline; filename*=UTF-8\'\'config.json; filename="config.json";'), (b'Content-Security-Policy', b"default-src 'none'; sandbox"), (b'Vary', b'Origin'), (b'X-Cache', b'Hit from cloudfront'), (b'Via', b'1.1 4ecd66ab879d183a1f99e50b1fafb57c.cloudfront.net (CloudFront)'), (b'X-Amz-Cf-Pop', b'HKG61-P1'), (b'Alt-Svc', b'h3=":443"; ma=86400'), (b'X-Amz-Cf-Id', b'5mE3EOh9Wm_l4lhSuvL4IYkNVT4k-09K3QP2RiRc4FGsu005Upsg-g=='), (b'Age', b'6997033'), (b'Strict-Transport-Security', b'max-age=31536000')])
+[ 2026-08-25 10:53:08,875 ] httpx - INFO - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/BAAI/bge-large-zh-v1.5/79e7739b6ab944e86d6171e44d24c997fc1e0116/config.json "HTTP/1.1 200 OK"
+[ 2026-08-25 10:53:08,875 ] httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'HEAD']>
+[ 2026-08-25 10:53:08,875 ] httpcore.http11 - DEBUG - receive_response_body.complete
+[ 2026-08-25 10:53:08,875 ] httpcore.http11 - DEBUG - response_closed.started
+[ 2026-08-25 10:53:08,875 ] httpcore.http11 - DEBUG - response_closed.complete
+[ 2026-08-25 10:53:08,887 ] httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'HEAD']>
+[ 2026-08-25 10:53:08,888 ] httpcore.http11 - DEBUG - send_request_headers.complete
+[ 2026-08-25 10:53:08,888 ] httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'HEAD']>
+[ 2026-08-25 10:53:08,889 ] httpcore.http11 - DEBUG - send_request_body.complete
+[ 2026-08-25 10:53:08,889 ] httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'HEAD']>
+[ 2026-08-25 10:53:09,760 ] httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 307, b'Temporary Redirect', [(b'Content-Type', b'text/plain; charset=utf-8'), (b'Content-Length', b'248'), (b'Connection', b'keep-alive'), (b'Date', b'Tue, 25 Aug 2026 02:53:09 GMT'), (b'Location', b'/api/resolve-cache/models/BAAI/bge-large-zh-v1.5/79e7739b6ab944e86d6171e44d24c997fc1e0116/config.json?%2FBAAI%2Fbge-large-zh-v1.5%2Fresolve%2Fmain%2Fconfig.json=&etag=%2203df12a02c65a8ba9552ed63f6f1518575d1f7ef%22'), (b'X-Powered-By', b'huggingface-moon'), (b'X-Request-Id', b'Root=1-6a8d0395-1fe295063388d11d078313fe;e9ba935d-675c-4c39-95a3-76caa619c875'), (b'RateLimit', b'"resolvers";r=2994;t=167'), (b'RateLimit-Policy', b'"fixed window";"resolvers";q=3000;w=300'), (b'cross-origin-opener-policy', b'same-origin'), (b'Referrer-Policy', b'strict-origin-when-cross-origin'), (b'Access-Control-Max-Age', b'86400'), (b'Access-Control-Allow-Origin', b'https://huggingface.co'), (b'Vary', b'Origin, Accept'), (b'Access-Control-Expose-Headers', b'X-Repo-Commit,X-Request-Id,X-Error-Code,X-Error-Message,X-Total-Count,ETag,Link,Accept-Ranges,Content-Range,X-Linked-Size,X-Linked-ETag,X-Xet-Hash'), (b'X-Repo-Commit', b'79e7739b6ab944e86d6171e44d24c997fc1e0116'), (b'Accept-Ranges', b'bytes'), (b'X-Hub-Cache', b'HIT'), (b'Content-Disposition', b'inline; filename*=UTF-8\'\'config.json; filename="config.json";'), (b'Content-Security-Policy', b"default-src 'none'; sandbox"), (b'X-Linked-ETag', b'"03df12a02c65a8ba9552ed63f6f1518575d1f7ef"'), (b'X-Cache', b'Miss from cloudfront'), (b'Via', b'1.1 4ecd66ab879d183a1f99e50b1fafb57c.cloudfront.net (CloudFront)'), (b'X-Amz-Cf-Pop', b'HKG61-P1'), (b'Alt-Svc', b'h3=":443"; ma=86400'), (b'X-Amz-Cf-Id', b'Vz3qOIspA3_RLi9dusJpeYJ1JOcDjSHb3dYfCQtflAIPXu-1mIrM9A=='), (b'Strict-Transport-Security', b'max-age=31536000')])
+[ 2026-08-25 10:53:09,761 ] httpx - INFO - HTTP Request: HEAD https://huggingface.co/BAAI/bge-large-zh-v1.5/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+[ 2026-08-25 10:53:09,765 ] httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'HEAD']>
+[ 2026-08-25 10:53:09,765 ] httpcore.http11 - DEBUG - receive_response_body.complete
+[ 2026-08-25 10:53:09,765 ] httpcore.http11 - DEBUG - response_closed.started
+[ 2026-08-25 10:53:09,765 ] httpcore.http11 - DEBUG - response_closed.complete
+[ 2026-08-25 10:53:09,765 ] httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'HEAD']>
+[ 2026-08-25 10:53:09,765 ] httpcore.http11 - DEBUG - send_request_headers.complete
+[ 2026-08-25 10:53:09,765 ] httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'HEAD']>
+[ 2026-08-25 10:53:09,769 ] httpcore.http11 - DEBUG - send_request_body.complete
+[ 2026-08-25 10:53:09,769 ] httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'HEAD']>
+[ 2026-08-25 10:53:09,885 ] httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Content-Type', b'text/plain; charset=utf-8'), (b'Content-Length', b'1000'), (b'Connection', b'keep-alive'), (b'Date', b'Fri, 05 Jun 2026 03:15:55 GMT'), (b'ETag', b'"03df12a02c65a8ba9552ed63f6f1518575d1f7ef"'), (b'X-Powered-By', b'huggingface-moon'), (b'X-Request-Id', b'Root=1-6a223f6b-6ca4dd51294cdd957518e41b;8f81ddd1-8351-4ee9-87c7-156d73af87c9'), (b'RateLimit', b'"resolvers";r=2997;t=141'), (b'RateLimit-Policy', b'"fixed window";"resolvers";q=3000;w=300'), (b'cross-origin-opener-policy', b'same-origin'), (b'Referrer-Policy', b'strict-origin-when-cross-origin'), (b'Access-Control-Max-Age', b'86400'), (b'Access-Control-Allow-Origin', b'https://huggingface.co'), (b'Access-Control-Expose-Headers', b'X-Repo-Commit,X-Request-Id,X-Error-Code,X-Error-Message,X-Total-Count,ETag,Link,Accept-Ranges,Content-Range,X-Linked-Size,X-Linked-ETag,X-Xet-Hash'), (b'X-Repo-Commit', b'79e7739b6ab944e86d6171e44d24c997fc1e0116'), (b'Accept-Ranges', b'bytes'), (b'Content-Disposition', b'inline; filename*=UTF-8\'\'config.json; filename="config.json";'), (b'Content-Security-Policy', b"default-src 'none'; sandbox"), (b'Vary', b'Origin'), (b'X-Cache', b'Hit from cloudfront'), (b'Via', b'1.1 4ecd66ab879d183a1f99e50b1fafb57c.cloudfront.net (CloudFront)'), (b'X-Amz-Cf-Pop', b'HKG61-P1'), (b'Alt-Svc', b'h3=":443"; ma=86400'), (b'X-Amz-Cf-Id', b'SJUgt51_4Z_ZFUhcsEkgkdOPRqXgOyrLZ09BA9KAMWfxjI1g5oTa0A=='), (b'Age', b'6997034'), (b'Strict-Transport-Security', b'max-age=31536000')])
+[ 2026-08-25 10:53:09,885 ] httpx - INFO - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/BAAI/bge-large-zh-v1.5/79e7739b6ab944e86d6171e44d24c997fc1e0116/config.json "HTTP/1.1 200 OK"
+[ 2026-08-25 10:53:09,886 ] httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'HEAD']>
+[ 2026-08-25 10:53:09,886 ] httpcore.http11 - DEBUG - receive_response_body.complete
+[ 2026-08-25 10:53:09,886 ] httpcore.http11 - DEBUG - response_closed.started
+[ 2026-08-25 10:53:09,886 ] httpcore.http11 - DEBUG - response_closed.complete
+[ 2026-08-25 10:53:09,894 ] httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'HEAD']>
+[ 2026-08-25 10:53:09,895 ] httpcore.http11 - DEBUG - send_request_headers.complete
+[ 2026-08-25 10:53:09,895 ] httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'HEAD']>
+[ 2026-08-25 10:53:09,896 ] httpcore.http11 - DEBUG - send_request_body.complete
+[ 2026-08-25 10:53:09,896 ] httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'HEAD']>
+[ 2026-08-25 10:53:10,219 ] httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 307, b'Temporary Redirect', [(b'Content-Type', b'text/plain; charset=utf-8'), (b'Content-Length', b'268'), (b'Connection', b'keep-alive'), (b'Date', b'Tue, 25 Aug 2026 02:53:10 GMT'), (b'Location', b'/api/resolve-cache/models/BAAI/bge-large-zh-v1.5/79e7739b6ab944e86d6171e44d24c997fc1e0116/tokenizer_config.json?%2FBAAI%2Fbge-large-zh-v1.5%2Fresolve%2Fmain%2Ftokenizer_config.json=&etag=%2242046bd361a033a24264dc41de1fe6cafd68072f%22'), (b'X-Powered-By', b'huggingface-moon'), (b'X-Request-Id', b'Root=1-6a8d0396-24d68fa46b64cc0a38376cc9;3e603536-2767-456f-a247-3b72b893c809'), (b'RateLimit', b'"resolvers";r=2993;t=166'), (b'RateLimit-Policy', b'"fixed window";"resolvers";q=3000;w=300'), (b'cross-origin-opener-policy', b'same-origin'), (b'Referrer-Policy', b'strict-origin-when-cross-origin'), (b'Access-Control-Max-Age', b'86400'), (b'Access-Control-Allow-Origin', b'https://huggingface.co'), (b'Vary', b'Origin, Accept'), (b'Access-Control-Expose-Headers', b'X-Repo-Commit,X-Request-Id,X-Error-Code,X-Error-Message,X-Total-Count,ETag,Link,Accept-Ranges,Content-Range,X-Linked-Size,X-Linked-ETag,X-Xet-Hash'), (b'X-Repo-Commit', b'79e7739b6ab944e86d6171e44d24c997fc1e0116'), (b'Accept-Ranges', b'bytes'), (b'X-HF-Warning', b'unauthenticated; Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.'), (b'X-Hub-Cache', b'HIT'), (b'Content-Disposition', b'inline; filename*=UTF-8\'\'tokenizer_config.json; filename="tokenizer_config.json";'), (b'Content-Security-Policy', b"default-src 'none'; sandbox"), (b'X-Linked-ETag', b'"42046bd361a033a24264dc41de1fe6cafd68072f"'), (b'X-Cache', b'Miss from cloudfront'), (b'Via', b'1.1 4ecd66ab879d183a1f99e50b1fafb57c.cloudfront.net (CloudFront)'), (b'X-Amz-Cf-Pop', b'HKG61-P1'), (b'Alt-Svc', b'h3=":443"; ma=86400'), (b'X-Amz-Cf-Id', b'X6RmaPxv_Rryts-rwTKPuznHqS3zY9xvHsJdfoBIjdWI1b8VrXu-8A=='), (b'Strict-Transport-Security', b'max-age=31536000')])
+[ 2026-08-25 10:53:10,220 ] httpx - INFO - HTTP Request: HEAD https://huggingface.co/BAAI/bge-large-zh-v1.5/resolve/main/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+[ 2026-08-25 10:53:10,221 ] httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'HEAD']>
+[ 2026-08-25 10:53:10,221 ] httpcore.http11 - DEBUG - receive_response_body.complete
+[ 2026-08-25 10:53:10,221 ] httpcore.http11 - DEBUG - response_closed.started
+[ 2026-08-25 10:53:10,221 ] httpcore.http11 - DEBUG - response_closed.complete
+[ 2026-08-25 10:53:10,222 ] httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'HEAD']>
+[ 2026-08-25 10:53:10,223 ] httpcore.http11 - DEBUG - send_request_headers.complete
+[ 2026-08-25 10:53:10,223 ] httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'HEAD']>
+[ 2026-08-25 10:53:10,223 ] httpcore.http11 - DEBUG - send_request_body.complete
+[ 2026-08-25 10:53:10,223 ] httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'HEAD']>
+[ 2026-08-25 10:53:10,335 ] httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Content-Type', b'text/plain; charset=utf-8'), (b'Content-Length', b'394'), (b'Connection', b'keep-alive'), (b'Date', b'Thu, 28 May 2026 16:52:39 GMT'), (b'ETag', b'"42046bd361a033a24264dc41de1fe6cafd68072f"'), (b'X-Powered-By', b'huggingface-moon'), (b'X-Request-Id', b'Root=1-6a1872d7-0551751431841c2e1189bf82;3274e617-9695-46db-b590-bd6e19f4208a'), (b'RateLimit', b'"resolvers";r=2999;t=281'), (b'RateLimit-Policy', b'"fixed window";"resolvers";q=3000;w=300'), (b'cross-origin-opener-policy', b'same-origin'), (b'Referrer-Policy', b'strict-origin-when-cross-origin'), (b'Access-Control-Max-Age', b'86400'), (b'Access-Control-Allow-Origin', b'https://huggingface.co'), (b'Access-Control-Expose-Headers', b'X-Repo-Commit,X-Request-Id,X-Error-Code,X-Error-Message,X-Total-Count,ETag,Link,Accept-Ranges,Content-Range,X-Linked-Size,X-Linked-ETag,X-Xet-Hash'), (b'X-Repo-Commit', b'79e7739b6ab944e86d6171e44d24c997fc1e0116'), (b'Accept-Ranges', b'bytes'), (b'Content-Disposition', b'inline; filename*=UTF-8\'\'tokenizer_config.json; filename="tokenizer_config.json";'), (b'Content-Security-Policy', b"default-src 'none'; sandbox"), (b'Vary', b'Origin'), (b'X-Cache', b'Hit from cloudfront'), (b'Via', b'1.1 4ecd66ab879d183a1f99e50b1fafb57c.cloudfront.net (CloudFront)'), (b'X-Amz-Cf-Pop', b'HKG61-P1'), (b'Alt-Svc', b'h3=":443"; ma=86400'), (b'X-Amz-Cf-Id', b'xoAJ8Vi5P_NUofCpXPV_y6KeWXJNrGxWRuI7SJw6vLRmNTto-n2Bqw=='), (b'Age', b'7639231'), (b'Strict-Transport-Security', b'max-age=31536000')])
+[ 2026-08-25 10:53:10,335 ] httpx - INFO - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/BAAI/bge-large-zh-v1.5/79e7739b6ab944e86d6171e44d24c997fc1e0116/tokenizer_config.json "HTTP/1.1 200 OK"
+[ 2026-08-25 10:53:10,335 ] httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'HEAD']>
+[ 2026-08-25 10:53:10,335 ] httpcore.http11 - DEBUG - receive_response_body.complete
+[ 2026-08-25 10:53:10,335 ] httpcore.http11 - DEBUG - response_closed.started
+[ 2026-08-25 10:53:10,335 ] httpcore.http11 - DEBUG - response_closed.complete
+[ 2026-08-25 10:53:10,358 ] httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'GET']>
+[ 2026-08-25 10:53:10,358 ] httpcore.http11 - DEBUG - send_request_headers.complete
+[ 2026-08-25 10:53:10,358 ] httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'GET']>
+[ 2026-08-25 10:53:10,360 ] httpcore.http11 - DEBUG - send_request_body.complete
+[ 2026-08-25 10:53:10,360 ] httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'GET']>
+[ 2026-08-25 10:53:10,698 ] httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 404, b'Not Found', [(b'Content-Type', b'application/json; charset=utf-8'), (b'Content-Length', b'64'), (b'Connection', b'keep-alive'), (b'Date', b'Tue, 25 Aug 2026 02:53:10 GMT'), (b'ETag', b'W/"40-09f9IAqP13xarAhQxFS2W8rvRkM"'), (b'X-Powered-By', b'huggingface-moon'), (b'X-Request-Id', b'Root=1-6a8d0396-012e1bb27514fff4252da326;8d993a2a-9c27-4f52-bd7c-79e631652d79'), (b'RateLimit', b'"api";r=499;t=166'), (b'RateLimit-Policy', b'"fixed window";"api";q=500;w=300'), (b'cross-origin-opener-policy', b'same-origin'), (b'Referrer-Policy', b'strict-origin-when-cross-origin'), (b'Access-Control-Max-Age', b'86400'), (b'Access-Control-Allow-Origin', b'https://huggingface.co'), (b'Vary', b'Origin'), (b'Access-Control-Expose-Headers', b'X-Repo-Commit,X-Request-Id,X-Error-Code,X-Error-Message,X-Total-Count,ETag,Link,Accept-Ranges,Content-Range,X-Linked-Size,X-Linked-ETag,X-Xet-Hash'), (b'X-Error-Code', b'EntryNotFound'), (b'X-Error-Message', b'additional_chat_templates does not exist on "main"'), (b'X-Cache', b'Error from cloudfront'), (b'Via', b'1.1 4ecd66ab879d183a1f99e50b1fafb57c.cloudfront.net (CloudFront)'), (b'X-Amz-Cf-Pop', b'HKG61-P1'), (b'Alt-Svc', b'h3=":443"; ma=86400'), (b'X-Amz-Cf-Id', b'd22hd-TI8oONyHtr-uy8tdA9hc2t_sWFikkc-GRLZ0-EAc_miHR2tw=='), (b'Strict-Transport-Security', b'max-age=31536000')])
+[ 2026-08-25 10:53:10,698 ] httpx - INFO - HTTP Request: GET https://huggingface.co/api/models/BAAI/bge-large-zh-v1.5/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+[ 2026-08-25 10:53:10,698 ] httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'GET']>
+[ 2026-08-25 10:53:10,698 ] httpcore.http11 - DEBUG - receive_response_body.complete
+[ 2026-08-25 10:53:10,698 ] httpcore.http11 - DEBUG - response_closed.started
+[ 2026-08-25 10:53:10,698 ] httpcore.http11 - DEBUG - response_closed.complete
+[ 2026-08-25 10:53:10,700 ] httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'GET']>
+[ 2026-08-25 10:53:10,700 ] httpcore.http11 - DEBUG - send_request_headers.complete
+[ 2026-08-25 10:53:10,700 ] httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'GET']>
+[ 2026-08-25 10:53:10,701 ] httpcore.http11 - DEBUG - send_request_body.complete
+[ 2026-08-25 10:53:10,701 ] httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'GET']>
+[ 2026-08-25 10:53:11,157 ] httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Content-Type', b'application/json; charset=utf-8'), (b'Transfer-Encoding', b'chunked'), (b'Connection', b'keep-alive'), (b'Date', b'Tue, 25 Aug 2026 02:53:10 GMT'), (b'content-encoding', b'gzip'), (b'ETag', b'W/"60e-4HTeqdg1nbgKNpZ8eK9G2cU1aXs"'), (b'X-Powered-By', b'huggingface-moon'), (b'X-Request-Id', b'Root=1-6a8d0396-1e2920510f44522c17900b85;eea2ecff-7a75-4308-a795-5a70ebc0751d'), (b'RateLimit', b'"api";r=498;t=166'), (b'RateLimit-Policy', b'"fixed window";"api";q=500;w=300'), (b'cross-origin-opener-policy', b'same-origin'), (b'Referrer-Policy', b'strict-origin-when-cross-origin'), (b'Access-Control-Max-Age', b'86400'), (b'Access-Control-Allow-Origin', b'https://huggingface.co'), (b'Vary', b'Origin'), (b'vary', b'Accept-Encoding'), (b'Access-Control-Expose-Headers', b'X-Repo-Commit,X-Request-Id,X-Error-Code,X-Error-Message,X-Total-Count,ETag,Link,Accept-Ranges,Content-Range,X-Linked-Size,X-Linked-ETag,X-Xet-Hash'), (b'X-Cache', b'Miss from cloudfront'), (b'Via', b'1.1 4ecd66ab879d183a1f99e50b1fafb57c.cloudfront.net (CloudFront)'), (b'X-Amz-Cf-Pop', b'HKG61-P1'), (b'Alt-Svc', b'h3=":443"; ma=86400'), (b'X-Amz-Cf-Id', b'uq_VvBB3kipIslP14ezF46XO2EJpaBHqgozkjygbXPExr-sfGEP-9A=='), (b'Strict-Transport-Security', b'max-age=31536000')])
+[ 2026-08-25 10:53:11,157 ] httpx - INFO - HTTP Request: GET https://huggingface.co/api/models/BAAI/bge-large-zh-v1.5/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+[ 2026-08-25 10:53:11,157 ] httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'GET']>
+[ 2026-08-25 10:53:11,245 ] httpcore.http11 - DEBUG - receive_response_body.complete
+[ 2026-08-25 10:53:11,245 ] httpcore.http11 - DEBUG - response_closed.started
+[ 2026-08-25 10:53:11,245 ] httpcore.http11 - DEBUG - response_closed.complete
+[ 2026-08-25 10:53:11,322 ] sentence_transformers.base.modules.transformer - DEBUG - Active modality config: {'text': {'method': 'forward', 'method_output_name': 'last_hidden_state'}}
+[ 2026-08-25 10:53:11,324 ] httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'HEAD']>
+[ 2026-08-25 10:53:11,324 ] httpcore.http11 - DEBUG - send_request_headers.complete
+[ 2026-08-25 10:53:11,324 ] httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'HEAD']>
+[ 2026-08-25 10:53:11,324 ] httpcore.http11 - DEBUG - send_request_body.complete
+[ 2026-08-25 10:53:11,325 ] httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'HEAD']>
+[ 2026-08-25 10:53:11,698 ] httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 307, b'Temporary Redirect', [(b'Content-Type', b'text/plain; charset=utf-8'), (b'Content-Length', b'272'), (b'Connection', b'keep-alive'), (b'Date', b'Tue, 25 Aug 2026 02:53:11 GMT'), (b'Location', b'/api/resolve-cache/models/BAAI/bge-large-zh-v1.5/79e7739b6ab944e86d6171e44d24c997fc1e0116/1_Pooling%2Fconfig.json?%2FBAAI%2Fbge-large-zh-v1.5%2Fresolve%2Fmain%2F1_Pooling%2Fconfig.json=&etag=%229bd85925f325e25246d94c4918dc02ab98f2a1b7%22'), (b'X-Powered-By', b'huggingface-moon'), (b'X-Request-Id', b'Root=1-6a8d0397-6a5264ab590e067352fd84c6;973d1386-5422-4719-aee4-0258474d4c65'), (b'RateLimit', b'"resolvers";r=2992;t=165'), (b'RateLimit-Policy', b'"fixed window";"resolvers";q=3000;w=300'), (b'cross-origin-opener-policy', b'same-origin'), (b'Referrer-Policy', b'strict-origin-when-cross-origin'), (b'Access-Control-Max-Age', b'86400'), (b'Access-Control-Allow-Origin', b'https://huggingface.co'), (b'Vary', b'Origin, Accept'), (b'Access-Control-Expose-Headers', b'X-Repo-Commit,X-Request-Id,X-Error-Code,X-Error-Message,X-Total-Count,ETag,Link,Accept-Ranges,Content-Range,X-Linked-Size,X-Linked-ETag,X-Xet-Hash'), (b'X-Repo-Commit', b'79e7739b6ab944e86d6171e44d24c997fc1e0116'), (b'Accept-Ranges', b'bytes'), (b'X-HF-Warning', b'unauthenticated; Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.'), (b'X-Hub-Cache', b'HIT'), (b'Content-Disposition', b'inline; filename*=UTF-8\'\'config.json; filename="config.json";'), (b'Content-Security-Policy', b"default-src 'none'; sandbox"), (b'X-Linked-ETag', b'"9bd85925f325e25246d94c4918dc02ab98f2a1b7"'), (b'X-Cache', b'Miss from cloudfront'), (b'Via', b'1.1 4ecd66ab879d183a1f99e50b1fafb57c.cloudfront.net (CloudFront)'), (b'X-Amz-Cf-Pop', b'HKG61-P1'), (b'Alt-Svc', b'h3=":443"; ma=86400'), (b'X-Amz-Cf-Id', b'QFfJLbNH1_0B5YqRvr3F07WpXhb_74H9FgILe-VOW1PHCvEyU2A43A=='), (b'Strict-Transport-Security', b'max-age=31536000')])
+[ 2026-08-25 10:53:11,698 ] httpx - INFO - HTTP Request: HEAD https://huggingface.co/BAAI/bge-large-zh-v1.5/resolve/main/1_Pooling/config.json "HTTP/1.1 307 Temporary Redirect"
+[ 2026-08-25 10:53:11,698 ] httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'HEAD']>
+[ 2026-08-25 10:53:11,698 ] httpcore.http11 - DEBUG - receive_response_body.complete
+[ 2026-08-25 10:53:11,698 ] httpcore.http11 - DEBUG - response_closed.started
+[ 2026-08-25 10:53:11,698 ] httpcore.http11 - DEBUG - response_closed.complete
+[ 2026-08-25 10:53:11,700 ] httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'HEAD']>
+[ 2026-08-25 10:53:11,700 ] httpcore.http11 - DEBUG - send_request_headers.complete
+[ 2026-08-25 10:53:11,700 ] httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'HEAD']>
+[ 2026-08-25 10:53:11,700 ] httpcore.http11 - DEBUG - send_request_body.complete
+[ 2026-08-25 10:53:11,700 ] httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'HEAD']>
+[ 2026-08-25 10:53:11,827 ] httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Content-Type', b'text/plain; charset=utf-8'), (b'Content-Length', b'191'), (b'Connection', b'keep-alive'), (b'Date', b'Fri, 22 May 2026 08:40:07 GMT'), (b'ETag', b'"9bd85925f325e25246d94c4918dc02ab98f2a1b7"'), (b'X-Powered-By', b'huggingface-moon'), (b'X-Request-Id', b'Root=1-6a101667-3ad3e4270e59cc1c082bc1e4'), (b'RateLimit', b'"resolvers";r=2903;t=173'), (b'RateLimit-Policy', b'"fixed window";"resolvers";q=3000;w=300'), (b'cross-origin-opener-policy', b'same-origin'), (b'Referrer-Policy', b'strict-origin-when-cross-origin'), (b'Access-Control-Max-Age', b'86400'), (b'Access-Control-Allow-Origin', b'https://huggingface.co'), (b'Access-Control-Expose-Headers', b'X-Repo-Commit,X-Request-Id,X-Error-Code,X-Error-Message,X-Total-Count,ETag,Link,Accept-Ranges,Content-Range,X-Linked-Size,X-Linked-ETag,X-Xet-Hash'), (b'X-Repo-Commit', b'79e7739b6ab944e86d6171e44d24c997fc1e0116'), (b'Accept-Ranges', b'bytes'), (b'Content-Disposition', b'inline; filename*=UTF-8\'\'config.json; filename="config.json";'), (b'Content-Security-Policy', b"default-src 'none'; sandbox"), (b'Vary', b'Origin'), (b'X-Cache', b'Hit from cloudfront'), (b'Via', b'1.1 4ecd66ab879d183a1f99e50b1fafb57c.cloudfront.net (CloudFront)'), (b'X-Amz-Cf-Pop', b'HKG61-P1'), (b'Alt-Svc', b'h3=":443"; ma=86400'), (b'X-Amz-Cf-Id', b'rsUMICtFdTNFQ2eHLpzpSEBjEpyDyqpMkDLXAIkn-ACs3puoxSsvOQ=='), (b'Age', b'8187184'), (b'Strict-Transport-Security', b'max-age=31536000')])
+[ 2026-08-25 10:53:11,827 ] httpx - INFO - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/BAAI/bge-large-zh-v1.5/79e7739b6ab944e86d6171e44d24c997fc1e0116/1_Pooling%2Fconfig.json "HTTP/1.1 200 OK"
+[ 2026-08-25 10:53:11,829 ] httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'HEAD']>
+[ 2026-08-25 10:53:11,829 ] httpcore.http11 - DEBUG - receive_response_body.complete
+[ 2026-08-25 10:53:11,829 ] httpcore.http11 - DEBUG - response_closed.started
+[ 2026-08-25 10:53:11,829 ] httpcore.http11 - DEBUG - response_closed.complete
+[ 2026-08-25 10:53:11,843 ] httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'HEAD']>
+[ 2026-08-25 10:53:11,843 ] httpcore.http11 - DEBUG - send_request_headers.complete
+[ 2026-08-25 10:53:11,843 ] httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'HEAD']>
+[ 2026-08-25 10:53:11,843 ] httpcore.http11 - DEBUG - send_request_body.complete
+[ 2026-08-25 10:53:11,843 ] httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'HEAD']>
+[ 2026-08-25 10:53:12,170 ] httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 404, b'Not Found', [(b'Content-Type', b'text/plain; charset=utf-8'), (b'Content-Length', b'15'), (b'Connection', b'keep-alive'), (b'Date', b'Tue, 25 Aug 2026 02:53:12 GMT'), (b'ETag', b'W/"f-mY2VvLxuxB7KhsoOdQTlMTccuAQ"'), (b'X-Powered-By', b'huggingface-moon'), (b'X-Request-Id', b'Root=1-6a8d0398-1cbd12e13d28c08d3fb2a384;3a74b0c1-53b3-45bc-9df3-a52f85824a15'), (b'RateLimit', b'"resolvers";r=2991;t=164'), (b'RateLimit-Policy', b'"fixed window";"resolvers";q=3000;w=300'), (b'cross-origin-opener-policy', b'same-origin'), (b'Referrer-Policy', b'strict-origin-when-cross-origin'), (b'Access-Control-Max-Age', b'86400'), (b'Access-Control-Allow-Origin', b'https://huggingface.co'), (b'Vary', b'Origin'), (b'Access-Control-Expose-Headers', b'X-Repo-Commit,X-Request-Id,X-Error-Code,X-Error-Message,X-Total-Count,ETag,Link,Accept-Ranges,Content-Range,X-Linked-Size,X-Linked-ETag,X-Xet-Hash'), (b'X-Repo-Commit', b'79e7739b6ab944e86d6171e44d24c997fc1e0116'), (b'Accept-Ranges', b'bytes'), (b'X-HF-Warning', b'unauthenticated; Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.'), (b'X-Hub-Cache', b'MISS'), (b'X-Error-Code', b'EntryNotFound'), (b'X-Error-Message', b'Entry not found'), (b'X-Cache', b'Error from cloudfront'), (b'Via', b'1.1 4ecd66ab879d183a1f99e50b1fafb57c.cloudfront.net (CloudFront)'), (b'X-Amz-Cf-Pop', b'HKG61-P1'), (b'Alt-Svc', b'h3=":443"; ma=86400'), (b'X-Amz-Cf-Id', b'o8NM3vpO52r-PVfPJpE5UN19uKgQTwR6Jeakq1oaOdtq-siS3r1TTQ=='), (b'Strict-Transport-Security', b'max-age=31536000')])
+[ 2026-08-25 10:53:12,170 ] httpx - INFO - HTTP Request: HEAD https://huggingface.co/BAAI/bge-large-zh-v1.5/resolve/main/2_Normalize/config.json "HTTP/1.1 404 Not Found"
+[ 2026-08-25 10:53:12,172 ] httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'HEAD']>
+[ 2026-08-25 10:53:12,172 ] httpcore.http11 - DEBUG - receive_response_body.complete
+[ 2026-08-25 10:53:12,172 ] httpcore.http11 - DEBUG - response_closed.started
+[ 2026-08-25 10:53:12,172 ] httpcore.http11 - DEBUG - response_closed.complete
+[ 2026-08-25 10:53:12,181 ] sentence_transformers.util.file_io - DEBUG - Could not load 'config.json' from 'BAAI/bge-large-zh-v1.5': 404 Client Error. (Request ID: Root=1-6a8d0398-1cbd12e13d28c08d3fb2a384;3a74b0c1-53b3-45bc-9df3-a52f85824a15)
+
+Entry Not Found for url: https://huggingface.co/BAAI/bge-large-zh-v1.5/resolve/main/2_Normalize/config.json.
+[ 2026-08-25 10:53:12,182 ] httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'GET']>
+[ 2026-08-25 10:53:12,182 ] httpcore.http11 - DEBUG - send_request_headers.complete
+[ 2026-08-25 10:53:12,182 ] httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'GET']>
+[ 2026-08-25 10:53:12,182 ] httpcore.http11 - DEBUG - send_request_body.complete
+[ 2026-08-25 10:53:12,182 ] httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'GET']>
+[ 2026-08-25 10:53:12,913 ] httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Content-Type', b'application/json; charset=utf-8'), (b'Transfer-Encoding', b'chunked'), (b'Connection', b'keep-alive'), (b'Date', b'Tue, 25 Aug 2026 02:53:12 GMT'), (b'content-encoding', b'gzip'), (b'ETag', b'W/"1087-S+6DM8GSN3MHuNw6xUPojlZRyGk"'), (b'X-Powered-By', b'huggingface-moon'), (b'X-Request-Id', b'Root=1-6a8d0398-4f78b884155bfc19437de5c4;adf614ed-9d0c-40a0-a5ef-cabe5fbe79de'), (b'RateLimit', b'"api";r=497;t=164'), (b'RateLimit-Policy', b'"fixed window";"api";q=500;w=300'), (b'cross-origin-opener-policy', b'same-origin'), (b'Referrer-Policy', b'strict-origin-when-cross-origin'), (b'Access-Control-Max-Age', b'86400'), (b'Access-Control-Allow-Origin', b'https://huggingface.co'), (b'Vary', b'Origin'), (b'vary', b'Accept-Encoding'), (b'Access-Control-Expose-Headers', b'X-Repo-Commit,X-Request-Id,X-Error-Code,X-Error-Message,X-Total-Count,ETag,Link,Accept-Ranges,Content-Range,X-Linked-Size,X-Linked-ETag,X-Xet-Hash'), (b'X-Cache', b'Miss from cloudfront'), (b'Via', b'1.1 4ecd66ab879d183a1f99e50b1fafb57c.cloudfront.net (CloudFront)'), (b'X-Amz-Cf-Pop', b'HKG61-P1'), (b'Alt-Svc', b'h3=":443"; ma=86400'), (b'X-Amz-Cf-Id', b'V951KgxapX0QkLfy8TEI3WTShx1ULQGTiQydaDt3pDi65R0-19tPhA=='), (b'Strict-Transport-Security', b'max-age=31536000')])
+[ 2026-08-25 10:53:12,914 ] httpx - INFO - HTTP Request: GET https://huggingface.co/api/models/BAAI/bge-large-zh-v1.5 "HTTP/1.1 200 OK"
+[ 2026-08-25 10:53:12,915 ] httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'GET']>
+[ 2026-08-25 10:53:12,915 ] httpcore.http11 - DEBUG - receive_response_body.complete
+[ 2026-08-25 10:53:12,916 ] httpcore.http11 - DEBUG - response_closed.started
+[ 2026-08-25 10:53:12,916 ] httpcore.http11 - DEBUG - response_closed.complete
+[ 2026-08-25 10:53:15,141 ] httpcore.connection - DEBUG - connect_tcp.started host='127.0.0.1' port=7897 local_address=None timeout=10 socket_options=None
+[ 2026-08-25 10:53:17,193 ] httpcore.connection - DEBUG - connect_tcp.failed exception=ConnectError(ConnectionRefusedError(10061, '由于目标计算机积极拒绝，无法连接。', None, 10061, None))
+[ 2026-08-25 10:53:17,193 ] httpcore.connection - DEBUG - connect_tcp.started host='127.0.0.1' port=7897 local_address=None timeout=10 socket_options=None
+[ 2026-08-25 10:53:19,232 ] httpcore.connection - DEBUG - connect_tcp.failed exception=ConnectError(ConnectionRefusedError(10061, '由于目标计算机积极拒绝，无法连接。', None, 10061, None))
+[ 2026-08-25 10:53:19,235 ] sentence_transformers.base.model - INFO - Loading SentenceTransformer model from BAAI/bge-large-zh-v1.5.
+[ 2026-08-25 10:53:19,238 ] httpcore.connection - DEBUG - connect_tcp.started host='127.0.0.1' port=7897 local_address=None timeout=10 socket_options=None
+[ 2026-08-25 10:53:21,282 ] httpcore.connection - DEBUG - connect_tcp.failed exception=ConnectError(ConnectionRefusedError(10061, '由于目标计算机积极拒绝，无法连接。', None, 10061, None))
+[ 2026-08-25 10:53:21,282 ] httpcore.connection - DEBUG - connect_tcp.started host='127.0.0.1' port=7897 local_address=None timeout=10 socket_options=None
+[ 2026-08-25 10:53:23,308 ] httpcore.connection - DEBUG - connect_tcp.failed exception=ConnectError(ConnectionRefusedError(10061, '由于目标计算机积极拒绝，无法连接。', None, 10061, None))
+[ 2026-08-25 10:53:23,315 ] httpcore.connection - DEBUG - connect_tcp.started host='127.0.0.1' port=7897 local_address=None timeout=10 socket_options=None
+[ 2026-08-25 10:53:25,380 ] httpcore.connection - DEBUG - connect_tcp.failed exception=ConnectError(ConnectionRefusedError(10061, '由于目标计算机积极拒绝，无法连接。', None, 10061, None))
+[ 2026-08-25 10:53:25,385 ] httpcore.connection - DEBUG - connect_tcp.started host='127.0.0.1' port=7897 local_address=None timeout=10 socket_options=None
+[ 2026-08-25 10:53:27,410 ] httpcore.connection - DEBUG - connect_tcp.failed exception=ConnectError(ConnectionRefusedError(10061, '由于目标计算机积极拒绝，无法连接。', None, 10061, None))
+[ 2026-08-25 10:53:27,411 ] httpcore.connection - DEBUG - connect_tcp.started host='127.0.0.1' port=7897 local_address=None timeout=10 socket_options=None
+[ 2026-08-25 10:53:29,484 ] httpcore.connection - DEBUG - connect_tcp.failed exception=ConnectError(ConnectionRefusedError(10061, '由于目标计算机积极拒绝，无法连接。', None, 10061, None))
+[ 2026-08-25 10:53:29,484 ] httpcore.connection - DEBUG - connect_tcp.started host='127.0.0.1' port=7897 local_address=None timeout=60 socket_options=None
+[ 2026-08-25 10:53:31,525 ] httpcore.connection - DEBUG - connect_tcp.failed exception=ConnectError(ConnectionRefusedError(10061, '由于目标计算机积极拒绝，无法连接。', None, 10061, None))
+[ 2026-08-25 10:53:31,525 ] huggingface_hub.utils._http - WARNING - '[WinError 10061] 由于目标计算机积极拒绝，无法连接。' thrown while requesting HEAD https://huggingface.co/BAAI/bge-large-zh-v1.5/resolve/main/adapter_config.json
+[ 2026-08-25 10:53:31,525 ] huggingface_hub.utils._http - WARNING - Retrying in 1s [Retry 1/5].
+[ 2026-08-25 10:53:32,548 ] httpcore.connection - DEBUG - connect_tcp.started host='huggingface.co' port=443 local_address=None timeout=60 socket_options=None
+[ 2026-08-25 10:54:14,696 ] httpcore.connection - DEBUG - connect_tcp.failed exception=ConnectTimeout(TimeoutError(10060, '由于连接方在一段时间后没有正确答复或连接的主机没有反应，连接尝试失败。', None, 10060, None))
+[ 2026-08-25 10:54:14,696 ] huggingface_hub.utils._http - WARNING - '[WinError 10060] 由于连接方在一段时间后没有正确答复或连接的主机没有反应，连接尝试失败。' thrown while requesting HEAD https://huggingface.co/BAAI/bge-large-zh-v1.5/resolve/main/adapter_config.json
+[ 2026-08-25 10:54:14,696 ] huggingface_hub.utils._http - WARNING - Retrying in 2s [Retry 2/5].
+[ 2026-08-25 10:54:16,701 ] httpcore.connection - DEBUG - connect_tcp.started host='huggingface.co' port=443 local_address=None timeout=60 socket_options=None
+[ 2026-08-25 10:54:58,774 ] httpcore.connection - DEBUG - connect_tcp.failed exception=ConnectTimeout(TimeoutError(10060, '由于连接方在一段时间后没有正确答复或连接的主机没有反应，连接尝试失败。', None, 10060, None))
+[ 2026-08-25 10:54:58,776 ] huggingface_hub.utils._http - WARNING - '[WinError 10060] 由于连接方在一段时间后没有正确答复或连接的主机没有反应，连接尝试失败。' thrown while requesting HEAD https://huggingface.co/BAAI/bge-large-zh-v1.5/resolve/main/adapter_config.json
+[ 2026-08-25 10:54:58,776 ] huggingface_hub.utils._http - WARNING - Retrying in 4s [Retry 3/5].
+[ 2026-08-25 10:55:02,779 ] httpcore.connection - DEBUG - connect_tcp.started host='huggingface.co' port=443 local_address=None timeout=60 socket_options=None
+[ 2026-08-25 10:55:46,116 ] httpcore.connection - DEBUG - connect_tcp.failed exception=ConnectTimeout(TimeoutError(10060, '由于连接方在一段时间后没有正确答复或连接的主机没有反应，连接尝试失败。', None, 10060, None))
+[ 2026-08-25 10:55:46,116 ] huggingface_hub.utils._http - WARNING - '[WinError 10060] 由于连接方在一段时间后没有正确答复或连接的主机没有反应，连接尝试失败。' thrown while requesting HEAD https://huggingface.co/BAAI/bge-large-zh-v1.5/resolve/main/adapter_config.json
+[ 2026-08-25 10:55:46,117 ] huggingface_hub.utils._http - WARNING - Retrying in 8s [Retry 4/5].
+[ 2026-08-25 10:55:54,118 ] httpcore.connection - DEBUG - connect_tcp.started host='huggingface.co' port=443 local_address=None timeout=60 socket_options=None
+[ 2026-08-25 10:56:37,309 ] httpcore.connection - DEBUG - connect_tcp.failed exception=ConnectTimeout(TimeoutError(10060, '由于连接方在一段时间后没有正确答复或连接的主机没有反应，连接尝试失败。', None, 10060, None))
+[ 2026-08-25 10:56:37,310 ] huggingface_hub.utils._http - WARNING - '[WinError 10060] 由于连接方在一段时间后没有正确答复或连接的主机没有反应，连接尝试失败。' thrown while requesting HEAD https://huggingface.co/BAAI/bge-large-zh-v1.5/resolve/main/adapter_config.json
+[ 2026-08-25 10:56:37,311 ] huggingface_hub.utils._http - WARNING - Retrying in 8s [Retry 5/5].
+[ 2026-08-25 10:56:45,313 ] httpcore.connection - DEBUG - connect_tcp.started host='huggingface.co' port=443 local_address=None timeout=60 socket_options=None
+[ 2026-08-25 10:57:27,415 ] httpcore.connection - DEBUG - connect_tcp.failed exception=ConnectTimeout(TimeoutError(10060, '由于连接方在一段时间后没有正确答复或连接的主机没有反应，连接尝试失败。', None, 10060, None))
+[ 2026-08-25 10:57:27,417 ] huggingface_hub.utils._http - WARNING - '[WinError 10060] 由于连接方在一段时间后没有正确答复或连接的主机没有反应，连接尝试失败。' thrown while requesting HEAD https://huggingface.co/BAAI/bge-large-zh-v1.5/resolve/main/adapter_config.json
+[ 2026-08-25 10:57:27,423 ] httpcore.connection - DEBUG - connect_tcp.started host='huggingface.co' port=443 local_address=None timeout=10 socket_options=None

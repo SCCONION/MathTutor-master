@@ -3,13 +3,14 @@ from functools import lru_cache
 from pathlib import Path
 from backend.agents import *
 from backend.agents.nodes import *
+from backend.agents.nodes import _HARD_BLOCK_KEYWORDS  # 下划线名字不会被 import * 导出，需显式导入
 
 _SAFETY_POLICY_DIR = Path(__file__).resolve().parent / "security_checks"
 
 @lru_cache(maxsize=1)
 def _load_output_policy() -> dict:
     path = _SAFETY_POLICY_DIR / "output_policy.yaml"
-    data = yaml.safe_load(path.read_text())
+    data = yaml.safe_load(path.read_text(encoding="utf-8"))
     # Validate we got the right file
     if not isinstance(data, dict) or "blocked_output_patterns" not in data:
         raise ValueError(
@@ -33,21 +34,21 @@ class SafetyAgent(BaseAgent):
         blocked  = "\n".join(f"- {p}" for p in policy.get("blocked_output_patterns", []))
         allowed  = "\n".join(f"- {p}" for p in policy.get("always_allowed", []))
 
-        return f"""You are the output safety checker for a JEE mathematics tutor.
+        return f"""你是中学数学助手的输出安全审查员。
 
-            Review the solver's response below and decide if it is safe to show to a student.
-            BLOCKED patterns (any of these → passed=false):
+            审查下面解题代理的输出，判断是否安全地展示给学生。
+            阻止的模式（命中任意一条 → passed=false）：
             {blocked}
 
-            ALWAYS ALLOWED (do not flag these):
+            始终允许（不要误报）：
             {allowed}
 
-            Rules:
-            - Mathematical content, LaTeX, step-by-step algebra, theorems — ALWAYS safe.
-            - Only block when there is a clear policy violation.
-            - When in doubt, PASS — false positives frustrate students.
+            规则：
+            - 数学内容、LaTeX、逐步代数、定理 — 始终安全。
+            - 只有在明确违反策略时才阻止。
+            - 拿不准时放行 — 误杀会让学生反感。
 
-            Solver output to review:
+            需要审查的解题输出：
             {solution_text[:2000]}"""
 
     def safety_agent(self, state: AgentState) -> dict:
@@ -65,7 +66,7 @@ class SafetyAgent(BaseAgent):
                 policy  = _load_output_policy()
                 message = policy.get("on_violation", {}).get(
                     "replacement_message",
-                    "The solution could not be displayed due to a policy violation.",
+                    "该解答因违反安全策略无法展示，请重新提问。",
                 )
                 payload(
                     state, "safety_agent",
@@ -83,9 +84,9 @@ class SafetyAgent(BaseAgent):
             policy = _load_output_policy()
             prompt = self._build_safety_prompt(solution_text, policy)
 
-            result: SafetyOutput = self.llm.with_structured_output(SafetyOutput).invoke(
-                [HumanMessage(content=prompt)]
-            )
+            result: SafetyOutput = self.llm.with_structured_output(
+                SafetyOutput, method="function_calling"
+            ).invoke([HumanMessage(content=prompt)])
 
             updates: dict = {
                 "safety_passed": result.passed,
@@ -95,7 +96,7 @@ class SafetyAgent(BaseAgent):
             if not result.passed:
                 replacement = policy.get("on_violation", {}).get(
                     "replacement_message",
-                    "The solution could not be displayed due to a policy violation.",
+                    "该解答因违反安全策略无法展示，请重新提问。",
                 )
                 updates["final_response"] = replacement
                 logger.warning(

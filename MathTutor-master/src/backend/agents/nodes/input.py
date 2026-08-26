@@ -40,7 +40,7 @@ def detect_input_type(state: AgentState) -> AgentState:
             state["input_mode"] = "audio"
         else:
             state["hitl_required"] = True
-            state["hitl_reason"]   = "No valid input detected — please provide text, image, or audio."
+            state["hitl_reason"]   = "未检测到有效输入 — 请提供文字、图片或语音。"
 
         return state
     except Exception as e:

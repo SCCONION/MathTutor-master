@@ -28,13 +28,13 @@ def build_profile_card(
         <div class="name">{n}</div>
         <div class="email">{e}</div>
         <div class="stat">
-            ✅ Problems solved: <span>{problems_solved}</span>
+            ✅ 已解决问题: <span>{problems_solved}</span>
         </div>
         <div class="stat">
-            🕐 Last login: <span>{last_login_str}</span>
+            🕐 上次登录: <span>{last_login_str}</span>
         </div>
         <div class="stat">
-            📅 Member since: <span>{member_since_str}</span>
+            📅 加入时间: <span>{member_since_str}</span>
         </div>
     </div>
     """
