@@ -1,0 +1,67 @@
+[ 2026-09-01 12:37:50,410 ] torio._extension.utils - DEBUG - Loading FFmpeg6
+[ 2026-09-01 12:37:50,414 ] torio._extension.utils - DEBUG - Failed to load FFmpeg6 extension.
+Traceback (most recent call last):
+  File "C:\Users\22094\.conda\envs\agent\Lib\site-packages\torio\_extension\utils.py", line 116, in _find_ffmpeg_extension
+    ext = _find_versionsed_ffmpeg_extension(ffmpeg_ver)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\22094\.conda\envs\agent\Lib\site-packages\torio\_extension\utils.py", line 108, in _find_versionsed_ffmpeg_extension
+    _load_lib(lib)
+  File "C:\Users\22094\.conda\envs\agent\Lib\site-packages\torio\_extension\utils.py", line 94, in _load_lib
+    torch.ops.load_library(path)
+  File "C:\Users\22094\.conda\envs\agent\Lib\site-packages\torch\_ops.py", line 1357, in load_library
+    ctypes.CDLL(path)
+  File "C:\Users\22094\.conda\envs\agent\Lib\ctypes\__init__.py", line 379, in __init__
+    self._handle = _dlopen(self._name, mode)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: Could not find module 'C:\Users\22094\.conda\envs\agent\Lib\site-packages\torio\lib\libtorio_ffmpeg6.pyd' (or one of its dependencies). Try using the full path with constructor syntax.
+[ 2026-09-01 12:37:50,416 ] torio._extension.utils - DEBUG - Loading FFmpeg5
+[ 2026-09-01 12:37:50,419 ] torio._extension.utils - DEBUG - Failed to load FFmpeg5 extension.
+Traceback (most recent call last):
+  File "C:\Users\22094\.conda\envs\agent\Lib\site-packages\torio\_extension\utils.py", line 116, in _find_ffmpeg_extension
+    ext = _find_versionsed_ffmpeg_extension(ffmpeg_ver)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\22094\.conda\envs\agent\Lib\site-packages\torio\_extension\utils.py", line 108, in _find_versionsed_ffmpeg_extension
+    _load_lib(lib)
+  File "C:\Users\22094\.conda\envs\agent\Lib\site-packages\torio\_extension\utils.py", line 94, in _load_lib
+    torch.ops.load_library(path)
+  File "C:\Users\22094\.conda\envs\agent\Lib\site-packages\torch\_ops.py", line 1357, in load_library
+    ctypes.CDLL(path)
+  File "C:\Users\22094\.conda\envs\agent\Lib\ctypes\__init__.py", line 379, in __init__
+    self._handle = _dlopen(self._name, mode)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: Could not find module 'C:\Users\22094\.conda\envs\agent\Lib\site-packages\torio\lib\libtorio_ffmpeg5.pyd' (or one of its dependencies). Try using the full path with constructor syntax.
+[ 2026-09-01 12:37:50,421 ] torio._extension.utils - DEBUG - Loading FFmpeg4
+[ 2026-09-01 12:37:50,425 ] torio._extension.utils - DEBUG - Failed to load FFmpeg4 extension.
+Traceback (most recent call last):
+  File "C:\Users\22094\.conda\envs\agent\Lib\site-packages\torio\_extension\utils.py", line 116, in _find_ffmpeg_extension
+    ext = _find_versionsed_ffmpeg_extension(ffmpeg_ver)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\22094\.conda\envs\agent\Lib\site-packages\torio\_extension\utils.py", line 108, in _find_versionsed_ffmpeg_extension
+    _load_lib(lib)
+  File "C:\Users\22094\.conda\envs\agent\Lib\site-packages\torio\_extension\utils.py", line 94, in _load_lib
+    torch.ops.load_library(path)
+  File "C:\Users\22094\.conda\envs\agent\Lib\site-packages\torch\_ops.py", line 1357, in load_library
+    ctypes.CDLL(path)
+  File "C:\Users\22094\.conda\envs\agent\Lib\ctypes\__init__.py", line 379, in __init__
+    self._handle = _dlopen(self._name, mode)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: Could not find module 'C:\Users\22094\.conda\envs\agent\Lib\site-packages\torio\lib\libtorio_ffmpeg4.pyd' (or one of its dependencies). Try using the full path with constructor syntax.
+[ 2026-09-01 12:37:50,426 ] torio._extension.utils - DEBUG - Loading FFmpeg
+[ 2026-09-01 12:37:50,426 ] torio._extension.utils - DEBUG - Failed to load FFmpeg extension.
+Traceback (most recent call last):
+  File "C:\Users\22094\.conda\envs\agent\Lib\site-packages\torio\_extension\utils.py", line 116, in _find_ffmpeg_extension
+    ext = _find_versionsed_ffmpeg_extension(ffmpeg_ver)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\22094\.conda\envs\agent\Lib\site-packages\torio\_extension\utils.py", line 106, in _find_versionsed_ffmpeg_extension
+    raise RuntimeError(f"FFmpeg{version} extension is not available.")
+RuntimeError: FFmpeg extension is not available.
+[ 2026-09-01 12:37:51,106 ] sentence_transformers.base.model - INFO - No device provided, using cuda:0
+[ 2026-09-01 12:37:51,136 ] sentence_transformers.base.model - INFO - Loading SentenceTransformer model from BAAI/bge-large-zh-v1.5.
+[ 2026-09-01 12:37:51,424 ] sentence_transformers.base.modules.transformer - DEBUG - Active modality config: {'text': {'method': 'forward', 'method_output_name': 'last_hidden_state'}}
+[ 2026-09-01 12:37:51,428 ] sentence_transformers.util.file_io - DEBUG - Could not load 'config.json' from 'BAAI/bge-large-zh-v1.5': An error happened while trying to locate the file on the Hub and we cannot find the requested files in the local cache. Please check your connection and try again or make sure your Internet connection is on.
+[ 2026-09-01 12:37:52,869 ] sentence_transformers.base.model - INFO - Loading SentenceTransformer model from BAAI/bge-large-zh-v1.5.
+[ 2026-09-01 12:37:53,022 ] sentence_transformers.base.modules.transformer - DEBUG - Active modality config: {'text': {'method': 'forward', 'method_output_name': 'last_hidden_state'}}
+[ 2026-09-01 12:37:53,024 ] sentence_transformers.util.file_io - DEBUG - Could not load 'config.json' from 'BAAI/bge-large-zh-v1.5': An error happened while trying to locate the file on the Hub and we cannot find the requested files in the local cache. Please check your connection and try again or make sure your Internet connection is on.
+[ 2026-09-01 12:37:57,364 ] sentence_transformers.base.model - INFO - No device provided, using cuda:0
+[ 2026-09-01 12:37:57,364 ] sentence_transformers.base.model - WARNING - Converting SentenceTransformer model C:\Users\22094/.cache/huggingface/hub/models--BAAI--bge-large-zh-v1.5/snapshots/79e7739b6ab944e86d6171e44d24c997fc1e0116 to CrossEncoder.
+[ 2026-09-01 12:37:57,542 ] sentence_transformers.base.modules.transformer - DEBUG - Active modality config: {'text': {'method': 'forward', 'method_output_name': 'logits'}}

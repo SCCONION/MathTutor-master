@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<title>Math Tutor — Agent Workflow 架构图</title>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #0e1117;
+    color: #e0e0e0;
+    font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+    padding: 24px;
+  }
+  .header {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .header h1 { font-size: 26px; color: #3B82F6; margin-bottom: 6px; }
+  .header p  { font-size: 14px; color: #9ca3af; }
+  .legend {
+    display: flex; justify-content: center; gap: 24px; flex-wrap: wrap;
+    margin: 12px 0 24px; font-size: 13px;
+  }
+  .legend span { display: inline-flex; align-items: center; gap: 6px; }
+  .dot { width: 14px; height: 14px; border-radius: 4px; display: inline-block; }
+  .d-start { background: #10b981; }
+  .d-node  { background: #1f2937; border: 1px solid #3B82F6; }
+  .d-solve { background: #7c3aed; }
+  .d-direct{ background: #f59e0b; }
+  .d-gate  { background: #ef4444; }
+  .d-mem   { background: #06b6d4; }
+  .d-end   { background: #64748b; }
+
+  #diagram { background: #111827; border-radius: 12px; padding: 20px; overflow-x: auto; }
+  #diagram svg { max-width: 100%; height: auto; }
+
+  .notes {
+    margin-top: 24px; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px;
+  }
+  .note {
+    background: #1a1f2e; border: 1px solid #374151; border-radius: 10px; padding: 16px;
+  }
+  .note h3 { color: #60A5FA; font-size: 15px; margin-bottom: 8px; }
+  .note p  { font-size: 13px; color: #cbd5e1; line-height: 1.7; }
+  .note code {
+    background: #0b1220; color: #93c5fd; padding: 1px 6px; border-radius: 4px; font-size: 12px;
+  }
+  .controls { text-align: center; margin-top: 16px; }
+  .controls button {
+    background: #1f2937; color: #e0e0e0; border: 1px solid #374151;
+    padding: 8px 18px; border-radius: 8px; cursor: pointer; font-size: 13px;
+  }
+  .controls button:hover { background: #374151; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>🧮 Math Tutor — 多智能体 Agent Workflow</h1>
+  <p>LangGraph · 15 节点 · 6 类意图路由 · 自纠错闭环 · 三层长期记忆 · HITL 人工介入</p>
+</div>
+
+<div class="legend">
+  <span><i class="dot d-start"></i>入口/出口</span>
+  <span><i class="dot d-node"></i>处理节点</span>
+  <span><i class="dot d-solve"></i>解题管线</span>
+  <span><i class="dot d-direct"></i>直接回答管线</span>
+  <span><i class="dot d-gate"></i>条件路由</span>
+  <span><i class="dot d-mem"></i>记忆系统</span>
+</div>
+
+<div id="diagram" class="mermaid">
+flowchart TD
+    U(["👤 学生<br/>文本 / 图片 / 语音"]) -->|提问| APP
+
+    subgraph FE["前端 Streamlit"]
+        APP["🖥️ app.py<br/>Google OAuth 登录"]
+        APP -->|映射| SID["student_id<br/>记忆隔离"]
+    end
+
+    SID --> DETECT
+
+    subgraph LG["LangGraph 工作流（15 节点）"]
+        direction TB
+
+        DETECT["🔍 detect_input<br/>识别输入类型"]
+        DETECT -->|图片| OCR["📷 ocr_node<br/>Google Vision"]
+        DETECT -->|语音| ASR["🎙️ asr_node<br/>Groq Whisper"]
+        DETECT -->|文本| GUARD["🛡️ guardrail_agent<br/>输入安全检查"]
+        OCR --> GUARD
+        ASR --> GUARD
+
+        GUARD -->|通过| PARSER["🧩 parser_agent<br/>提取题意/变量/约束"]
+        GUARD -->|拦截| ENDX(["⛔ END"])
+
+        PARSER --> LTM_R["🧠 retrieve_ltm<br/>向量召回历史记忆"]
+        LTM_R --> ROUTER
+
+        ROUTER["🗺️ intent_router<br/>6 类意图分类"]
+        ROUTER -->|solve·hint·formula| SOLVE
+        ROUTER -->|explain·research·generate| DIRECT
+
+        subgraph SOLVE["解题管线"]
+            direction LR
+            SOLVER["🧮 solver_agent<br/>ReAct 循环"]
+            SOLVER <-->|tool_calls| TOOLS["🔧 tool_node<br/>RAG·计算器·搜索"]
+        end
+
+        DIRECT["💬 direct_response_agent<br/>直接回答/讲解/出题"]
+
+        SOLVER --> VERIFY["✅ verifier_agent<br/>独立校验：步骤/定义域/边界"]
+        VERIFY -->|正确| SAFETY["🔒 safety_agent<br/>输出安全审查"]
+        VERIFY -->|错误（3次内）| SOLVER
+        VERIFY -->|无法判定或超3次| HITL
+
+        DIRECT --> SAFETY
+
+        SAFETY -->|通过| EXPLAIN["📚 explainer_agent<br/>个性化讲解"]
+        SAFETY -->|拦截| ENDX
+
+        EXPLAIN --> HITL
+
+        HITL["🙋 hitl_node<br/>澄清/确认/人工介入<br/>interrupt() 中断恢复"]
+        HITL -->|满意| STORE["💾 store_ltm<br/>写入三层记忆"]
+        HITL -->|重新讲解| EXPLAIN
+        HITL -->|澄清后重来| DETECT
+
+        STORE --> LTM_S["🧠 长期记忆 Redis<br/>Episodic·Semantic·Procedural"]
+        LTM_S --> END2(["✅ END"])
+    end
+
+    LTM_S -.->|跨会话召回| LTM_R
+
+    classDef start fill:#10b981,stroke:#059669,color:#fff;
+    classDef node fill:#1f2937,stroke:#3B82F6,color:#e0e0e0;
+    classDef solve fill:#7c3aed,stroke:#6d28d9,color:#fff;
+    classDef direct fill:#f59e0b,stroke:#d97706,color:#111;
+    classDef gate fill:#ef4444,stroke:#dc2626,color:#fff;
+    classDef mem fill:#06b6d4,stroke:#0891b2,color:#111;
+    classDef term fill:#64748b,stroke:#475569,color:#fff;
+    class U,APP,SID start;
+    class DETECT,OCR,ASR,GUARD,PARSER,ROUTER,VERIFY,SAFETY,EXPLAIN,HITL node;
+    class SOLVER,TOOLS solve;
+    class DIRECT direct;
+    class ENDX,END2 term;
+    class LTM_R,LTM_S,STORE mem;
+</div>
+
+<div class="controls">
+  <button onclick="window.print()">🖨️ 导出 PDF / 打印</button>
+  <button onclick="location.reload()">🔄 重新渲染</button>
+</div>
+
+<div class="notes">
+  <div class="note">
+    <h3>🔄 自纠错闭环</h3>
+    <p><code>solver_agent</code> → <code>verifier_agent</code> → 错误 → 携带 <code>suggested_fix</code> 反馈打回 solver，最多 <b>3 轮</b>；仍错或无法判定 → 转 <code>hitl_node</code> 人工介入。</p>
+  </div>
+  <div class="note">
+    <h3>🔀 6 类意图路由</h3>
+    <p>solve/hint/formula_lookup 走<b>解题管线</b>（验证+重试，严谨）；explain/research/generate 走<b>直接回答</b>（快速）。成本与严谨度分流。</p>
+  </div>
+  <div class="note">
+    <h3>🧠 三层长期记忆</h3>
+    <p><b>Episodic</b>：历史题目（90天TTL+衰减）；<b>Semantic</b>：弱项/强项画像（永久）；<b>Procedural</b>：有效策略（永久）。跨会话向量召回。</p>
+  </div>
+  <div class="note">
+    <h3>🙋 HITL 人工介入</h3>
+    <p>三种场景：题目不清（澄清）、验证不确定（人工判卷）、3次仍错（人工兜底）。通过 LangGraph <code>interrupt()</code> 实现断点恢复。</p>
+  </div>
+  <div class="note">
+    <h3>🔧 工具集</h3>
+    <p><code>rag_tool</code>（Hybrid CRAG：BGE+FAISS+BM25+RRF）· <code>calculator_tool</code>（SymPy）· <code>web_search_tool</code>（Tavily MCP）。</p>
+  </div>
+  <div class="note">
+    <h3>🛡️ 双重安全</h3>
+    <p>输入侧 <code>guardrail_agent</code>（防注入/主题策略）+ 输出侧 <code>safety_agent</code>（内容策略），双保险。</p>
+  </div>
+</div>
+
+<script>
+  mermaid.initialize({
+    startOnLoad: true,
+    theme: "dark",
+    flowchart: {
+      curve: "basis",
+      nodeSpacing: 60,
+      rankSpacing: 80,
+      htmlLabels: true,
+    },
+    themeVariables: {
+      fontFamily: '"Microsoft YaHei", "PingFang SC", sans-serif',
+      fontSize: "14px",
+      primaryColor: "#1f2937",
+      primaryTextColor: "#e0e0e0",
+      primaryBorderColor: "#3B82F6",
+      lineColor: "#93c5fd",
+      edgeLabelBackground: "#0e1117",
+      clusterBkg: "#0b1220",
+      clusterBorder: "#1e3a5f",
+    },
+  });
+</script>
+
+</body>
+</html>
