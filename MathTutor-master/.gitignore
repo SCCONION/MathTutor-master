@@ -67,3 +67,8 @@ coverage.xml
 
 # ── Streamlit ─────────────────────────────────────────────────────────────────
 .streamlit/secrets.toml
+
+.vscode/
+logs/
+uploads/
+=0.30
